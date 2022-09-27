@@ -1,0 +1,22 @@
+{
+  "name": "y",
+  "version": "1.0.0",
+  "description": "Organizing the (wonderful) people and (exciting) projects of the Personal Robotics Group",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mitmedialab/PRG-Group-Map.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mitmedialab/PRG-Group-Map/issues"
+  },
+  "homepage": "https://github.com/mitmedialab/PRG-Group-Map#readme",
+  "devDependencies": {
+    "ts-node": "^10.9.1"
+  }
+}
