@@ -12965,7 +12965,10 @@ themes.forEach(function (_a, i) {
         return;
     projects.forEach(function (projectName, index) {
         var nextIndex = index === length - 1 ? 0 : index + 1;
-        graph.addEdge(projectName, projects[nextIndex]);
+        var x = graph.addEdge(projectName, projects[nextIndex]);
+        setTimeout(function () {
+            graph.dropEdge(x);
+        }, 2000);
     });
 });
 data.members.forEach(function (_a, i) {
@@ -12989,6 +12992,10 @@ var stopLayoutTimeout = setTimeout(function () {
     layout.stop();
     clearTimeout(stopLayoutTimeout);
 }, 1000);
+setTimeout(function () {
+    var layout = new worker(graph);
+    layout.start();
+}, 2001);
 var clustersLayer = document.createElement("div");
 clustersLayer.innerHTML = Object.values(divTitleByTheme).join("");
 // insert the layer underneath the hovers layer
@@ -13010,7 +13017,9 @@ renderer.on("afterRender", function () {
             x += acc.x;
             y += acc.y;
             return { x: x, y: y };
-        }, { x: 0, y: 0 }), x = _a.x, y = _a.y;
+        }, { x: 0, y: 20 }), x = _a.x, y = _a.y;
+        // 20 is shift factor to try to clear any overlapping nodes, probably better to identify clear intervals and place in largest one
+        // (or if none is avilable, i.e. 1 or 2 nodes cluster, then just place above)
         var viewportPos = renderer.graphToViewport({ x: x / length_1, y: y / length_1 });
         var element = document.getElementById(divIDByTheme[theme]);
         element.style.top = "".concat(viewportPos.y, "px");

@@ -3,9 +3,6 @@ import json from "./data.json";
 import Sigma from "sigma";
 import Graph from "graphology";
 import ForceSupervisor from "graphology-layout-force/worker";
-import FA2Layout from "graphology-layout-forceatlas2/worker";
-import forceAtlas2 from "graphology-layout-forceatlas2";
-import { ThemeName } from "../categories/projectsByTheme";
 import { Coordinates } from "sigma/types";
 
 const data: Data = json as Data;
@@ -132,7 +129,7 @@ data.members.forEach(({ name, projects }, i) => {
 
     projects.forEach((project) => {
         graph.addEdge(name, project, { weight: 100 });
-    })
+    });
 });
 
 const layout = new ForceSupervisor(graph);
@@ -168,13 +165,14 @@ renderer.on("afterRender", () => {
             x += acc.x;
             y += acc.y;
             return { x, y };
-        }, { x: 0, y: 0 });
+        }, { x: 0, y: 20 });
+        // 20 is shift factor to try to clear any overlapping nodes, probably better to identify clear intervals and place in largest one
+        // (or if none is avilable, i.e. 1 or 2 nodes cluster, then just place above)
+
+
         const viewportPos = renderer.graphToViewport({ x: x / length, y: y / length });
         const element = document.getElementById(divIDByTheme[theme]) as HTMLElement;
         element.style.top = `${viewportPos.y}px`;
         element.style.left = `${viewportPos.x}px`;
     }
 });
-
-
-
