@@ -1,5 +1,13 @@
 import { set, ValueOf } from "../builder";
-import { description as soundOfAIDescription } from "./projectDescriptions/soundOfAI";
+import aiEd from "./themes/aiEd";
+import airforce from "./themes/airforce";
+import creativity from "./themes/creativity";
+import ethicsPolicy from "./themes/ethicsPolicy";
+import healthWellness from "./themes/healthWellness";
+import robotsLiteracy from "./themes/literacy";
+import multiPersonInteraction from "./themes/multiPersonInteraction";
+import projectSTEM from "./themes/projectSTEM";
+import socialRobotEd from "./themes/socialRobotEd";
 
 /**
  * NOTE: Do not add any type info to this object.
@@ -8,48 +16,48 @@ import { description as soundOfAIDescription } from "./projectDescriptions/sound
  */
 const projectsByTheme = {
     "AI Ed": {
-        description: "",
-        "Sound of AI": soundOfAIDescription,
-        "Computational Action": "",
-        "Data Activism": "",
-        "PrimaryAI": "",
-        "DAILy": "",
+        summary: "",
+        ...aiEd
     },
 
     "Ethics & Policy": {
-        description: "",
-        "Ethics of Deep Fakes": "",
-        "Debating technology and AI with your child": "",
-        "AI & Data Privcacy": "",
-        "AI & Ethics in Middle School": ""
+        summary: "",
+        ...ethicsPolicy
     },
 
     "Social Robots & Literacy": {
-        description: "",
+        summary: "",
+        ...robotsLiteracy
     },
 
     "Multi-person Interaction": {
-        description: "",
+        summary: "",
+        ...multiPersonInteraction
     },
 
     "Health & Wellness": {
-        description: "",
+        summary: "",
+        ...healthWellness
     },
 
     "Social Robot Ed": {
-        description: "",
+        summary: "",
+        ...socialRobotEd
     },
 
     "Air-Force AI Journey": {
-        description: "",
+        summary: "",
+        ...airforce
     },
 
     "Creativity": {
-        description: "",
+        summary: "",
+        ...creativity
     },
 
     "Project STEM": {
-        description: "",
+        summary: "",
+        ...projectSTEM
     }
 }
 

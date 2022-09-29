@@ -1,7 +1,7 @@
-import { CategoryDescription } from "../../builder";
+import { CategoryDescription } from "../../../builder";
 
 export const description: CategoryDescription = {
-    description: "Curriculum + Scratch Extension on Signal Processing, Music, & Generative AI",
+    summary: "Curriculum + Scratch Extension on Signal Processing, Music, & Generative AI",
     links: [
         {
             text: "Project Site",

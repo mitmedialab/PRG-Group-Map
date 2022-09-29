@@ -50,9 +50,9 @@ var roles = {
 };
 var themes$1 = {
 	"AI Ed": {
-		description: "",
+		summary: "",
 		"Sound of AI": {
-			description: "Curriculum + Scratch Extension on Signal Processing, Music, & Generative AI",
+			summary: "Curriculum + Scratch Extension on Signal Processing, Music, & Generative AI",
 			links: [
 				{
 					text: "Project Site",
@@ -78,32 +78,84 @@ var themes$1 = {
 		DAILy: ""
 	},
 	"Ethics & Policy": {
-		description: "",
+		summary: "",
 		"Ethics of Deep Fakes": "",
 		"Debating technology and AI with your child": "",
 		"AI & Data Privcacy": "",
 		"AI & Ethics in Middle School": ""
 	},
 	"Social Robots & Literacy": {
-		description: ""
+		summary: "",
+		"Speech Blocks": "",
+		"Adult Language teaching": "",
+		"Early Literacy": ""
 	},
 	"Multi-person Interaction": {
-		description: ""
+		summary: "",
+		"Museum Interaction": "",
+		"Robots in the home": ""
 	},
 	"Health & Wellness": {
-		description: ""
+		summary: "",
+		Wellness: "",
+		"Medications Adherence": "",
+		"Elderly Co-Design": "",
+		"Depression & Suicide modeling": ""
 	},
 	"Social Robot Ed": {
-		description: ""
+		summary: "",
+		Jibo: "",
+		"Doodle Bot": "",
+		PopBots: "",
+		"Gizmo & ScratchX": "",
+		"How to Train Your Robot": ""
 	},
 	"Air-Force AI Journey": {
-		description: ""
+		summary: "",
+		"Autonomous agents": "",
+		"Human AI collaboration: Human Behavior": ""
 	},
 	Creativity: {
-		description: ""
+		summary: "",
+		"Creativity and GANs for Middle School": "",
+		"Dancing with AI": "",
+		"GANPaint for Kids": "",
+		"AI & Growth Mindset": ""
 	},
 	"Project STEM": {
-		description: ""
+		summary: "",
+		"Data, Representation, & AI": "",
+		"General AI": "",
+		"Feature Detection": {
+			summary: "Web app to teach students about feature detection, and allow them to build their own (rule-based) feature-detection based objection detect alogorithm",
+			links: [
+				{
+					text: "Live Site",
+					url: "https://mitmedialab.github.io/feature-detection-ProjectSTEM/"
+				},
+				{
+					text: "Repository",
+					url: "https://github.com/mitmedialab/feature-detection-ProjectSTEM"
+				}
+			]
+		},
+		"Contours 2 Classification": {
+			summary: "Online multiplayer game we're students act as nodes in a neural network.",
+			links: [
+				{
+					text: "Demo Video",
+					url: "https://contours2classification.herokuapp.com/tutorial.mp4"
+				},
+				{
+					text: "Live Site",
+					url: "https://contours2classification.herokuapp.com/"
+				},
+				{
+					text: "Repository",
+					url: "https://github.com/mitmedialab/contours-to-classification"
+				}
+			]
+		}
 	}
 };
 var members = [
@@ -12840,40 +12892,128 @@ ForceSupervisor.prototype.kill = function () {
 var worker = ForceSupervisor;
 
 var data = json;
+var colors = [
+    "#003f5c",
+    "#2f4b7c",
+    "#665191",
+    "#a05195",
+    "#d45087",
+    "#f95d6a",
+    "#ff7c43",
+    "#ffa600",
+    "#00876c",
+    "#3d9b70",
+    "#63ae74",
+    "#89c079",
+    "#afd27f",
+    "#d6e487",
+    "#fff492",
+    "#fed777",
+    "#fbba63",
+    "#f69c56",
+    "#ee7e50",
+    "#e35e4e",
+    "#d43d51"
+].reverse();
+var circlePositionGenerator = function (length) {
+    var factor = (2 * Math.PI) / length;
+    return {
+        at: function (i) {
+            var angle = i * factor;
+            return {
+                x: Math.cos(angle),
+                y: Math.sin(angle),
+                scale: function (factor) {
+                    this.x *= factor;
+                    this.y *= factor;
+                    return this;
+                },
+                translate: function (vector) {
+                    this.x += vector.x;
+                    this.y += vector.y;
+                    return this;
+                }
+            };
+        }
+    };
+};
 var graph = new Graph();
 var themes = Object.entries(data.themes);
+var startingThemePositions = circlePositionGenerator(themes.length);
+var nodeByPositionsByTheme = {};
+var divIDByTheme = {};
+var divTitleByTheme = {};
 themes.forEach(function (_a, i) {
     var themeName = _a[0], theme = _a[1];
-    var angle = (i * 2 * Math.PI) / themes.length;
-    var position = { x: Math.cos(angle), y: Math.sin(angle) };
-    graph.addNode(themeName, __assign$2({ size: 20, label: themeName, color: "#32a852" }, position));
-    var projects = Object.entries(theme);
-    projects.forEach(function (_a, index) {
-        var projectName = _a[0]; _a[1];
+    var color = colors.pop();
+    nodeByPositionsByTheme[themeName] = undefined;
+    divIDByTheme[themeName] = themeName.replace(/\s+/g, '');
+    divTitleByTheme[themeName] = "<div id='".concat(divIDByTheme[themeName], "' style=\"color:").concat(color, ";\" class='clusterLabel'\">").concat(themeName, "</div>");
+    var position = startingThemePositions.at(i);
+    if (!color)
+        throw new Error("Ran out of colors!!");
+    var projects = Object.keys(theme).filter(function (name) { return name !== "summary"; });
+    var length = projects.length;
+    var projectPositions = circlePositionGenerator(length);
+    projects.forEach(function (projectName, index) {
         if (projectName === "description")
             return;
-        var angle = (index * 2 * Math.PI) / projects.length;
-        graph.addNode(projectName, {
-            size: 10,
-            label: projectName,
-            color: "#32a852",
-            x: position.x + Math.cos(angle) * 0.1,
-            y: position.y + Math.sin(angle) * 0.1
-        });
-        graph.addEdge(themeName, projectName);
+        var pos = projectPositions.at(index).scale(0.1).translate(position);
+        graph.addNode(projectName, __assign$2({ size: 10, label: projectName, color: color, theme: themeName }, pos));
+    });
+    if (length === 0)
+        return;
+    projects.forEach(function (projectName, index) {
+        var nextIndex = index === length - 1 ? 0 : index + 1;
+        graph.addEdge(projectName, projects[nextIndex]);
     });
 });
-/*
-data.members.forEach((member, i) => {
-    graph.addNode(member.name, {
+data.members.forEach(function (_a, i) {
+    var name = _a.name, projects = _a.projects;
+    graph.addNode(name, {
         size: 20,
-        label: member.name,
+        label: name,
         color: "#32a852",
         x: Math.random(),
-        y: Math.random(),
-    })
-});*/
+        y: Math.random()
+    });
+    projects.forEach(function (project) {
+        graph.addEdge(name, project, { weight: 100 });
+    });
+});
 var layout = new worker(graph);
 layout.start();
 var container = document.getElementById("sigma-container");
-new _default(graph, container);
+var renderer = new _default(graph, container);
+var stopLayoutTimeout = setTimeout(function () {
+    layout.stop();
+    clearTimeout(stopLayoutTimeout);
+}, 1000);
+var clustersLayer = document.createElement("div");
+clustersLayer.innerHTML = Object.values(divTitleByTheme).join("");
+// insert the layer underneath the hovers layer
+container.insertBefore(clustersLayer, document.getElementsByClassName("sigma-hovers")[0]);
+renderer.on("afterRender", function () {
+    for (var theme in nodeByPositionsByTheme) {
+        nodeByPositionsByTheme[theme] = [];
+    }
+    graph.forEachNode(function (node, _a) {
+        var theme = _a.theme, x = _a.x, y = _a.y;
+        if (!theme)
+            return;
+        nodeByPositionsByTheme[theme].push({ x: x, y: y });
+    });
+    for (var theme in nodeByPositionsByTheme) {
+        var length_1 = nodeByPositionsByTheme[theme].length;
+        var _a = nodeByPositionsByTheme[theme].reduce(function (acc, _a) {
+            var x = _a.x, y = _a.y;
+            x += acc.x;
+            y += acc.y;
+            return { x: x, y: y };
+        }, { x: 0, y: 0 }), x = _a.x, y = _a.y;
+        var viewportPos = renderer.graphToViewport({ x: x / length_1, y: y / length_1 });
+        var element = document.getElementById(divIDByTheme[theme]);
+        element.style.top = "".concat(viewportPos.y, "px");
+        element.style.left = "".concat(viewportPos.x, "px");
+    }
+});
