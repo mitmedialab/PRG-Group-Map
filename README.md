@@ -10,7 +10,7 @@ Organizing the (wonderful) people and (exciting) projects of the Personal Roboti
 2. This code file will be responsible for doing one thing, which is calling the `describeYourself` function. This function takes a single paramter, which is an object that, well, describes yourslef. Check out the below example:
 
 ```ts
-// Inside of cynthia.ts
+// Inside of ./people/cynthia.ts
 
 
 ```
