@@ -11,6 +11,7 @@ export type PathToAsset = { path: string };
 export type VerboseLink = { text: string, url: string };
 export type Link = string | VerboseLink;
 
+
 type BeginningEnd = readonly [number, number];
 
 /**
@@ -53,7 +54,7 @@ export type VerboseDetails = {
     links?: readonly Link[]
 };
 
-export type NormalizedDetails = Replace<Replace<VerboseDetails, "links", VerboseLink[] | undefined>, "timeFrame", NormalizedTimeFrame | undefined>;
+export type NormalizedDetails = Replace<Replace<VerboseDetails, "links", VerboseLink[], true>, "timeFrame", NormalizedTimeFrame, true>;
 
 export type CategoryDetails = string | VerboseDetails;
 
@@ -121,14 +122,16 @@ export type RoleEntries = Entries<RoleName>;
 
 // People
 
+export type ProjectCollection = readonly ProjectName[];
+
 export type GroupMember = {
     name: string,
     email: string,
     bio: string,
     role: Role,
-    projects: readonly ProjectName[],
+    projects: ProjectCollection,
     skills: readonly SkillName[],
-    main?: readonly ProjectName[],
+    main?: ProjectName | ProjectCollection,
     links?: readonly Link[],
     photo?: PathToAsset,
 
@@ -146,12 +149,15 @@ export type GroupMember = {
     yearsActive?: YearsTimeFrame,
 }
 
-export type NormalizedMember = Replace<Replace<GroupMember, "role", VerboseRole>, "yearsActive", NormalizedTimeFrame>
+export type NormalizedMember = Replace<Replace<Replace<GroupMember, "role", VerboseRole>, "yearsActive", NormalizedTimeFrame>, "main", ProjectCollection, true>;
 
 type Identity<T> = { [P in keyof T]: T[P] }
-type Replace<T, K extends keyof T, TReplace> = Identity<Pick<T, Exclude<keyof T, K>> & {
-    [P in K]: TReplace
-}>
+
+type Replace<T, K extends keyof T, TReplace, optional extends boolean = false> = Identity<
+    Pick<T, Exclude<keyof T, K>>
+    & (optional extends false ? { [P in K]: TReplace } : { [P in K]?: TReplace })
+>;
+
 type ReplaceAll<T, TReplace> = {
     [P in keyof T]: TReplace
 }

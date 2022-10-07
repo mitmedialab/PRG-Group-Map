@@ -1,7 +1,8 @@
-import { CategoryDetails, Data, GroupMember, NormalizedData, NormalizedDetails, NormalizedMember, NormalizedTimeFrame, PathToAsset, ProjectDetails, RoleEntries, SkillEntries, Theme, ThemeEntries, VerboseDetails, VerboseLink, VerboseRole } from "./types";
+import { CategoryDetails, Data, GroupMember, NormalizedData, NormalizedDetails, NormalizedMember, NormalizedTheme, NormalizedTimeFrame, PathToAsset, ProjectCollection, ProjectDetails, RoleEntries, SkillEntries, Theme, ThemeEntries, VerboseDetails, VerboseLink, VerboseRole } from "./types";
 import * as fs from "fs";
 import * as path from "path";
 import { RoleName } from "../categories/roles";
+import { ProjectName } from "../categories/projectsByTheme";
 
 const projectRoot = path.resolve(__dirname, "..");
 
@@ -27,10 +28,10 @@ const getData = (): NormalizedData => {
 
 const setData = (data: NormalizedData) => {
     ensureAppFolder();
-    fs.writeFileSync(dataFile, JSON.stringify(data));
+    fs.writeFileSync(dataFile, JSON.stringify(data, null, 2));
 }
 
-const isString = (query) => typeof query === 'string' || query instanceof String;
+const isString = (query: any) => typeof query === 'string' || query instanceof String;
 
 const normalizeLinks = (links: VerboseDetails["links"]): NormalizedDetails["links"] => {
     if (!links) return undefined;
@@ -48,7 +49,7 @@ const normalizeTimeFrame = (timeFrame: VerboseDetails["timeFrame"]): NormalizedD
     if (!Array.isArray(timeFrame)) return [[timeFrame as number, "present"]];
 
     // ex: timeFrame = [2020, 2022]
-    if (!Array.isArray(timeFrame[0] && timeFrame.length == 2)) return [[timeFrame[0] as number, timeFrame[1] as number]];
+    if (!Array.isArray(timeFrame[0]) && timeFrame.length == 2) return [[timeFrame[0] as number, timeFrame[1] as number]];
 
     const length = timeFrame.length
     const lastValue = timeFrame[length - 1];
@@ -84,11 +85,17 @@ const normalizeRole = (role: GroupMember["role"]): NormalizedMember["role"] => {
     return role as VerboseRole;
 };
 
+const normalizeMain = (projects: GroupMember["main"]): NormalizedMember["main"] => {
+    if (isString(projects)) return [projects] as [ProjectName];
+    return projects as ProjectCollection;
+};
+
 const normalizeMember = (member: GroupMember): NormalizedMember => {
     return {
         ...member,
         yearsActive: normalizeTimeFrame(member.yearsActive) as NormalizedTimeFrame,
         role: normalizeRole(member.role),
+        main: normalizeMain(member.main)
     };
 }
 
@@ -98,24 +105,29 @@ const normalize = <T extends Data[TKey], TKey extends keyof NormalizedData & key
         case "roles":
             const roles = data as Data["roles"];
             normalized = Object.entries(roles).reduce((acc, [key, value]) => {
+                // @ts-ignore
                 acc[key] = normalizeDetails(value);
                 return acc;
-            }, {}) as NormalizedData["roles"];
+            }, {} as NormalizedData["roles"]);
             break;
         case "skills":
             const skills = data as Data["skills"];
             normalized = Object.entries(skills).reduce((acc, [key, value]) => {
+                // @ts-ignore
                 acc[key] = normalizeDetails(value);
                 return acc;
-            }, {}) as NormalizedData["skills"];
+            }, {} as NormalizedData["skills"]);
             break;
         case "themes":
             const themes = data as Data["themes"];
+            normalized = {};
             for (const theme in themes) {
-                const normal = Object.entries(theme).reduce((acc, [key, value]) => {
+                const detailsAndProjects = themes[theme as keyof Data["themes"]] as Theme;
+                const normal = Object.entries(detailsAndProjects).reduce((acc, [key, value]) => {
+                    // @ts-ignore
                     acc[key] = normalizeDetails(value);
                     return acc;
-                }, {});
+                }, {} as NormalizedTheme);
                 normalized[theme] = normal;
             }
             break;

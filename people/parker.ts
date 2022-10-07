@@ -8,5 +8,6 @@ describeYourself({
     role: "Tech Developer",
     projects: ["Sound of AI", "Dancing with AI"],
     skills: ["General AI"],
+    main: "Sound of AI",
     yearsActive: 2020
 });

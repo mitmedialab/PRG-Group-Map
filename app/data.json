@@ -1,1 +1,342 @@
-{"skills":{"Dev":"","General AI":"","Jibo Skill":"","Verbal & Nonverbal Behavior":"","Vision & Sensors":"","Ethics":"","Policy":"","Teacher Training":"","Assessment":"","Human Study Design":"","Inclusive Education":"","Mixed Method":"","Statistical Analysis":"","Child Study":""},"roles":{"Admin & Finance":"","Lab Management":"Whatever it takes to keep the lab running smoothly","Tech Developer":"","Research Scientist":"","Masters Student":"","PhD Student":""},"themes":{"AI Ed":{"summary":"","Sound of AI":{"summary":"Curriculum + Scratch Extension on Signal Processing, Music, & Generative AI","links":[{"text":"Project Site","url":"https://soundofai.github.io/"},{"text":"Curriculum","url":"https://soundofai.github.io/curriculum"},{"text":"Abridged Curriculum","url":"https://docs.google.com/presentation/d/1aLou9v1673l0TYlEbe9YIvD2khlCh9NABa1Kkxl14qc/edit#slide=id.g13ee568e4b5_1_42"},{"text":"Scratch Environment","url":"https://playground.raise.mit.edu/audition_combined/"}]},"Computational Action":"","Data Activism":"","PrimaryAI":"","DAILy":""},"Ethics & Policy":{"summary":"","Ethics of Deep Fakes":"","Debating technology and AI with your child":"","AI & Data Privcacy":"","AI & Ethics in Middle School":""},"Social Robots & Literacy":{"summary":"","Speech Blocks":"","Adult Language teaching":"","Early Literacy":""},"Multi-person Interaction":{"summary":"","Museum Interaction":"","Robots in the home":""},"Health & Wellness":{"summary":"","Wellness":"","Medications Adherence":"","Elderly Co-Design":"","Depression & Suicide modeling":""},"Social Robot Ed":{"summary":"","Jibo":"","Doodle Bot":"","PopBots":"","Gizmo & ScratchX":"","How to Train Your Robot":""},"Air-Force AI Journey":{"summary":"","Autonomous agents":"","Human AI collaboration: Human Behavior":""},"Creativity":{"summary":"","Creativity and GANs for Middle School":"","Dancing with AI":"","GANPaint for Kids":"","AI & Growth Mindset":""},"Project STEM":{"summary":"","Data, Representation, & AI":"","General AI":"","Feature Detection":{"summary":"Web app to teach students about feature detection, and allow them to build their own (rule-based) feature-detection based objection detect alogorithm","links":[{"text":"Live Site","url":"https://mitmedialab.github.io/feature-detection-ProjectSTEM/"},{"text":"Repository","url":"https://github.com/mitmedialab/feature-detection-ProjectSTEM"}]},"Contours 2 Classification":{"summary":"Online multiplayer game we're students act as nodes in a neural network.","links":[{"text":"Demo Video","url":"https://contours2classification.herokuapp.com/tutorial.mp4"},{"text":"Live Site","url":"https://contours2classification.herokuapp.com/"},{"text":"Repository","url":"https://github.com/mitmedialab/contours-to-classification"}]}}},"members":[{"name":"Parker Malachowsky","email":"pmalacho@media.mit.edu","bio":"just a kid","role":"Tech Developer","projects":["Sound of AI"],"skills":["General AI"],"yearsActive":2020}]}
+{
+  "skills": {
+    "Dev": {
+      "summary": ""
+    },
+    "General AI": {
+      "summary": ""
+    },
+    "Jibo Skill": {
+      "summary": ""
+    },
+    "Verbal & Nonverbal Behavior": {
+      "summary": ""
+    },
+    "Vision & Sensors": {
+      "summary": ""
+    },
+    "Ethics": {
+      "summary": ""
+    },
+    "Policy": {
+      "summary": ""
+    },
+    "Teacher Training": {
+      "summary": ""
+    },
+    "Assessment": {
+      "summary": ""
+    },
+    "Human Study Design": {
+      "summary": ""
+    },
+    "Inclusive Education": {
+      "summary": ""
+    },
+    "Mixed Method": {
+      "summary": ""
+    },
+    "Statistical Analysis": {
+      "summary": ""
+    },
+    "Child Study": {
+      "summary": ""
+    }
+  },
+  "roles": {
+    "Admin & Finance": {
+      "summary": ""
+    },
+    "Lab Management": {
+      "summary": "Whatever it takes to keep the lab running smoothly"
+    },
+    "Tech Developer": {
+      "summary": ""
+    },
+    "Research Scientist": {
+      "summary": ""
+    },
+    "Masters Student": {
+      "summary": ""
+    },
+    "PhD Student": {
+      "summary": ""
+    }
+  },
+  "themes": {
+    "AI Education": {
+      "details": {
+        "summary": "",
+        "links": [
+          {
+            "text": "RAISE",
+            "url": "https://raise.mit.edu/"
+          }
+        ]
+      },
+      "Sound of AI": {
+        "summary": "Curriculum + Scratch Extension on Signal Processing, Music, & Generative AI",
+        "links": [
+          {
+            "text": "Project Site",
+            "url": "https://soundofai.github.io/"
+          },
+          {
+            "text": "Curriculum",
+            "url": "https://soundofai.github.io/curriculum"
+          },
+          {
+            "text": "Abridged Curriculum",
+            "url": "https://docs.google.com/presentation/d/1aLou9v1673l0TYlEbe9YIvD2khlCh9NABa1Kkxl14qc/edit#slide=id.g13ee568e4b5_1_42"
+          },
+          {
+            "text": "Scratch Environment",
+            "url": "https://playground.raise.mit.edu/audition_combined/"
+          }
+        ]
+      },
+      "Computational Action": {
+        "summary": "La la la"
+      },
+      "Data Activism": {
+        "summary": ""
+      },
+      "PrimaryAI": {
+        "summary": ""
+      },
+      "DAILy": {
+        "summary": ""
+      }
+    },
+    "Ethics & Policy": {
+      "details": {
+        "summary": ""
+      },
+      "Ethics of Deep Fakes": {
+        "summary": ""
+      },
+      "Debating technology and AI with your child": {
+        "summary": ""
+      },
+      "AI & Data Privcacy": {
+        "summary": ""
+      },
+      "AI & Ethics in Middle School": {
+        "summary": ""
+      }
+    },
+    "Social Robots & Literacy": {
+      "details": {
+        "summary": ""
+      },
+      "Speech Blocks": {
+        "summary": ""
+      },
+      "Adult Language teaching": {
+        "summary": ""
+      },
+      "Early Literacy": {
+        "summary": ""
+      }
+    },
+    "Multi-person Interaction": {
+      "details": {
+        "summary": ""
+      },
+      "Museum Interaction": {
+        "summary": ""
+      },
+      "Robots in the home": {
+        "summary": ""
+      }
+    },
+    "Health & Wellness": {
+      "details": {
+        "summary": ""
+      },
+      "Wellness": {
+        "summary": ""
+      },
+      "Medications Adherence": {
+        "summary": ""
+      },
+      "Elderly Co-Design": {
+        "summary": ""
+      },
+      "Depression & Suicide modeling": {
+        "summary": ""
+      }
+    },
+    "Social Robot Ed": {
+      "details": {
+        "summary": ""
+      },
+      "Jibo": {
+        "summary": ""
+      },
+      "Doodle Bot": {
+        "summary": ""
+      },
+      "PopBots": {
+        "summary": ""
+      },
+      "Gizmo & ScratchX": {
+        "summary": ""
+      },
+      "How to Train Your Robot": {
+        "summary": ""
+      }
+    },
+    "Air-Force AI Journey": {
+      "details": {
+        "summary": "One sentence description"
+      },
+      "Autonomous agents": {
+        "summary": ""
+      },
+      "Human AI collaboration: Human Behavior": {
+        "summary": ""
+      }
+    },
+    "Creativity": {
+      "details": {
+        "summary": "short description",
+        "description": "longer description"
+      },
+      "Creativity and GANs for Middle School": {
+        "summary": ""
+      },
+      "ee": {
+        "summary": "",
+        "timeFrame": [
+          [
+            2010,
+            2012
+          ],
+          [
+            2020,
+            "present"
+          ]
+        ]
+      },
+      "Dancing with AI": {
+        "summary": "",
+        "links": [
+          {
+            "url": "https://dancingwithai.media.mit.edu/",
+            "text": "Project Site"
+          }
+        ],
+        "timeFrame": [
+          [
+            2010,
+            2012
+          ],
+          [
+            2020,
+            "present"
+          ]
+        ]
+      },
+      "GANPaint for Kids": {
+        "summary": ""
+      },
+      "AI & Growth Mindset": {
+        "summary": ""
+      }
+    },
+    "Project STEM": {
+      "details": {
+        "summary": ""
+      },
+      "Data, Representation, & AI": {
+        "summary": ""
+      },
+      "General AI": {
+        "summary": ""
+      },
+      "Feature Detection": {
+        "summary": "Web app to teach students about feature detection, and allow them to build their own (rule-based) feature-detection based objection detect alogorithm",
+        "links": [
+          {
+            "text": "Live Site",
+            "url": "https://mitmedialab.github.io/feature-detection-ProjectSTEM/"
+          },
+          {
+            "text": "Repository",
+            "url": "https://github.com/mitmedialab/feature-detection-ProjectSTEM"
+          }
+        ],
+        "timeFrame": [
+          [
+            3030,
+            "present"
+          ]
+        ]
+      },
+      "Contours 2 Classification": {
+        "summary": "Online multiplayer game we're students act as nodes in a neural network.",
+        "links": [
+          {
+            "text": "Demo Video",
+            "url": "https://contours2classification.herokuapp.com/tutorial.mp4"
+          },
+          {
+            "text": "Live Site",
+            "url": "https://contours2classification.herokuapp.com/"
+          },
+          {
+            "text": "Repository",
+            "url": "https://github.com/mitmedialab/contours-to-classification"
+          }
+        ]
+      }
+    }
+  },
+  "members": [
+    {
+      "name": "Sharifa!",
+      "bio": "Sharifa is great",
+      "email": "Email @ sharifa",
+      "role": {
+        "role": "Research Scientist"
+      },
+      "main": [
+        "Depression & Suicide modeling"
+      ],
+      "projects": [
+        "Jibo",
+        "Human AI collaboration: Human Behavior",
+        "Depression & Suicide modeling"
+      ],
+      "skills": [
+        "General AI",
+        "Vision & Sensors"
+      ]
+    },
+    {
+      "name": "Parker Malachowsky",
+      "email": "pmalacho@media.mit.edu",
+      "bio": "just a kid",
+      "role": {
+        "role": "Tech Developer"
+      },
+      "projects": [
+        "Sound of AI",
+        "Dancing with AI"
+      ],
+      "skills": [
+        "General AI"
+      ],
+      "main": [
+        "Sound of AI"
+      ],
+      "yearsActive": [
+        [
+          2020,
+          "present"
+        ]
+      ]
+    }
+  ]
+}
