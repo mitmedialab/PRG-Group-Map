@@ -1,6 +1,6 @@
-import { set } from "../builder";
+import { category, set } from "../builder";
 
-const skills = {
+const skills = category({
     "Dev": "",
     "General AI": "",
     "Jibo Skill": "",
@@ -15,7 +15,7 @@ const skills = {
     "Mixed Method": "",
     "Statistical Analysis": "",
     "Child Study": ""
-}
+});
 
 set("skills", skills);
 

@@ -6,7 +6,7 @@ import commonjs from "@rollup/plugin-commonjs";
 export default {
     input: './app/index.ts',
     output: {
-        dir: './app/build',
+        dir: './app/PRG-projects/js',
         format: 'es'
     },
     plugins: [

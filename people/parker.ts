@@ -6,7 +6,7 @@ describeYourself({
     //photo: pathToFileInAssetsFolder("parker.png"),
     bio: "just a kid",
     role: "Tech Developer",
-    projects: ["Sound of AI"],
+    projects: ["Sound of AI", "Dancing with AI"],
     skills: ["General AI"],
     yearsActive: 2020
 });

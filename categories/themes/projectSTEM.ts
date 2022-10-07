@@ -1,9 +1,14 @@
 import c2c from "./projects/c2c";
 import featurePerception from "./projects/featurePerception";
+import { theme } from "../../builder";
 
-export default {
-    "Data, Representation, & AI": "",
-    "General AI": "",
-    "Feature Detection": featurePerception,
-    "Contours 2 Classification": c2c
-}
+export default theme({
+    name: "Project STEM",
+    details: "",
+    projects: {
+        "Data, Representation, & AI": "",
+        "General AI": "",
+        ...featurePerception,
+        ...c2c
+    }
+});
