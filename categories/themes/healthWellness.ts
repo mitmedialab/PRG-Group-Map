@@ -7,6 +7,6 @@ export default theme({
         Wellness: "",
         "Medications Adherence": "",
         "Elderly Co-Design": "",
-        "Depression & Suicide modeling": "",
+        "Depression & Suicide Modeling": "",
     }
 });

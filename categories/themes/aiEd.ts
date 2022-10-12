@@ -16,7 +16,7 @@ export default theme({
             }
         } as const),
         "Data Activism": "",
-        "PrimaryAI": "",
+        "Primary AI": "",
         "DAILy": "",
     }
 });

@@ -5,7 +5,7 @@ export default theme({
     details: "",
     projects: {
         "Speech Blocks": "",
-        "Adult Language teaching": "",
+        "Adult Language Teaching": "",
         "Early Literacy": "",
     }
 });

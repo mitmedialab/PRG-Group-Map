@@ -1,7 +1,7 @@
 import { theme } from "../../builder";
 
 export default theme({
-    name: "Social Robot Ed",
+    name: "Social Robot Education",
     details: "",
     projects: {
         Jibo: "",
