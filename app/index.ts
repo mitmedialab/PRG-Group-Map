@@ -1,178 +1,328 @@
-import { Data } from "../builder";
+import { NormalizedData } from "../builder";
+import { makeNodesEdges } from "./genGraphData";
 import json from "./data.json";
-import Sigma from "sigma";
-import Graph from "graphology";
-import ForceSupervisor from "graphology-layout-force/worker";
-import { Coordinates } from "sigma/types";
+import cytoscape from "cytoscape";
+import { hideTooltipCss, showTooltipForNode, styleTooltip } from "./tooltip";
 
-const data: Data = json as Data;
+const { skills, roles, themes, members } = json as any as NormalizedData;
 
-type NodeAttributes = {
-    label: string;
-    color: string;
-    size: number,
-    theme?: string,
-    x: number,
-    y: number
-}
+const [prgProjectsElements, styling] = makeNodesEdges({ skills, roles, themes, members });
 
-type EdgeAttributes = {
-    weight: number;
-}
+var nodeWidth: number,
+  nodeHeight: number,
+  staffX: number,
+  staffY: number,
+  nodeY: number,
+  dept: string,
+  removedElements = [];
 
-type GraphAttributes = {
-    name?: string;
-}
+const fullLayout: cytoscape.LayoutOptions = {
+  name: "concentric",
+  concentric: function (node: cytoscape.NodeSingular & { degree(): number }): number {
+    return node.data("level");
+  },
+  equidistant: true,
+  animationDuration: 500,
+};
 
-const colors = [
-    "#003f5c",
-    "#2f4b7c",
-    "#665191",
-    "#a05195",
-    "#d45087",
-    "#f95d6a",
-    "#ff7c43",
-    "#ffa600",
-    "#00876c",
-    "#3d9b70",
-    "#63ae74",
-    "#89c079",
-    "#afd27f",
-    "#d6e487",
-    "#fff492",
-    "#fed777",
-    "#fbba63",
-    "#f69c56",
-    "#ee7e50",
-    "#e35e4e",
-    "#d43d51"
-].reverse();
-
-const circlePositionGenerator = (length: number) => {
-    const factor = (2 * Math.PI) / length;
+const staffLayout = {
+  name: "preset",
+  positions: (node) => {
+    if (node.data("parent") !== dept) {
+      dept = node.data("parent");
+      nodeY += nodeHeight * 2.5;
+    } else {
+      nodeY += nodeHeight * 1.5;
+    }
     return {
-        at(i: number) {
-            const angle = i * factor;
+      x: staffX,
+      y: nodeY,
+    };
+  },
+};
 
-            type Returned = ReturnType<ReturnType<typeof circlePositionGenerator>["at"]>;
-            return {
-                x: Math.cos(angle),
-                y: Math.sin(angle),
-                scale(factor: number) {
-                    this.x *= factor;
-                    this.y *= factor;
-                    return this as Returned;
-                },
-                translate(vector: { x: number, y: number }) {
-                    this.x += vector.x;
-                    this.y += vector.y;
-                    return this as Returned;
-                }
-            }
-        }
-    }
-}
+const zoomedLayout = {
+  name: "concentric",
+  concentric: function (node) {
+    return node.data("zoomedLevel");
+  },
+  animate: true,
+};
 
-const graph = new Graph<NodeAttributes, EdgeAttributes, GraphAttributes>();
+const isNode = (node) => {
+  return ![undefined, "title"].includes(node.data("class"));
+};
 
-const themes = Object.entries(data.themes);
+const handleMouseOver = (evt: cytoscape.EventObject) => {
+  const node = evt.target;
+  if (node.data("class") === "title") return;
 
-const startingThemePositions = circlePositionGenerator(themes.length);
-const nodeByPositionsByTheme: Record<string, Array<{ x: number, y: number }>> = {};
-const divIDByTheme: Record<string, string> = {};
-const divTitleByTheme: Record<string, string> = {};
+  // tooltip position
+  const zoom = cy.zoom();
+  const cyPos = cy.pan();
+  const nodePos = node.position();
+  const nodeDiameter = node.width();
+  const offSet = nodeDiameter * zoom * 0.4;
+  const pos = {
+    x: cyPos.x + nodePos.x * zoom + offSet,
+    y: cyPos.y + nodePos.y * zoom - offSet,
+  };
+  showTooltipForNode(node, pos);
 
-themes.forEach(([themeName, theme], i) => {
-    const color = colors.pop();
+  cy.batch(function () {
+    // highlight
+    node.addClass("highlight");
+    cy.elements()
+      .difference(node.successors())
+      .difference(node.predecessors())
+      .difference(node)
+      .difference(cy.nodes(`[id="${node.data("parent")}"]`))
+      .difference(cy.nodes('[class="department"]'))
+      .addClass("semitransp");
+    node
+      .successors()
+      .difference(cy.nodes('[id="Personal Robots Group"]'))
+      .difference(cy.nodes('[class="department"]'))
+      .addClass("highlight");
+    node
+      .predecessors()
+      .difference(cy.nodes('[id="Personal Robots Group"]'))
+      .difference(cy.nodes('[class="department"]'))
+      .addClass("highlight");
+  });
+};
 
-    nodeByPositionsByTheme[themeName] = undefined as any;
-    divIDByTheme[themeName] = themeName.replace(/\s+/g, '');
-    divTitleByTheme[themeName] = `<div id='${divIDByTheme[themeName]}' style="color:${color};" class='clusterLabel'">${themeName}</div>`;
+const handleMouseOut = () => {
+  styleTooltip(hideTooltipCss);
+  cy.elements().removeClass("semitransp").removeClass("highlight");
+};
 
-    const position = startingThemePositions.at(i);
+const handlePan = () => {
+  styleTooltip(hideTooltipCss);
+};
 
-    if (!color) throw new Error("Ran out of colors!!");
+const director = {
+  name: "Cynthia Breazeal",
+  vision: "TBA",
+  "main website": "https://robots.media.mit.edu/",
+  "past projects": "https://robots.media.mit.edu/project-portfolio/applications/",
+};
 
-    const projects = Object.keys(theme).filter(name => name !== "summary");
-    const { length } = projects;
-    const projectPositions = circlePositionGenerator(length);
-
-    projects.forEach((projectName, index) => {
-        if (projectName === "description") return;
-        const pos = projectPositions.at(index).scale(0.1).translate(position);
-        graph.addNode(projectName, {
-            size: 10,
-            label: projectName,
-            color,
-            theme: themeName,
-            ...pos
-        });
-    });
-
-    if (length === 0) return;
-
-    projects.forEach((projectName, index) => {
-        const nextIndex = index === length - 1 ? 0 : index + 1;
-        graph.addEdge(projectName, projects[nextIndex]);
-    });
-});
-
-
-data.members.forEach(({ name, projects }, i) => {
-    graph.addNode(name, {
-        size: 20,
-        label: name,
-        color: "#32a852",
-        x: Math.random(),
-        y: Math.random(),
+const handleTap = (evt: cytoscape.EventObject) => {
+  const node = evt.target;
+  if (node.data("class") === "director") {
+    // clicked director node
+    handleMouseOut();
+    handleMouseOver(evt);
+    cy.animation({
+      zoom: {
+        level: 1,
+        position: node.position(),
+      },
     })
+      .play()
+      .promise()
+      .then(() => {
+        showTooltipForNode(node, { x: 0, y: 0 });
+      });
+    cy.unbind("mouseover").unbind("mouseout");
+    currentLayout = "zoomedLayout";
+  } else if (currentLayout === "zoomedLayout" && !isNode(node)) {
+    // graph is zoomed in and user clicked on a node
+    const { name, ...directorAttr } = director;
+    nodeWidth = cy.nodes()[0].width();
+    nodeHeight = cy.nodes()[0].height();
 
-    projects.forEach((project) => {
-        graph.addEdge(name, project, { weight: 100 });
+    const addNodes: cytoscape.ElementDefinition[] = [
+      {
+        data: {
+          id: "Personal Robots Group",
+          level: cy.elements().length,
+          class: "title",
+        },
+        group: "nodes",
+      },
+      {
+        data: {
+          id: "Cynthia Breazeal",
+          level: cy.elements().length,
+          class: "director",
+          ...directorAttr,
+        },
+        group: "nodes",
+      },
+      {
+        data: {
+          source: "Cynthia Breazeal",
+          target: "Personal Robots Group",
+        },
+        group: "edges",
+      },
+    ];
+
+    cy.nodes()
+      .filter("node[class='theme']")
+      .forEach((node) => {
+        addNodes.push({
+          data: {
+            source: "Personal Robots Group",
+            target: node.data("id"),
+          },
+          group: "edges",
+        });
+      });
+
+    handleMouseOut();
+
+    cy.batch(function () {
+      cy.add(addNodes);
+      cy.add(removedElements);
+      removedElements = [];
+      cy.bind("mouseover", "node", (evt) => handleMouseOver(evt));
+      cy.bind("mouseout", "node", () => handleMouseOut());
+      fullLayout.animate = true;
+      cy.zoomingEnabled(false);
+      nodeY = staffY;
+      cy.nodes().filter("node[class='staff']").layout(staffLayout).run();
+      cy.zoomingEnabled(true);
     });
-});
 
-const layout = new ForceSupervisor(graph);
-layout.start();
+    cy.nodes()
+      .difference(cy.nodes().filter("node[class='staff']"))
+      .difference(cy.nodes().filter("node[class='department']"))
+      .layout(fullLayout)
+      .run();
 
-const container = document.getElementById("sigma-container") as HTMLElement;
+    currentLayout = "fullLayout";
+  } else if (
+    isNode(node) &&
+    node.data("zoomedLevel") !== cy.elements().length
+  ) {
+    // clicked node and it is not zoomed in
+    handleMouseOut();
+    handleMouseOver(evt);
+    cy.nodes('[id="Personal Robots Group"]').remove();
+    cy.nodes('[class="director"]').remove();
+    cy.zoomingEnabled(false);
+    cy.batch(function () {
+      // highlight
+      node.addClass("highlight").data("zoomedLevel", cy.elements().length);
+      cy.nodes('[id="Personal Robots Group"]').data(
+        "zoomedLevel",
+        cy.elements().length
+      );
 
-const renderer = new Sigma(graph, container);
-
-const stopLayoutTimeout = setTimeout(() => {
-    layout.stop();
-    clearTimeout(stopLayoutTimeout);
-}, 1000);
-
-const clustersLayer = document.createElement("div");
-clustersLayer.innerHTML = Object.values(divTitleByTheme).join("");
-// insert the layer underneath the hovers layer
-container.insertBefore(clustersLayer, document.getElementsByClassName("sigma-hovers")[0]);
-
-renderer.on("afterRender", () => {
-    for (const theme in nodeByPositionsByTheme) {
-        nodeByPositionsByTheme[theme] = [];
+      cy.elements()
+        .difference(node.successors())
+        .difference(node.predecessors())
+        .difference(node)
+        .difference(cy.nodes('[class="department"]'))
+        .addClass("semitransp")
+        .data("zoomedLevel", 1);
+      node
+        .successors()
+        .difference(cy.nodes('[id="Personal Robots Group"]'))
+        .addClass("highlight")
+        .data(
+          "zoomedLevel",
+          cy
+            .elements()
+            .difference(node.successors())
+            .difference(node.predecessors()).length
+        );
+    });
+    if (node.data("class") === "person") {
+      cy.batch(function () {
+        node
+          .predecessors()
+          .not(cy.nodes('[id="Personal Robots Group"]'))
+          .addClass("highlight");
+        node
+          .incomers()
+          .data(
+            "zoomedLevel",
+            cy.elements().difference(node.incomers()).length
+          );
+        node
+          .incomers()
+          .incomers()
+          .data(
+            "zoomedLevel",
+            cy.elements().difference(node.predecessors()).length
+          );
+      });
+    } else {
+      cy.batch(function () {
+        node
+          .predecessors()
+          .not(cy.nodes('[id="Personal Robots Group"]'))
+          .addClass("highlight")
+          .data(
+            "zoomedLevel",
+            cy
+              .elements()
+              .difference(node.successors())
+              .difference(node.predecessors()).length
+          );
+      });
     }
 
-    graph.forEachNode((node, { theme, x, y }) => {
-        if (!theme) return;
-        nodeByPositionsByTheme[theme].push({ x, y });
-    });
+    cy.unbind("mouseover").unbind("mouseout");
+    currentLayout = "zoomedLayout";
 
-    for (const theme in nodeByPositionsByTheme) {
-        const { length } = nodeByPositionsByTheme[theme];
-        const { x, y }: Coordinates = nodeByPositionsByTheme[theme].reduce((acc, { x, y }) => {
-            x += acc.x;
-            y += acc.y;
-            return { x, y };
-        }, { x: 0, y: 20 });
-        // 20 is shift factor to try to clear any overlapping nodes, probably better to identify clear intervals and place in largest one
-        // (or if none is avilable, i.e. 1 or 2 nodes cluster, then just place above)
+    cy.elements()
+      .layout(zoomedLayout)
+      .run()
+      .on("layoutstop", () => {
+        cy.zoomingEnabled(true);
+        const connectedElements =
+          cy.elements().length -
+          cy
+            .elements()
+            .difference(node.successors())
+            .difference(node.predecessors()).length;
+        cy.animation({
+          zoom: {
+            level: connectedElements > 0 ? connectedElements ** 0.001 : 2,
+            position: node.position(),
+          },
+        })
+          .play()
+          .promise()
+          .then(() => {
+            showTooltipForNode(node, { x: 0, y: 0 });
+          });
+      });
 
+  }
+};
+const formatCy = (cy: cytoscape.Core) => {
+  nodeWidth = cy.nodes()[0].width();
+  nodeHeight = cy.nodes()[0].height();
+  staffX = cy.nodes().boundingBox().x2 + nodeWidth * 3;
+  staffY = cy.nodes().boundingBox().y1;
+  nodeY = staffY;
+  cy.nodes().filter("node[class='staff']").layout(staffLayout).run();
+  cy.nodes()
+    .difference(cy.nodes().filter("node[class='staff']"))
+    .difference(cy.nodes().filter("node[class='department']"))
+    .layout(fullLayout)
+    .run();
 
-        const viewportPos = renderer.graphToViewport({ x: x / length, y: y / length });
-        const element = document.getElementById(divIDByTheme[theme]) as HTMLElement;
-        element.style.top = `${viewportPos.y}px`;
-        element.style.left = `${viewportPos.x}px`;
-    }
+  // @ts-ignore
+  cy.nodes().panify().ungrabify(); // hm?
+
+  cy.bind("tap", (evt) => handleTap(evt));
+  cy.bind("mouseover", "node", (evt) => handleMouseOver(evt));
+  cy.bind("mouseout", "node", () => handleMouseOut());
+  cy.bind("pan", () => handlePan());
+};
+
+let currentLayout = "fullLayout";
+var cy = cytoscape({
+  container: document.getElementById("cy"), // container to render in
+  elements: prgProjectsElements,
+  layout: fullLayout,
+  style: styling,
 });
+formatCy(cy);

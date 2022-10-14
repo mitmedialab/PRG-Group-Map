@@ -1,9 +1,22 @@
-import { description as soundOfAIDescription } from "./projects/soundOfAI";
+import { theme, project } from "../../builder";
+import soundOfAI from "./projects/soundOfAI";
 
-export default {
-    "Sound of AI": soundOfAIDescription,
-    "Computational Action": "",
-    "Data Activism": "",
-    "PrimaryAI": "",
-    "DAILy": "",
-};
+export default theme({
+    name: "AI Education",
+    details: {
+        summary: "",
+        links: [{ text: "RAISE", url: "https://raise.mit.edu/" }]
+    },
+    projects: {
+        ...soundOfAI,
+        ...project({
+            name: "Computational Action",
+            details: {
+                "summary": "La la la"
+            }
+        } as const),
+        "Data Activism": "",
+        "Primary AI": "",
+        "DAILy": "",
+    }
+});
