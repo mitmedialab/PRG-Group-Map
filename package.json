@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "ts": "node_modules/.bin/ts-node",
-    "clean": "rm ./app/data.json",
+    "clean": "rm -f ./app/data.json",
     "collect": "npm run ts scripts/buildData.ts",
     "rollup": "node_modules/.bin/rollup --config app/rollup.config.js",
     "bundle": "npm run clean && npm run collect && npm run rollup",

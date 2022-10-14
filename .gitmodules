@@ -1,4 +1,0 @@
-[submodule "app/PRG-projects"]
-	path = app/PRG-projects
-	url = https://github.com/mitmedialab/PRG-Group-Map.git
-        branch = IntegrateProjects

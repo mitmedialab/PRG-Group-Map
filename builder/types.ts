@@ -149,7 +149,15 @@ export type GroupMember = {
     yearsActive?: YearsTimeFrame,
 }
 
-export type NormalizedMember = Replace<Replace<Replace<GroupMember, "role", VerboseRole>, "yearsActive", NormalizedTimeFrame>, "main", ProjectCollection, true>;
+export type NormalizedMember =
+    Replace<
+        Replace<
+            Replace<
+                Replace<GroupMember,
+                    "role", VerboseRole>,
+                "yearsActive", NormalizedTimeFrame>,
+            "main", ProjectCollection, true>,
+        "links", readonly VerboseLink[], true>;
 
 type Identity<T> = { [P in keyof T]: T[P] }
 

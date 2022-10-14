@@ -7,7 +7,7 @@ import { terser } from "rollup-plugin-terser";
 export default {
     input: './app/index.ts',
     output: {
-        file: './app/PRG-projects/js/bundle.js',
+        file: './app/site/js/bundle.js',
         format: 'es',
         compact: true,
         sourcemap: 'inline',

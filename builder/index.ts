@@ -43,7 +43,7 @@ const normalizeLinks = (links: VerboseDetails["links"]): NormalizedDetails["link
     });
 }
 
-const normalizeTimeFrame = (timeFrame: VerboseDetails["timeFrame"]): NormalizedDetails["timeFrame"] => {
+const normalizeTimeFrame = (timeFrame: VerboseDetails["timeFrame"]): NormalizedTimeFrame | undefined => {
     if (!timeFrame) return undefined;
 
     // ex: timeFrame = 2022
@@ -92,11 +92,13 @@ const normalizeMain = (projects: GroupMember["main"]): NormalizedMember["main"] 
 };
 
 const normalizeMember = (member: GroupMember): NormalizedMember => {
+    const { yearsActive, role, main, links } = member;
     return {
         ...member,
-        yearsActive: normalizeTimeFrame(member.yearsActive) as NormalizedTimeFrame,
-        role: normalizeRole(member.role),
-        main: normalizeMain(member.main)
+        yearsActive: normalizeTimeFrame(yearsActive) as NormalizedTimeFrame,
+        role: normalizeRole(role),
+        main: normalizeMain(main),
+        links: normalizeLinks(links)
     };
 }
 
@@ -156,10 +158,10 @@ export const pathToFileInAssetsFolder = (filename: string): PathToAsset => {
     return { path: pathToFile };
 };
 
-export const createGraph = () : void => {
+export const createGraph = (): void => {
     const data = getData();
     const { skills, roles, themes, members } = data as any as NormalizedData;
-    
+
     console.log(skills);
     console.log(roles);
     console.log(themes);
