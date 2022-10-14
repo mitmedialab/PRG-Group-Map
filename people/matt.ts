@@ -5,7 +5,7 @@ describeYourself({
     email: "",
     //photo: pathToFileInAssetsFolder("parker.png"),
     bio: "",
-    role: "",
+    role: "Research Scientist",
     projects: [
         "Doodle Bot",
         "Data, Representation, & AI",

@@ -21,6 +21,9 @@
     "Policy": {
       "summary": ""
     },
+    "Co-Design": {
+      "summary": ""
+    },
     "Teacher Training": {
       "summary": ""
     },
@@ -39,11 +42,41 @@
     "Statistical Analysis": {
       "summary": ""
     },
+    "Qualitative Analysis": {
+      "summary": ""
+    },
+    "Methodology Design": {
+      "summary": ""
+    },
     "Child Study": {
+      "summary": ""
+    },
+    "Reinforcement Learning": {
+      "summary": ""
+    },
+    "Art": {
+      "summary": ""
+    },
+    "Robot Engineering": {
+      "summary": ""
+    },
+    "Scratch Master": {
+      "summary": ""
+    },
+    "Child-Robot Interaction": {
+      "summary": ""
+    },
+    "Teacher Education": {
+      "summary": ""
+    },
+    "STEM Education": {
       "summary": ""
     }
   },
   "roles": {
+    "Director": {
+      "summary": ""
+    },
     "Admin & Finance": {
       "summary": ""
     },
@@ -60,6 +93,9 @@
       "summary": ""
     },
     "PhD Student": {
+      "summary": ""
+    },
+    "": {
       "summary": ""
     }
   },
@@ -101,7 +137,7 @@
       "Data Activism": {
         "summary": ""
       },
-      "PrimaryAI": {
+      "Primary AI": {
         "summary": ""
       },
       "DAILy": {
@@ -112,13 +148,13 @@
       "details": {
         "summary": ""
       },
-      "Ethics of Deep Fakes": {
+      "Ethics of Deepfakes": {
         "summary": ""
       },
       "Debating technology and AI with your child": {
         "summary": ""
       },
-      "AI & Data Privcacy": {
+      "AI & Data Privacy": {
         "summary": ""
       },
       "AI & Ethics in Middle School": {
@@ -132,7 +168,7 @@
       "Speech Blocks": {
         "summary": ""
       },
-      "Adult Language teaching": {
+      "Adult Language Teaching": {
         "summary": ""
       },
       "Early Literacy": {
@@ -144,9 +180,15 @@
         "summary": ""
       },
       "Museum Interaction": {
-        "summary": ""
+        "summary": "",
+        "links": [
+          {
+            "text": "Website",
+            "url": "https://www.media.mit.edu/projects/multi-party-human-robot-conversation-interactions/overview/"
+          }
+        ]
       },
-      "Robots in the home": {
+      "Robots in the Home": {
         "summary": ""
       }
     },
@@ -163,11 +205,11 @@
       "Elderly Co-Design": {
         "summary": ""
       },
-      "Depression & Suicide modeling": {
+      "Depression & Suicide Modeling": {
         "summary": ""
       }
     },
-    "Social Robot Ed": {
+    "Social Robot Education": {
       "details": {
         "summary": ""
       },
@@ -191,10 +233,10 @@
       "details": {
         "summary": "One sentence description"
       },
-      "Autonomous agents": {
+      "Autonomous Agents": {
         "summary": ""
       },
-      "Human AI collaboration: Human Behavior": {
+      "Human-AI Collaboration: Human Behavior": {
         "summary": ""
       }
     },
@@ -275,7 +317,7 @@
         ]
       },
       "Contours 2 Classification": {
-        "summary": "Online multiplayer game we're students act as nodes in a neural network.",
+        "summary": "Online multiplayer game where students act as nodes in a neural network.",
         "links": [
           {
             "text": "Demo Video",
@@ -295,6 +337,77 @@
   },
   "members": [
     {
+      "name": "Xiaoxue Du",
+      "email": "",
+      "bio": "",
+      "role": {
+        "role": "Research Scientist"
+      },
+      "projects": [
+        "Data, Representation, & AI",
+        "Autonomous Agents",
+        "Human-AI Collaboration: Human Behavior"
+      ],
+      "skills": [
+        "Assessment",
+        "Human Study Design",
+        "Inclusive Education",
+        "Mixed Method",
+        "Statistical Analysis",
+        "Child Study",
+        "Teacher Education",
+        "STEM Education"
+      ]
+    },
+    {
+      "name": "Stephen Kaputsos",
+      "email": "",
+      "bio": "Stephen P. Kaputsos is a perceptual AI/ML engineer & neuroroboticist  who leverages his interdisciplinary background in perceptual AI, robotics, AR/VR (XR), and sensory neuroscience to engineer technologies that enhance both human and machine perception. Current works involve AI & robotic simulation design and modeling of perceptual processing architectures. Other endeavors employ extended reality (XR) technologies, such as augmented reality (AR), to enhance human-robot task performance. Well-developed abilities in applying perceptual & cognitive principles to optimize the engineering of XR and human-machine systems. Skilled in integration of neuroimaging technologies with virtual simulations.",
+      "role": {
+        "role": "Research Scientist"
+      },
+      "projects": [
+        "Autonomous Agents",
+        "Sound of AI"
+      ],
+      "skills": [
+        "Reinforcement Learning",
+        "Art"
+      ],
+      "links": [
+        {
+          "text": "stephenkaputsos.com",
+          "url": "http://www.stephenkaputsos.com/"
+        }
+      ]
+    },
+    {
+      "name": "Sooyeon Jeong",
+      "email": "",
+      "bio": "Sooyeon Jeong is a graduate student in Personal Robots Group. She received her B.S. and M.Eng in Electrical Engineering and Computer Science and M.S. in Media Arts and Science at MIT. She joined Personal Robots Group as an undergraduate student in 2011 and since then have worked on multiple projects, such as Le FonduePhone, DragonBot, Huggable,  Pediatric Companion and Interactive Journaling projects. She is interested in how robots and technologies can mediate and facilitate human-human communications and interactions, and provide social and emotional support people with emotional and mental needs.",
+      "role": {
+        "role": "Research Scientist"
+      },
+      "projects": [
+        "Wellness",
+        "Medications Adherence"
+      ],
+      "skills": [
+        "Statistical Analysis",
+        "Jibo Skill",
+        "Human Study Design"
+      ],
+      "main": [
+        "Wellness"
+      ],
+      "links": [
+        {
+          "text": "Personal Website",
+          "url": "http://sooyeonjeong.com/"
+        }
+      ]
+    },
+    {
       "name": "Sharifa!",
       "bio": "Sharifa is great",
       "email": "Email @ sharifa",
@@ -302,16 +415,125 @@
         "role": "Research Scientist"
       },
       "main": [
-        "Depression & Suicide modeling"
+        "Depression & Suicide Modeling"
       ],
       "projects": [
+        "Data, Representation, & AI",
+        "Autonomous Agents",
+        "Doodle Bot",
+        "Wellness",
+        "Medications Adherence",
+        "Elderly Co-Design",
+        "Museum Interaction",
+        "Robots in the Home",
         "Jibo",
-        "Human AI collaboration: Human Behavior",
-        "Depression & Suicide modeling"
+        "Human-AI Collaboration: Human Behavior",
+        "Depression & Suicide Modeling"
       ],
       "skills": [
         "General AI",
-        "Vision & Sensors"
+        "Vision & Sensors",
+        "Dev",
+        "Verbal & Nonverbal Behavior",
+        "Jibo Skill"
+      ]
+    },
+    {
+      "name": "Sam Spaulding",
+      "email": "samuelsp@media.mit.edu",
+      "bio": "",
+      "role": {
+        "role": "Research Scientist"
+      },
+      "projects": [
+        "Adult Language Teaching",
+        "Early Literacy"
+      ],
+      "skills": [
+        "Human Study Design",
+        "Jibo Skill",
+        "Reinforcement Learning",
+        "Statistical Analysis"
+      ],
+      "main": [
+        "Adult Language Teaching"
+      ]
+    },
+    {
+      "name": "Safinah Arshad Ali",
+      "email": "",
+      "bio": "Safinah is a PhD student in the Personal Robots group. Her research focuses on making AI accessible to diverse communities and using Social Robots to foster positive learning behaviors in children. She studies the role of child-robot interaction in simulating curiosity, creativity and growth mindset in young children. She has developed Creative AI learning tools. She has also worked on robots for accessibility, particularly to assist children with Autism Spectrum Disorder. She likes to explore creative computational techniques and how they can be applied to social problems, especially in the developing world. She did her Bachelors in Design from IIT Guwahati and her Masters in HCI from Carnegie Mellon University.",
+      "role": {
+        "role": "Research Scientist"
+      },
+      "projects": [
+        "Doodle Bot",
+        "DAILy",
+        "Creativity and GANs for Middle School",
+        "Dancing with AI",
+        "GANPaint for Kids",
+        "AI & Growth Mindset"
+      ],
+      "skills": [
+        "General AI",
+        "Dev",
+        "Art"
+      ]
+    },
+    {
+      "name": "Randi Williams",
+      "email": "",
+      "bio": "Randi Williams is a graduate research assistant in the Personal Robots group at the MIT Media Lab. She received her Master of Science in Media Arts in Sciences from MIT in 2018 and her Bachelor of Science in Computer Engineering from UMBC in 2016.",
+      "role": {
+        "role": "PhD Student"
+      },
+      "projects": [
+        "Doodle Bot",
+        "PopBots",
+        "Gizmo & ScratchX",
+        "How to Train Your Robot",
+        "Sound of AI",
+        "Computational Action",
+        "Data Activism",
+        "Primary AI",
+        "DAILy"
+      ],
+      "skills": [
+        "Child-Robot Interaction",
+        "General AI",
+        "Dev",
+        "Inclusive Education",
+        "Robot Engineering",
+        "Scratch Master"
+      ]
+    },
+    {
+      "name": "Raechel Walker",
+      "email": "",
+      "bio": " Raechel Walker is a Graduate Research Assistant in the Personal Robots Group for the Media Arts and Sciences Department. Her research focuses on AI education, specifically data activism curricula for minoritized communities. Raechel is an Amazon Robotics Fellow and a Graduate Education for Minorities (GEM) Fellow. She received her Bachelors in Data Science with Programs of Concentrations in Perspectives of Social Sciences and Dance & Theatre from the University of California, San Diego.",
+      "role": {
+        "role": "Masters Student"
+      },
+      "projects": [
+        "Data Activism"
+      ],
+      "skills": [
+        "General AI"
+      ]
+    },
+    {
+      "name": "Pedro Reynolds-Cuéllar",
+      "email": "",
+      "bio": "I am a Doctoral Student based at the Space Enabled Group in the MIT Media Lab and the Future Heritage Lab at the MIT Program in Art, Culture and Technology. I studied Linguistics at the Universidad Nacional de Colombia where I worked on articulatory phonetics and signal processing. I did my masters with the Personal Robots Group at the MIT Media Lab, where I focused on designing interactions to explore what role can social robots have in fostering children's socio-emotional skills—empathy in particular. Currently, my work focuses on studying and documenting design histories and practices leading to the creation of ancestral technologies in Colombia. This is a category of technologies with deep cultural, ecological and socio-historical value for the people and places where they were created. I use insights from this work to propose design practices and pedagogical approaches that lead to the development of more sustainable and just technologies.",
+      "role": {
+        "role": "Research Scientist"
+      },
+      "projects": [
+        "Museum Interaction"
+      ],
+      "skills": [
+        "Dev",
+        "General AI"
       ]
     },
     {
@@ -334,6 +556,309 @@
       "yearsActive": [
         [
           2020,
+          "present"
+        ]
+      ]
+    },
+    {
+      "name": "Nicole Pang",
+      "email": "",
+      "bio": "",
+      "role": {
+        "role": "Research Scientist"
+      },
+      "projects": [
+        "Ethics of Deepfakes",
+        "Debating technology and AI with your child",
+        "AI & Data Privacy",
+        "AI & Ethics in Middle School",
+        "Computational Action"
+      ],
+      "skills": [
+        "Ethics",
+        "General AI"
+      ]
+    },
+    {
+      "name": "Meng Xi",
+      "email": "",
+      "bio": "",
+      "role": {
+        "role": "Lab Management"
+      },
+      "projects": [],
+      "skills": []
+    },
+    {
+      "name": "Matt Hancher",
+      "email": "",
+      "bio": "",
+      "role": {
+        "role": "Research Scientist"
+      },
+      "projects": [
+        "Doodle Bot",
+        "Data, Representation, & AI",
+        "General AI",
+        "Autonomous Agents",
+        "Human-AI Collaboration: Human Behavior",
+        "Sound of AI",
+        "Computational Action",
+        "Data Activism",
+        "Primary AI",
+        "DAILy"
+      ],
+      "skills": [
+        "General AI"
+      ],
+      "main": [
+        "Sound of AI"
+      ],
+      "yearsActive": [
+        [
+          2020,
+          "present"
+        ]
+      ]
+    },
+    {
+      "name": "Kejia Patterson",
+      "email": "",
+      "bio": "",
+      "role": {
+        "role": "Research Scientist"
+      },
+      "projects": [
+        "Early Literacy"
+      ],
+      "skills": []
+    },
+    {
+      "name": "Kate Darling",
+      "email": "",
+      "bio": "Dr. Kate Darling is a leading expert in technology ethics and policy. Her passion is investigating social robotics, exploring the emotional connection between people and lifelike machines, and seeking to influence technology design and policy direction. Her writing and research anticipate difficult questions that lawmakers, engineers, and the wider public will need to address as human-robot relationships evolve in the coming decades.",
+      "role": {
+        "role": "Research Scientist"
+      },
+      "projects": [
+        "Ethics of Deepfakes",
+        "Debating technology and AI with your child",
+        "AI & Data Privacy",
+        "AI & Ethics in Middle School",
+        "Autonomous Agents",
+        "Human-AI Collaboration: Human Behavior"
+      ],
+      "skills": [
+        "Ethics",
+        "Policy"
+      ]
+    },
+    {
+      "name": "Jon Ferguson",
+      "email": "jon@media.mit.edu",
+      "bio": "",
+      "role": {
+        "role": "Tech Developer"
+      },
+      "projects": [
+        "Jibo"
+      ],
+      "skills": []
+    },
+    {
+      "name": "Jocelyn Shen",
+      "email": "",
+      "bio": "",
+      "role": {
+        "role": "Masters Student"
+      },
+      "projects": [],
+      "skills": [
+        "Dev"
+      ]
+    },
+    {
+      "name": "Jeff Lieberman",
+      "email": "",
+      "bio": "",
+      "role": {
+        "role": "Admin & Finance"
+      },
+      "projects": [],
+      "skills": []
+    },
+    {
+      "name": "Ivan Sysoev",
+      "email": "isysoev@mit.edu",
+      "bio": "",
+      "role": {
+        "role": "Research Scientist"
+      },
+      "projects": [
+        "Speech Blocks",
+        "AI & Growth Mindset"
+      ],
+      "skills": [
+        "Human Study Design",
+        "Statistical Analysis",
+        "Child Study",
+        "Art"
+      ],
+      "main": [
+        "Speech Blocks"
+      ]
+    },
+    {
+      "name": "Ishaan Grover",
+      "email": "",
+      "bio": "I am a master's student at the MIT Media Lab in the Personal Robots group. I graduated from Georgia Tech with a bachelor's degree in computer science, specializing in artificial intelligence and networking. I enjoy playing with data and developing technologies that leverage data. My current research at MIT focuses on building a cognitive architecture for tobots like Tega, incorporating inputs from speech and vision. Prior to this, I worked on wearable computing and algorithms to help artificially intelligent agents learn from human feedback. Last summer, I interned on the philanthropy team at Palantir, developing technologies to help farmers in the Philippines and Colombia. Before that, I interned at Microsoft on the Identity Driven Machine Learning team, building models to detect suspicious login activities.\n\nOutside of research, I like to explore new places, food, and adventure sports.",
+      "role": {
+        "role": "PhD Student"
+      },
+      "projects": [
+        "Museum Interaction",
+        "Early Literacy"
+      ],
+      "skills": [
+        "Dev",
+        "General AI",
+        "Reinforcement Learning"
+      ]
+    },
+    {
+      "name": "Huili Chen",
+      "email": "",
+      "bio": "Huili Chen is a Ph.D student in the Personal Robots Group at the MIT Media Lab. She received a Bachelor’s Degree in Computer Science and Psychology with a minor in Peace Studies from University of Notre Dame in 2016. Her current research at MIT focuses on emotion-based interactions between humans and robots. In the past, she worked in Dr. Milenkovic’s Complex Network Lab and Dr. D’Mello’s Affective Computing Lab at the University of Notre Dame.",
+      "role": {
+        "role": "PhD Student"
+      },
+      "projects": [
+        "Robots in the Home",
+        "Early Literacy"
+      ],
+      "skills": [
+        "Human Study Design",
+        "Mixed Method",
+        "Qualitative Analysis",
+        "Reinforcement Learning",
+        "Statistical Analysis",
+        "Verbal & Nonverbal Behavior",
+        "Child Study"
+      ],
+      "main": [
+        "Robots in the Home"
+      ]
+    },
+    {
+      "name": "Hae Won Park",
+      "email": "",
+      "bio": "Hae Won Park is a Research Scientist at the Personal Robots Group. She is also a Principal Investigator for the Social Robot Companions for Aging Program, leading the long-term personalization of interactive AI systems in domains that help human flourishing. She oversees and closely works with students on many projects including early childhood education, healthcare, eldercare,  family interaction, and emotional wellness. Before, she was a PhD student at the Institute of Robotics and Intelligent Machines (IRIM) at Georgia Tech, where Hae Won was a member of the Human-Automation Systems (HumAnS) Laboratory advised by Prof. Ayanna Howard. While doing her PhD, Hae Won co-founded Zyrobotics, a spin-off from Georgia Tech that is licensing the three patents from her research.",
+      "role": {
+        "role": "Research Scientist"
+      },
+      "projects": [
+        "Speech Blocks",
+        "Adult Language Teaching",
+        "Early Literacy",
+        "Museum Interaction",
+        "Wellness",
+        "Medications Adherence",
+        "Elderly Co-Design",
+        "Depression & Suicide Modeling"
+      ],
+      "skills": []
+    },
+    {
+      "name": "Daniella DiPaola",
+      "email": "",
+      "bio": "Daniella DiPaola is a Ph.D. student in the Personal Robots Group at the MIT Media Lab. Her research interests include understanding the ethical, social, and emotional implications of AI and robots, particularly in the lives of children.  She has developed various curricula to inspire middle school students to think about the societal implications of artificial intelligence. Her current work explores the relationship between AI literacy and child-robot interaction.\n\nDaniella received her B.S. in Engineering Psychology from Tufts University in 2016. Before beginning graduate school, she worked as a researcher in the consumer robotics industry.",
+      "role": {
+        "role": "PhD Student"
+      },
+      "projects": [
+        "Ethics of Deepfakes",
+        "Debating technology and AI with your child",
+        "AI & Data Privacy",
+        "AI & Ethics in Middle School",
+        "Data, Representation, & AI",
+        "General AI",
+        "DAILy",
+        "Jibo"
+      ],
+      "skills": [
+        "Co-Design",
+        "Ethics",
+        "Methodology Design",
+        "Policy",
+        "Statistical Analysis",
+        "Child Study"
+      ]
+    },
+    {
+      "name": "Cynthia Breazeal",
+      "role": {
+        "role": "Director"
+      },
+      "bio": "Vision for PRG",
+      "email": "",
+      "projects": [],
+      "skills": [],
+      "links": [
+        {
+          "text": "Main Website",
+          "url": "https://robots.media.mit.edu/"
+        },
+        {
+          "text": "Past Projects",
+          "url": "https://robots.media.mit.edu/project-portfolio/applications/"
+        }
+      ]
+    },
+    {
+      "name": "Brayden Zhang",
+      "email": "",
+      "bio": "",
+      "role": {
+        "role": "Research Scientist"
+      },
+      "projects": [
+        "Early Literacy"
+      ],
+      "skills": [
+        "Dev",
+        "Jibo Skill"
+      ]
+    },
+    {
+      "name": "Anastasia Ostrowski",
+      "email": "",
+      "bio": "Anastasia Ostrowski is a research assistant and design researcher in the Personal Robots Group. Anastasia received Master's and Bachelor degrees in 2017 and 2016 respectively from the University of Michigan in biomedical engineering. Her master's research focused on Design Heuristics in biomedical engineering education and how engineering students engage in idea generation and the design space. In the Personal Robots group, she contributes to exploring voice agents and their use within contexts such as home and co-designs social robots with older adults.  Other research interests include design education, front-end design tools, and human-centered design.",
+      "role": {
+        "role": "PhD Student"
+      },
+      "projects": [
+        "Ethics of Deepfakes",
+        "Debating technology and AI with your child",
+        "AI & Data Privacy",
+        "AI & Ethics in Middle School",
+        "Robots in the Home",
+        "Wellness",
+        "Medications Adherence",
+        "Elderly Co-Design"
+      ],
+      "skills": [
+        "Co-Design",
+        "Human Study Design",
+        "Methodology Design",
+        "Qualitative Analysis",
+        "Statistical Analysis"
+      ],
+      "main": [
+        "Sound of AI"
+      ],
+      "yearsActive": [
+        [
+          2018,
           "present"
         ]
       ]

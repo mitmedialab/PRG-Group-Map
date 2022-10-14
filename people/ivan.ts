@@ -5,7 +5,7 @@ describeYourself({
   email: "isysoev@mit.edu",
   //photo: pathToFileInAssetsFolder("parker.png"),
   bio: "",
-  role: "",
+  role: "Research Scientist",
   projects: ["Speech Blocks", "AI & Growth Mindset"],
   skills: ["Human Study Design", "Statistical Analysis", "Child Study", "Art"],
   main: ["Speech Blocks"],

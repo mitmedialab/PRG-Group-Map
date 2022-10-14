@@ -5,7 +5,7 @@ describeYourself({
     email: "samuelsp@media.mit.edu",
     //photo: pathToFileInAssetsFolder("parker.png"),
     bio: "",
-    role: "",
+    role: "Research Scientist",
     projects: ["Adult Language Teaching", "Early Literacy"],
     skills: ["Human Study Design", "Jibo Skill", "Reinforcement Learning", "Statistical Analysis"],
     main: ["Adult Language Teaching"],

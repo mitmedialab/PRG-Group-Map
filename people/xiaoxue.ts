@@ -4,7 +4,7 @@ describeYourself({
   name: "Xiaoxue Du",
   email: "",
   bio: "",
-  role: "",
+  role: "Research Scientist",
   projects: [
     "Data, Representation, & AI",
     "Autonomous Agents",

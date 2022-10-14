@@ -4,7 +4,7 @@ describeYourself({
     name: "Nicole Pang",
     email: "",
     bio: "",
-    role: "",
+    role: "Research Scientist",
     projects: [
         "Ethics of Deepfakes",
         "Debating technology and AI with your child",

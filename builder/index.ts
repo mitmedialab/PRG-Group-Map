@@ -9,6 +9,7 @@ const projectRoot = path.resolve(__dirname, "..");
 const assetsFolder = path.join(projectRoot, "assets");
 const appFolder = path.join(projectRoot, "app");
 const dataFile = path.join(appFolder, "data.json");
+const graphFile = path.join(assetsFolder, "graph.json");
 
 const encoding: BufferEncoding = "utf8";
 
@@ -154,5 +155,17 @@ export const pathToFileInAssetsFolder = (filename: string): PathToAsset => {
     if (!fs.existsSync(pathToFile)) throw new Error(`Uh oh! The path to the desired asset doesn't exist: ${filename}`);
     return { path: pathToFile };
 };
+
+export const createGraph = () : void => {
+    const data = getData();
+    const { skills, roles, themes, members } = data as any as NormalizedData;
+    
+    console.log(skills);
+    console.log(roles);
+    console.log(themes);
+    console.log(members);
+    // ensureAppFolder();
+    // fs.writeFileSync(graphFile, JSON.stringify(data, null, 2));
+}
 
 export * from "./types";
