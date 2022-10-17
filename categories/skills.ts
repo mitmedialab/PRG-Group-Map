@@ -23,8 +23,13 @@ const skills = category({
     "Robot Engineering": "",
     "Scratch Master": "",
     "Child-Robot Interaction": "",
+    "Human-Computer Interaction": "",
     "Teacher Education": "",
     "STEM Education": "",
+    "Project Management": "",
+    "NLP":"",
+    "Curriculum Design": "", 
+    "User Experience": "", 
 });
 
 set("skills", skills);

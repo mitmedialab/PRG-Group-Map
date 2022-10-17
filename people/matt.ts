@@ -1,24 +1,21 @@
 import { describeYourself, pathToFileInAssetsFolder } from "../builder";
 
 describeYourself({
-    name: "Matt Hancher",
-    email: "",
+    name: "Matt Taylor",
+    email: "MEWTaylor@gmail.com",
     //photo: pathToFileInAssetsFolder("parker.png"),
     bio: "",
     role: "Research Scientist",
     projects: [
         "Doodle Bot",
-        "Data, Representation, & AI",
-        "General AI",
+        "Feature Detection",
+        "Contours 2 Classification",
         "Autonomous Agents",
-        "Human-AI Collaboration: Human Behavior",
         "Sound of AI",
         "Computational Action",
         "Data Activism",
         "Primary AI",
-        "DAILy",
     ],
     skills: ["General AI"],
-    main: "Sound of AI",
     yearsActive: 2020
 });

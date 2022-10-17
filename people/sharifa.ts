@@ -7,9 +7,10 @@ describeYourself({
   role: "Research Scientist",
   main: ["Depression & Suicide Modeling"],
   projects: [
-        "Data, Representation, & AI",
+        "Feature Detection",
         "Autonomous Agents",
         "Doodle Bot",
+        "Jibo",
         "Wellness",
         "Medications Adherence",
         "Elderly Co-Design",
@@ -17,6 +18,7 @@ describeYourself({
         "Robots in the Home",
         "Jibo",
         "Human-AI Collaboration: Human Behavior",
-        "Depression & Suicide Modeling"],
-  skills: ["General AI", "Vision & Sensors", "Dev", "Verbal & Nonverbal Behavior", "Jibo Skill"],
+        "Depression & Suicide Modeling",
+        "Social Emotional Learning"],
+  skills: ["General AI", "Vision & Sensors", "Dev", "Verbal & Nonverbal Behavior", "Jibo Skill","Human-Computer Interaction"],
 });

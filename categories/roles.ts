@@ -7,7 +7,11 @@ const roles = category({
     "Tech Developer": "",
     "Research Scientist": "",
     "Masters Student": "",
+    "MEng. Student": "Masters of Engineering Student",
     "PhD Student": "",
+    "Postdoctoral Associate": "",
+    "Research Support Associate":"",
+    "Visiting Student":"",
     "": "",
 });
 
