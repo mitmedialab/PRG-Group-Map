@@ -13,8 +13,7 @@ export const hideTooltipCss: Parameters<typeof styleTooltip>[0] = ({
     innerHTML: "",
 });
 
-export const showTooltipForNode = (node, pos: { x: any; y: any; }) => {
-    // tooltip info
+export const showTooltipForNode = (node: cytoscape.NodeSingular, pos: { x: any; y: any; }) => {
     tooltip.childNodes[1].textContent = node.data("id");
     if (node.data("class") !== "person") {
         (tooltip.childNodes[3] as HTMLElement).innerHTML += `<i>${capitalize(
@@ -28,7 +27,7 @@ export const showTooltipForNode = (node, pos: { x: any; y: any; }) => {
         ) {
             (tooltip.childNodes[3] as HTMLElement).innerHTML += `<br/><b>${capitalize(
                 entry[0]
-            )}:</b> ${toAttr(entry[1])}`;
+            )}:</b> ${toAttr(entry[0], entry[1])}`;
         }
     });
     // tooltip position

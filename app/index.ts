@@ -1,12 +1,12 @@
 import { NormalizedData } from "../builder";
-import { makeNodesEdges } from "./genGraphData";
+import { makeNodesAndEdges } from "./genGraphData";
 import json from "./data.json";
 import cytoscape from "cytoscape";
 import { hideTooltipCss, showTooltipForNode, styleTooltip } from "./tooltip";
 
 const { skills, roles, themes, members } = json as any as NormalizedData;
 
-const [prgProjectsElements, styling] = makeNodesEdges({ skills, roles, themes, members });
+const [prgProjectsElements, styling] = makeNodesAndEdges({ skills, roles, themes, members });
 
 var nodeWidth: number,
   nodeHeight: number,
@@ -144,7 +144,7 @@ const handleTap = (evt: cytoscape.EventObject) => {
       },
       {
         data: {
-          id: "Cynthia Breazeal",
+          id: director.name,
           level: cy.elements().length,
           class: "director",
           ...directorAttr,

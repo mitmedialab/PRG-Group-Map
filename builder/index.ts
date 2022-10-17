@@ -158,16 +158,4 @@ export const pathToFileInAssetsFolder = (filename: string): PathToAsset => {
     return { path: pathToFile };
 };
 
-export const createGraph = (): void => {
-    const data = getData();
-    const { skills, roles, themes, members } = data as any as NormalizedData;
-
-    console.log(skills);
-    console.log(roles);
-    console.log(themes);
-    console.log(members);
-    // ensureAppFolder();
-    // fs.writeFileSync(graphFile, JSON.stringify(data, null, 2));
-}
-
 export * from "./types";

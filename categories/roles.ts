@@ -8,7 +8,6 @@ const roles = category({
     "Research Scientist": "",
     "Masters Student": "",
     "PhD Student": "",
-    "": "",
 });
 
 set("roles", roles);
