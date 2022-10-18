@@ -10,13 +10,17 @@ function getNumberWithOrdinal(n) {
 export const toAttr = (key, text) => {
     if (key === "role") {
         const { role, year } = text as VerboseRole;
-        return year !== undefined ? `${getNumberWithOrdinal(year)} year ${role}` : role;
+        return year !== undefined ? `${getNumberWithOrdinal(year)} Year ${role}` : role;
     };
+
+    if (key === "yearsActive") {
+        return (text as string).replace(",", "-");
+    }
     return text
 };
 
 export const capitalize = (s: string) => {
-    return s.charAt(0).toUpperCase() + s.slice(1);
+    return (s.charAt(0).toUpperCase() + s.slice(1)).replace(/([A-Z])/g, ' $1').trim();
 };
 
 export const isString = <T>(x: T) => typeof x === 'string' || x instanceof String;
@@ -68,8 +72,8 @@ const makeReadble = <T>(key: string, value: T) => {
     }
     else if (key === "links" && Array.isArray(value)) {
         return value?.reduce((acc: string, link: VerboseLink) => {
-            return `${acc}<a href="${link.url}">${link.text}</a>`;
-        }, "") ?? "";
+            return `${acc}<a href="${link.url}">${link.text}</a><br>`;
+        }, "<br>") ?? "";
     }
     else if (Array.isArray(value)) {
         return value.join(", ");
