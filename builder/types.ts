@@ -122,7 +122,13 @@ export type RoleEntries = Entries<RoleName>;
 
 // People
 
+type ValueOrWeightedCollection<T> = readonly (T | WeightedConnection<T>)[];
+
+type Project = ValueOrWeightedCollection<ProjectName>;
+
 export type ProjectCollection = readonly ProjectName[];
+
+export type WeightedConnection<T> = { value: T, weight: number };
 
 export type GroupMember = {
     name: string,
