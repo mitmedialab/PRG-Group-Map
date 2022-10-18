@@ -4,5 +4,10 @@
 
 tasks:
   - init: npm install
+  - command: npm run bundle && python -m http.server 8000 --directory ./app/site/
+ports:
+  - port: 8000
+    onOpen: open-preview
+
 
 
