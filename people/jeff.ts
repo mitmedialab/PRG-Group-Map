@@ -1,4 +1,4 @@
-import { describeYourself, pathToFileInAssetsFolder } from "../builder";
+import { describeYourself } from "../builder";
 
 describeYourself({
     name: "Jeff Freilich",
@@ -7,5 +7,5 @@ describeYourself({
     role: "Admin & Finance",
     projects: ["Autonomous Agents", "Doodle Bot", "Computational Action", "Day of AI"],
     skills: ["Project Management"],
-    yearsActive: 2021,
+    years: 2021,
 });

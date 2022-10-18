@@ -9,11 +9,12 @@ function getNumberWithOrdinal(n) {
 
 export const toAttr = (key, text) => {
     if (key === "role") {
-        const { role, year } = text as VerboseRole;
+        const { name: role, year } = text as VerboseRole;
         return year !== undefined ? `${getNumberWithOrdinal(year)} Year ${role}` : role;
     };
 
-    if (key === "yearsActive") {
+    if (key === "years") {
+        // TODO this should be handle elsewhere
         return (text as string).replace(",", "-");
     }
     return text

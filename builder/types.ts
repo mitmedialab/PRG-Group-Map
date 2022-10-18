@@ -8,7 +8,17 @@ export type ValueOf<T> = T[keyof T];
 
 export type PathToAsset = { path: string };
 
-export type VerboseLink = { text: string, url: string };
+export type VerboseLink = {
+    /**
+     * @summary Display text of link
+     */
+    text: string,
+    /**
+     * @summary Endpoint / URL of link
+     */
+    url: string
+};
+
 export type Link = string | VerboseLink;
 
 
@@ -43,18 +53,41 @@ export type NormalizedTimeFrame = readonly [...[number, number][], [number, numb
 
 export type VerboseDetails = {
     /**
-     * Short (one sentence or less) description of what this thing is
+     * @summary Short (one sentence or less) description of what this thing is
      */
     summary: string,
     /**
-     * Lengthier explanation of what this thing is
+     * @summary Lengthier explanation of what this thing is
      */
     description?: string,
-    timeFrame?: YearsTimeFrame,
+    /**
+     * @summary How long this thing has been relevant for (i.e. how long it's been actively worked on)
+     * @example
+     * timeFrame: 2020 // represents 2020-present
+     * @example
+     * timeFrame: [2018, 2020] // represents 2018-2020
+     * @example
+     * timeFrame: [ [2000, 2005], [2010, 2020] ] // represents 2000-2005, 2010-2020
+     * @example
+     * timeFrame: [ [2000, 2005], [2010, 2020], 2022 ] // represents 2000-2005, 2010-2020, 2022-present
+     */
+    years?: YearsTimeFrame,
+    /**
+     * @summary Any relevant links associated with this thing
+     * @example 
+     * // single link that will display the link with it's full URL
+     * links: ["https://www.google.com/"] 
+     * @example
+     * // single link that will display the link with some special text
+     * links: [ { text: "Click me!", url: "https://www.google.com/"} ]
+     * @example
+     * // multiple links
+     * links: [ "https://www.mit.edu/", { text: "Click me!", url: "https://www.google.com/"}]
+     */
     links?: readonly Link[]
 };
 
-export type NormalizedDetails = Replace<Replace<VerboseDetails, "links", VerboseLink[], true>, "timeFrame", NormalizedTimeFrame, true>;
+export type NormalizedDetails = Replace<Replace<VerboseDetails, "links", VerboseLink[], true>, "years", NormalizedTimeFrame, true>;
 
 export type CategoryDetails = string | VerboseDetails;
 
@@ -104,7 +137,7 @@ export type ProjectEntries = Entries<ProjectName>;
 
 export type Theme = { details: CategoryDetails } & ProjectEntries;
 
-export type NormalizedTheme = { details: VerboseDetails } & Entries<ProjectName, VerboseDetails>;
+export type NormalizedTheme = { details: NormalizedDetails } & Entries<ProjectName, NormalizedDetails>;
 
 export type ThemeEntries = Entries<ThemeName, Theme>;
 
@@ -116,41 +149,129 @@ export type SkillEntries = Entries<SkillName>;
 
 // Roles
 
-export type VerboseRole = { role: RoleName, year?: number };
+export type VerboseRole = {
+    /**
+     * @summary Role name
+     */
+    name: RoleName,
+    /**
+     * @summary The year tied to your role, especially for students
+     * @example
+     * year: 2 // represents you're a 2nd year (maybe master's or PhD student.?)
+     */
+    year?: number
+};
 type Role = RoleName | VerboseRole;
 export type RoleEntries = Entries<RoleName>;
 
 // People
 
-export type ProjectConnection = { project: ProjectName, main?: boolean, weight?: number };
+export type ProjectConnection = {
+    /**
+     * @summary Project name
+     */
+    name: ProjectName,
+    /**
+     * @summary Is this your main project? 
+     * @description NOTE: You CAN specify more than one project as a 'main' project
+     */
+    main?: boolean,
+    /**
+     * @summary How strong is your association to this project?
+     * @description Measured on a scale of 1-100, this will control how your connection this project is displayed.
+     */
+    weight?: number
+};
 
 export type ProjectCollection = ProjectName | ProjectConnection | readonly (ProjectName | ProjectConnection)[];
 
-export type WeightedConnection<T> = { value: T, weight: number };
-
-
 export type GroupMember = {
+    /**
+     * @summary Your full (preferred) name
+     */
     name: string,
+
+    /**
+     * @summary The best email to reach you at
+     * @example
+     * email: "cool.dude123@gmail.com"
+     */
     email: string,
+
+    /**
+     * @summary A short description about you and your work
+     */
     bio: string,
+
+    /**
+     * @summary Your role in the lab
+     * @example
+     * // Specifying role and year (likely best option for students)
+     * role: { name: "PhD Student", year: 2 } // represents 2nd Year PhD Student
+     * @example
+     * // Specifying only role name
+     * role: "Director"
+     */
     role: Role,
+
+    /**
+     * @summary What projects you work on
+     * @example
+     * // Single project that will be assumed to be your "main" project
+     * projects: "Jibo"
+     * @example
+     * // Single project specified to not your be your "main" project
+     * projects: { project: "Jibo", main: false }
+     * @example 
+     * // Multiple projects, with one specified as main
+     * projects: [ "Day of AI", { project: "Jibo", main: true }, "DAILy" ]
+     * @example
+     * // Making use of the optional 'weight' parameter to control how your connection to a project is visualized.
+     * // (use a value between 0 - 100)
+     * projects: [ { "Day of AI", weight: 20 }, { project: "Jibo", main: true, weight: 90 }]
+     */
     projects: ProjectCollection,
+
+    /**
+     * @summary What are you good at?
+     * @example
+     * // specifying a collection of skills
+     * skills: ["Dev", "Jibo Skill" ]
+     */
     skills: readonly SkillName[],
+
+    /**
+     * @summary Relevant links about you and your work
+     * @example
+     * // single link that will display the link with it's full URL
+     * links: ["https://www.google.com/"] 
+     * @example
+     * // single link that will display the link with some special text
+     * links: [ { text: "Click me!", url: "https://www.google.com/"} ]
+     * @example
+     * // multiple links
+     * links: [ "https://www.mit.edu/", { text: "Click me!", url: "https://www.google.com/"}]
+     */
     links?: readonly Link[],
+
+    /**
+     * @summary Not yet supported.
+     * Should allow for both a path to a file inside of 'assets/' as well as maybe a URL 
+     */
     photo?: PathToAsset,
 
     /**
      * @summary How long you have been a member of the lab
      * @example
-     * yearsActive: 2020 // represents 2020-present
+     * years: 2020 // represents 2020-present
      * @example
-     * yearsActive: [2018, 2020] // represents 2018-2020
+     * years: [2018, 2020] // represents 2018-2020
      * @example
-     * yearsActive: [ [2000, 2005], [2010, 2020] ] // represents 2000-2005, 2010-2020
+     * years: [ [2000, 2005], [2010, 2020] ] // represents 2000-2005, 2010-2020
      * @example
-     * yearsActive: [ [2000, 2005], [2010, 2020], 2022 ] // represents 2000-2005, 2010-2020, 2022-present
+     * years: [ [2000, 2005], [2010, 2020], 2022 ] // represents 2000-2005, 2010-2020, 2022-present
      */
-    yearsActive?: YearsTimeFrame,
+    years?: YearsTimeFrame,
 }
 
 export type NormalizedMember =
@@ -159,7 +280,7 @@ export type NormalizedMember =
             Replace<
                 Replace<GroupMember,
                     "role", VerboseRole>,
-                "yearsActive", NormalizedTimeFrame>,
+                "years", NormalizedTimeFrame>,
             "projects", readonly Required<ProjectConnection>[]>,
         "links", readonly VerboseLink[], true>;
 

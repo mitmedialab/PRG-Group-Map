@@ -17,7 +17,7 @@ describeYourself({
     "Robots in the Home",
     "Jibo",
     "Human-AI Collaboration: Human Behavior",
-    { project: "Depression & Suicide Modeling", main: true },
+    { name: "Depression & Suicide Modeling", main: true },
     "Social Emotional Learning"
   ],
   skills: ["General AI", "Vision & Sensors", "Dev", "Verbal & Nonverbal Behavior", "Jibo Skill", "Human-Computer Interaction"],

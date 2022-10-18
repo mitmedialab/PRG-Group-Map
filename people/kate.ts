@@ -1,4 +1,4 @@
-import { describeYourself, pathToFileInAssetsFolder } from "../builder";
+import { describeYourself } from "../builder";
 
 describeYourself({
     name: "Kate Darling",
@@ -14,6 +14,6 @@ describeYourself({
         "Human-AI Collaboration: Human Behavior",
     ],
     skills: ["Ethics", "Policy"],
-    yearsActive: 2018,
+    years: 2018,
     links: [{ text: "Kate Darling", url: "http://www.katedarling.org/" }]
 });
