@@ -1,13 +1,13 @@
 import cytoscape from "cytoscape";
 import { VerboseLink, VerboseRole } from "../builder";
 
-function getNumberWithOrdinal(n) {
+function getNumberWithOrdinal(n: number) {
     var s = ["th", "st", "nd", "rd"],
         v = n % 100;
     return n + (s[(v - 20) % 10] || s[v] || s[0]);
 }
 
-export const toAttr = (key, text) => {
+export const toAttr = <T>(key: string, text: T) => {
     if (key === "role") {
         const { name: role, year } = text as VerboseRole;
         return year !== undefined ? `${getNumberWithOrdinal(year)} Year ${role}` : role;
@@ -102,9 +102,9 @@ type Readable<T> = ArrayLike<T[keyof T]>
 
 export const readableObject = <T extends object>(obj: T) =>
     Object.entries(obj).reduce((acc, [key, value]) => {
-        acc[key] = makeReadble(key, value);
+        acc[key as keyof T] = makeReadble(key, value) as Readable<T>[keyof T];
         return acc;
-    }, {}) as Readable<T>;
+    }, {} as Readable<T>);
 
 export const readableEntries = <T extends object>(obj: T) =>
     Object.entries<T[keyof T]>(readableObject(obj));
