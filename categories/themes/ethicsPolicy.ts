@@ -7,6 +7,7 @@ export default theme({
         "Ethics of Deepfakes": "",
         "Debating technology and AI with your child": "",
         "AI & Data Privacy": "",
-        "AI & Ethics in Middle School": ""
+        "AI & Ethics in Middle School": "",
+        "Design Justice": ""
     }
 });

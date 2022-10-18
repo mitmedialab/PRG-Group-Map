@@ -18,5 +18,7 @@ export default theme({
         "Data Activism": "",
         "Primary AI": "",
         "DAILy": "",
+        "Interactive Stories for Learning AI":"",
+        "Day of AI":"",
     }
 });

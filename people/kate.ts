@@ -15,4 +15,6 @@ describeYourself({
         "Human-AI Collaboration: Human Behavior",
     ],
     skills: ["Ethics", "Policy"],
+    yearsActive: 2018,
+    links: [{ text: "Kate Darling", url: "http://www.katedarling.org/" }]
 });
