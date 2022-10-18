@@ -4,7 +4,7 @@ describeYourself({
     name: "",
     email: "",
     bio: "",
-    role: "",
+    role: "MEng. Student",
     projects: [],
     skills: [],
 });

@@ -10,9 +10,8 @@ const roles = category({
     "MEng. Student": "Masters of Engineering Student",
     "PhD Student": "",
     "Postdoctoral Associate": "",
-    "Research Support Associate":"",
-    "Visiting Student":"",
-    "": "",
+    "Research Support Associate": "",
+    "Visiting Student": "",
 });
 
 set("roles", roles);

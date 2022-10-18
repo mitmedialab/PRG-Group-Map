@@ -21,19 +21,10 @@ import { describeYourself, pathToFileInAssetsFolder } from "../builder";
 
 describeYourself({
     // Required fields (don't leave these blank)
-    name: "",
-    email: "",
+    name: "Phillip Sandy",
+    email: "pmsandy@mit.edu",
     bio: "",
-    role: { role: "PhD Student", year: 1 },
+    role: "Admin & Finance",
     projects: [],
-    skills: [],
-
-    // Optional fields (remove if not needed)
-    links: [
-        {
-            text: "",
-            url: ""
-        },
-    ],
-    main: [],
+    skills: ["Project Management"],
 });
