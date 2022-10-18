@@ -3,6 +3,7 @@ import * as fs from "fs";
 import * as path from "path";
 import { RoleName } from "../categories/roles";
 import { ProjectName } from "../categories/projectsByTheme";
+import { isObject } from "../app/utils";
 
 const projectRoot = path.resolve(__dirname, "..");
 
@@ -43,7 +44,7 @@ const normalizeLinks = (links: VerboseDetails["links"]): NormalizedDetails["link
     });
 }
 
-const normalizeTimeFrame = (timeFrame: VerboseDetails["timeFrame"]): NormalizedTimeFrame | undefined => {
+const normalizeTimeFrame = (timeFrame: VerboseDetails["years"]): NormalizedTimeFrame | undefined => {
     if (!timeFrame) return undefined;
 
     // ex: timeFrame = 2022
@@ -76,33 +77,41 @@ const normalizeDetails = (details: CategoryDetails) => {
     const normalized = {
         ...verbose,
         links: normalizeLinks(verbose.links),
-        timeFrame: normalizeTimeFrame(verbose.timeFrame)
+        timeFrame: normalizeTimeFrame(verbose.years)
     } as NormalizedDetails;
     return normalized;
 };
 
 const normalizeRole = (role: GroupMember["role"]): NormalizedMember["role"] => {
-    if (isString(role)) return { role: role as RoleName };
+    if (isString(role)) return { name: role as RoleName };
     return role as VerboseRole;
 };
 
 const defaultMainProjectWeight = 50;
 const defaultProjectWeight = 20;
 
+const normalizeProjectConnection = (connection: ProjectConnection) => {
+    const { name, main: potentialMain, weight: potentialWeight } = connection;
+    const main = potentialMain === undefined ? false : potentialMain
+    const weight = potentialWeight === undefined ? main ? defaultMainProjectWeight : defaultProjectWeight : potentialWeight;
+    return { name, main, weight }
+}
+
 const normalizeProjects = (projects: GroupMember["projects"]): NormalizedMember["projects"] => {
-    if (isString(projects)) return [{ project: projects as ProjectName, main: true, weight: defaultMainProjectWeight }];
+    if (isString(projects)) return [{ name: projects as ProjectName, main: true, weight: defaultMainProjectWeight }];
+    if (isObject(projects)) return [normalizeProjectConnection(projects as ProjectConnection)]; // check for array
 
     const projArray = projects as readonly (ProjectName | ProjectConnection)[];
 
     return projArray.map((project) => {
         if (isString(project)) return {
-            project: project as ProjectName,
+            name: project as ProjectName,
             main: false,
             weight: defaultProjectWeight
         };
-        const { project: name, main, weight } = project as ProjectConnection;
+        const { name: name, main, weight } = project as ProjectConnection;
         return {
-            project: name,
+            name,
             main: main === undefined ? false : main,
             weight: weight === undefined ? defaultProjectWeight : weight
         }
@@ -110,10 +119,10 @@ const normalizeProjects = (projects: GroupMember["projects"]): NormalizedMember[
 };
 
 const normalizeMember = (member: GroupMember): NormalizedMember => {
-    const { yearsActive, role, projects, links } = member;
+    const { years, role, projects, links } = member;
     return {
         ...member,
-        yearsActive: normalizeTimeFrame(yearsActive) as NormalizedTimeFrame,
+        years: normalizeTimeFrame(years) as NormalizedTimeFrame,
         role: normalizeRole(role),
         projects: normalizeProjects(projects),
         links: normalizeLinks(links)

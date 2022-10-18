@@ -1,4 +1,4 @@
-import { describeYourself, pathToFileInAssetsFolder } from "../builder";
+import { describeYourself } from "../builder";
 
 describeYourself({
   name: "Randi Williams",
@@ -7,7 +7,7 @@ describeYourself({
   in the Personal Robots group at the MIT Media Lab. 
   She received her Master of Science in Media Arts in Sciences from MIT in 2018 
   and her Bachelor of Science in Computer Engineering from UMBC in 2016.`,
-  role: { role: "PhD Student", year: 5 },
+  role: { name: "PhD Student", year: 5 },
   projects: [
     "Doodle Bot",
     "PopBots",

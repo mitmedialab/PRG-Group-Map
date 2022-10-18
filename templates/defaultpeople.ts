@@ -24,7 +24,7 @@ describeYourself({
     name: "",
     email: "",
     bio: "",
-    role: { role: "PhD Student", year: 1 },
+    role: { name: "PhD Student", year: 1 },
     projects: [],
     skills: [],
 

@@ -8,6 +8,6 @@ export default project({
             { text: "Live Site", url: "https://mitmedialab.github.io/feature-detection-ProjectSTEM/" },
             { text: "Repository", url: "https://github.com/mitmedialab/feature-detection-ProjectSTEM" },
         ],
-        timeFrame: 3030
+        years: 3030
     }
 });

@@ -1,11 +1,11 @@
-import { describeYourself, pathToFileInAssetsFolder } from "../builder";
+import { describeYourself } from "../builder";
 
 describeYourself({
     name: "Yubin Kim",
     email: "ybkim95@media.mit.edu",
     bio: "",
     role: "Visiting Student",
-    projects: [{ project: "Robots in the Home", main: true }, "Autonomous Agents"],
+    projects: [{ name: "Robots in the Home", main: true }, "Autonomous Agents"],
     skills: ["Dev", "General AI", "Verbal & Nonverbal Behavior", "Vision & Sensors"],
-    yearsActive: 2022
+    years: 2022
 });

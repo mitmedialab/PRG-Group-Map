@@ -1,4 +1,4 @@
-import { describeYourself, pathToFileInAssetsFolder } from "../builder";
+import { describeYourself } from "../builder";
 
 describeYourself({
     name: "Kejia Patterson",
@@ -7,5 +7,5 @@ describeYourself({
     role: "Research Support Associate",
     projects: ["Early Literacy", "Robots in the Home"],
     skills: ["Curriculum Design", "Project Management", "Human Study Design", "User Experience"],
-    yearsActive: 2019,
+    years: 2019,
 });

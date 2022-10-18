@@ -1,4 +1,4 @@
-import { describeYourself, pathToFileInAssetsFolder } from "../builder";
+import { describeYourself } from "../builder";
 
 describeYourself({
     name: "Nicole Pang",
@@ -10,8 +10,8 @@ describeYourself({
         "Debating technology and AI with your child",
         "AI & Data Privacy",
         "AI & Ethics in Middle School",
-        { project: "Computational Action", main: true },
+        { name: "Computational Action", main: true },
     ],
     skills: ["Ethics", "General AI"],
-    yearsActive: [2021, 2022],
+    years: [2021, 2022],
 });

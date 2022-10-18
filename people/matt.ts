@@ -1,4 +1,4 @@
-import { describeYourself, pathToFileInAssetsFolder } from "../builder";
+import { describeYourself } from "../builder";
 
 describeYourself({
     name: "Matt Taylor",
@@ -16,5 +16,5 @@ describeYourself({
         "Primary AI",
     ],
     skills: ["General AI"],
-    yearsActive: 2020
+    years: 2020
 });

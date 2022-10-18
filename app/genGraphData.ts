@@ -1,9 +1,9 @@
 import cytoscape from "cytoscape";
-import type { NormalizedData, VerboseDetails, VerboseLink } from "../builder/types";
+import type { NormalizedData, NormalizedDetails, VerboseDetails, VerboseLink } from "../builder/types";
 import { ProjectName } from "../categories/projectsByTheme";
 import { RoleName } from "../categories/roles";
 import { getColorCss, getNextColorIndex } from "./color";
-import { Class, css, edge, edgeStyle, isString, node, nodeStyle, readableEntries, readableObject, style } from "./utils";
+import { Class, css, edge, edgeStyle, node, nodeStyle, readableEntries, readableObject, style } from "./utils";
 
 export const makeNodesAndEdges = (data: NormalizedData): [cytoscape.ElementDefinition[], cytoscape.Stylesheet[]] => {
     const { skills, roles, themes, members } = data;
@@ -11,16 +11,16 @@ export const makeNodesAndEdges = (data: NormalizedData): [cytoscape.ElementDefin
     const allProjects = Object.entries(themes).reduce((acc, [theme, content]) => {
         const projects = { ...content };
         return { ...acc, ...projects };
-    }, {} as Record<ProjectName, VerboseDetails>);
+    }, {} as Record<ProjectName, NormalizedDetails>);
 
     delete allProjects["details"];
 
-    const director = members.find((m) => m.role.role === "Director");
+    const director = members.find((m) => m.role.name === "Director");
     if (director === undefined) throw new Error("Could not find the director!");
 
     const staffRoles: RoleName[] = ["Lab Management", "Tech Developer", "Admin & Finance"];
-    const researchers = members.filter((m) => !staffRoles.includes(m.role.role));
-    const staff = members.filter((m) => staffRoles.includes(m.role.role));
+    const researchers = members.filter((m) => !staffRoles.includes(m.role.name));
+    const staff = members.filter((m) => staffRoles.includes(m.role.name));
 
     const projectNames = Object.keys(allProjects);
 
@@ -153,7 +153,7 @@ export const makeNodesAndEdges = (data: NormalizedData): [cytoscape.ElementDefin
         console.log(projects);
 
         graphElements.push(
-            ...projects.map(({ project }) => edge({ source: project, target: personName }))
+            ...projects.map(({ name: project }) => edge({ source: project, target: personName }))
         );
     }
 
@@ -171,7 +171,7 @@ export const makeNodesAndEdges = (data: NormalizedData): [cytoscape.ElementDefin
         graphElements.push(node({
             id: staffMemberName,
             class: Class.Staff,
-            parent: staffMember.role.role,
+            parent: staffMember.role.name,
             ...readableObject(staffAttr),
         }));
     }

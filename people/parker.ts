@@ -1,4 +1,4 @@
-import { describeYourself, pathToFileInAssetsFolder } from "../builder";
+import { describeYourself } from "../builder";
 
 describeYourself({
     name: "Parker Malachowsky",
@@ -7,5 +7,5 @@ describeYourself({
     role: "Tech Developer",
     projects: ["Sound of AI", "Interactive Stories for Learning AI", "Contours 2 Classification", "Feature Detection"],
     skills: ["General AI"],
-    yearsActive: 2020
+    years: 2020
 });

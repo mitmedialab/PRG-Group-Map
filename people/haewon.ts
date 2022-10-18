@@ -1,4 +1,4 @@
-import { describeYourself, pathToFileInAssetsFolder } from "../builder";
+import { describeYourself } from "../builder";
 
 describeYourself({
     name: "Hae Won Park",
@@ -19,5 +19,5 @@ describeYourself({
     ],
     skills: ["General AI", "Jibo Skill", "Co-Design", "Human Study Design", "Child Study", "Reinforcement Learning",
         "Robot Engineering", "Child-Robot Interaction"],
-    yearsActive: 2016,
+    years: 2016,
 });
