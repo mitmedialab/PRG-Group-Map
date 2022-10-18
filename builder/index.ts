@@ -1,4 +1,4 @@
-import { CategoryDetails, Data, GroupMember, NormalizedData, NormalizedDetails, NormalizedMember, NormalizedTheme, NormalizedTimeFrame, PathToAsset, ProjectCollection, ProjectDetails, RoleEntries, SkillEntries, Theme, ThemeEntries, VerboseDetails, VerboseLink, VerboseRole } from "./types";
+import { CategoryDetails, Data, GroupMember, NormalizedData, NormalizedDetails, NormalizedMember, NormalizedTheme, NormalizedTimeFrame, PathToAsset, ProjectCollection, ProjectConnection, ProjectDetails, RoleEntries, SkillEntries, Theme, ThemeEntries, VerboseDetails, VerboseLink, VerboseRole } from "./types";
 import * as fs from "fs";
 import * as path from "path";
 import { RoleName } from "../categories/roles";
@@ -86,18 +86,36 @@ const normalizeRole = (role: GroupMember["role"]): NormalizedMember["role"] => {
     return role as VerboseRole;
 };
 
-const normalizeMain = (projects: GroupMember["main"]): NormalizedMember["main"] => {
-    if (isString(projects)) return [projects] as [ProjectName];
-    return projects as ProjectCollection;
+const defaultMainProjectWeight = 50;
+const defaultProjectWeight = 20;
+
+const normalizeProjects = (projects: GroupMember["projects"]): NormalizedMember["projects"] => {
+    if (isString(projects)) return [{ project: projects as ProjectName, main: true, weight: defaultMainProjectWeight }];
+
+    const projArray = projects as readonly (ProjectName | ProjectConnection)[];
+
+    return projArray.map((project) => {
+        if (isString(project)) return {
+            project: project as ProjectName,
+            main: false,
+            weight: defaultProjectWeight
+        };
+        const { project: name, main, weight } = project as ProjectConnection;
+        return {
+            project: name,
+            main: main === undefined ? false : main,
+            weight: weight === undefined ? defaultProjectWeight : weight
+        }
+    });
 };
 
 const normalizeMember = (member: GroupMember): NormalizedMember => {
-    const { yearsActive, role, main, links } = member;
+    const { yearsActive, role, projects, links } = member;
     return {
         ...member,
         yearsActive: normalizeTimeFrame(yearsActive) as NormalizedTimeFrame,
         role: normalizeRole(role),
-        main: normalizeMain(main),
+        projects: normalizeProjects(projects),
         links: normalizeLinks(links)
     };
 }

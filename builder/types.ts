@@ -122,13 +122,12 @@ export type RoleEntries = Entries<RoleName>;
 
 // People
 
-type ValueOrWeightedCollection<T> = readonly (T | WeightedConnection<T>)[];
+export type ProjectConnection = { project: ProjectName, main?: boolean, weight?: number };
 
-type Project = ValueOrWeightedCollection<ProjectName>;
-
-export type ProjectCollection = readonly ProjectName[];
+export type ProjectCollection = ProjectName | ProjectConnection | readonly (ProjectName | ProjectConnection)[];
 
 export type WeightedConnection<T> = { value: T, weight: number };
+
 
 export type GroupMember = {
     name: string,
@@ -137,7 +136,6 @@ export type GroupMember = {
     role: Role,
     projects: ProjectCollection,
     skills: readonly SkillName[],
-    main?: ProjectName | ProjectCollection,
     links?: readonly Link[],
     photo?: PathToAsset,
 
@@ -162,7 +160,7 @@ export type NormalizedMember =
                 Replace<GroupMember,
                     "role", VerboseRole>,
                 "yearsActive", NormalizedTimeFrame>,
-            "main", ProjectCollection, true>,
+            "projects", readonly Required<ProjectConnection>[]>,
         "links", readonly VerboseLink[], true>;
 
 type Identity<T> = { [P in keyof T]: T[P] }

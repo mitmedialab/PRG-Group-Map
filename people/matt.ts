@@ -3,7 +3,6 @@ import { describeYourself, pathToFileInAssetsFolder } from "../builder";
 describeYourself({
     name: "Matt Taylor",
     email: "MEWTaylor@gmail.com",
-    //photo: pathToFileInAssetsFolder("parker.png"),
     bio: "",
     role: "Research Scientist",
     projects: [

@@ -35,5 +35,4 @@ describeYourself({
             url: ""
         },
     ],
-    main: [],
 });
