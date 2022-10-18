@@ -7,5 +7,7 @@ export default theme({
         "Speech Blocks": "",
         "Adult Language Teaching": "",
         "Early Literacy": "",
+        "Exploration Literacy": "",
+        "Social Emotional Learning": "",
     }
 });

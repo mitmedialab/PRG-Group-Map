@@ -4,7 +4,7 @@ describeYourself({
     name: "Cynthia Breazeal",
     //photo: pathToFileInAssetsFolder("parker.png"),
     role: "Director",
-    bio: "Vision for PRG",
+    bio: "Vision for PRG: Responsibly advancing humanistic, personified robots that promote human flourishing and fulfilling potential.",
     email: "",
     projects: [],
     skills: [],

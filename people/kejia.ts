@@ -5,7 +5,8 @@ describeYourself({
     email: "",
     //photo: pathToFileInAssetsFolder("parker.png"),
     bio: "",
-    role: "Research Scientist",
-    projects: ["Early Literacy"],
-    skills: []
+    role: "Research Support Associate",
+    projects: ["Early Literacy","Robots in the Home"],
+    skills: ["Curriculum Design","Project Management","Human Study Design","User Experience"],
+    yearsActive: 2019,
 });
