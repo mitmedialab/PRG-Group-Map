@@ -6,8 +6,6 @@ export default theme({
     name: "Project STEM",
     details: "",
     projects: {
-        "Data, Representation, & AI": "",
-        "General AI": "",
         ...featurePerception,
         ...c2c
     }
