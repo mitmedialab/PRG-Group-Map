@@ -153,7 +153,7 @@ export const makeNodesAndEdges = (data: NormalizedData): [cytoscape.ElementDefin
         console.log(projects);
 
         graphElements.push(
-            ...projects.map(({ name: project }) => edge({ source: project, target: personName }))
+            ...projects.map(({ name }) => edge({ source: name, target: personName }))
         );
     }
 
@@ -176,6 +176,10 @@ export const makeNodesAndEdges = (data: NormalizedData): [cytoscape.ElementDefin
         }));
     }
 
-    console.log(graphStyles);
+    console.log("Styles");
+    console.dir(graphStyles);
+    console.log("Elements");
+    console.dir(graphElements);
+
     return [graphElements, graphStyles];
 }

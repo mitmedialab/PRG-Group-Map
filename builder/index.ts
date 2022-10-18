@@ -90,32 +90,21 @@ const normalizeRole = (role: GroupMember["role"]): NormalizedMember["role"] => {
 const defaultMainProjectWeight = 50;
 const defaultProjectWeight = 20;
 
-const normalizeProjectConnection = (connection: ProjectConnection) => {
+const normalizeProjectConnection = (connection: ProjectConnection): Required<ProjectConnection> => {
     const { name, main: potentialMain, weight: potentialWeight } = connection;
     const main = potentialMain === undefined ? false : potentialMain
-    const weight = potentialWeight === undefined ? main ? defaultMainProjectWeight : defaultProjectWeight : potentialWeight;
+    const weight = potentialWeight === undefined
+        ? main ? defaultMainProjectWeight : defaultProjectWeight
+        : potentialWeight;
     return { name, main, weight }
 }
 
-const normalizeProjects = (projects: GroupMember["projects"]): NormalizedMember["projects"] => {
-    if (isString(projects)) return [{ name: projects as ProjectName, main: true, weight: defaultMainProjectWeight }];
-    if (isObject(projects)) return [normalizeProjectConnection(projects as ProjectConnection)]; // check for array
+const normalizeProjects = (projects: GroupMember["projects"], main: boolean = true): NormalizedMember["projects"] => {
+    if (isString(projects)) return [{ name: projects as ProjectName, main, weight: main ? defaultMainProjectWeight : defaultProjectWeight }];
+    if (isObject(projects)) return [normalizeProjectConnection(projects as ProjectConnection)];
 
     const projArray = projects as readonly (ProjectName | ProjectConnection)[];
-
-    return projArray.map((project) => {
-        if (isString(project)) return {
-            name: project as ProjectName,
-            main: false,
-            weight: defaultProjectWeight
-        };
-        const { name: name, main, weight } = project as ProjectConnection;
-        return {
-            name,
-            main: main === undefined ? false : main,
-            weight: weight === undefined ? defaultProjectWeight : weight
-        }
-    });
+    return projArray.map(proj => normalizeProjects(proj as GroupMember["projects"], false)[0]);
 };
 
 const normalizeMember = (member: GroupMember): NormalizedMember => {

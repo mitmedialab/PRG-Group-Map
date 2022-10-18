@@ -26,7 +26,7 @@ export const capitalize = (s: string) => {
 
 export const isString = <T>(x: T) => typeof x === 'string' || x instanceof String;
 
-export const isObject = <T>(x: T) => typeof x === 'object' && x !== null;
+export const isObject = <T>(x: T) => !Array.isArray(x) && typeof x === 'object' && x !== null;
 
 export const enum GraphEntity {
     Node = "node",
