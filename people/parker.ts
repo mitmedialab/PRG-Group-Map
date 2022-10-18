@@ -5,7 +5,7 @@ describeYourself({
     email: "pmalacho@media.mit.edu",
     bio: "Howdy!",
     role: "Tech Developer",
-    projects: ["Sound of AI", "Interactive Stories for Learning AI", "Contours 2 Classification", "Feature Detection"],
+    projects: ["Sound of AI", "AI Storybook", "Contours 2 Classification", "Feature Detection"],
     skills: ["General AI"],
     years: 2020
 });
