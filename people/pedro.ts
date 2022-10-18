@@ -5,8 +5,7 @@ describeYourself({
     email: "pe25171@media.mit.edu",
     bio: "",
     role: { role: "PhD Student", year: 5 },
-    projects: ["Dynamic Procedural Interactions", "Museum Interaction", "Robots in the Home"],
+    projects: [{ project: "Dynamic Procedural Interactions", main: true }, "Museum Interaction", "Robots in the Home"],
     skills: ["Dev", "General AI", "NLP"],
-    main: "Dynamic Procedural Interactions",
     yearsActive: 2018,
 });

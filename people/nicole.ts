@@ -10,9 +10,8 @@ describeYourself({
         "Debating technology and AI with your child",
         "AI & Data Privacy",
         "AI & Ethics in Middle School",
-        "Computational Action",
+        { project: "Computational Action", main: true },
     ],
     skills: ["Ethics", "General AI"],
-    main: "Computational Action",
-    yearsActive: [2021,2022],
+    yearsActive: [2021, 2022],
 });
