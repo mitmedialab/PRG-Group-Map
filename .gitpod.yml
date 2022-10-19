@@ -5,7 +5,11 @@
 tasks:
   - name: Dev Server
     init: npm install
-    command: npm run dev
+    command: |
+      git checkout dev 
+      git pull 
+      npm run dev
+    openMode: 'split-right'
 ports:
   - port: 8000
     onOpen: open-preview
