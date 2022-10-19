@@ -1,6 +1,6 @@
 app/data.json
 app/site/js/*
-
+builder/fragments/*
 
 .DS_Store
 **/.DS_Store

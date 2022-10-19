@@ -63,6 +63,7 @@ export const processCommandLineArgs = <T extends CommandLineOptions>(
     }
 
     for (const arg in args) {
+        console.log(args);
         if (options[arg].trueIfPresent) {
             args[arg] = true;
         }

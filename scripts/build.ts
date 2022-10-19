@@ -6,6 +6,8 @@ import { fork } from "child_process";
 import * as chokidar from "chokidar";
 import { bundle } from './bundle';
 import { processCommandLineArgs } from './CLI';
+import { Flag, Message } from './communication';
+import { clear } from '../builder';
 
 const { watch } = processCommandLineArgs("npm run build --", {
     watch: {
@@ -17,41 +19,46 @@ const { watch } = processCommandLineArgs("npm run build --", {
 });
 
 const root = path.resolve(__dirname, "..");
+const joinScript = path.join(__dirname, "join.ts");
 
 const logOpen = (msg: string) => console.log(chalk.cyan(msg));
 const logClose = (msg: string) => console.log(chalk.green(msg));
 
-fs.rmSync(path.join(root, 'app', 'data.json'), { force: true });
+clear();
 
-const executedFiles: string[] = []
+const executedFiles: string[] = [];
 
-const executeNext = (files: string[]) => {
-    const task = files.pop();
+let nextFragment: string | undefined = undefined;
 
+const onFragmentWrite = (msg: Message) => {
+    const { flag, payload } = msg;
+    if (flag !== Flag.WroteFragment) return;
+
+    if (nextFragment === undefined) return nextFragment = payload;
+    const join = fork(joinScript, [`-a`, `${nextFragment}`, `-b`, `${payload}`]);
+    nextFragment = undefined;
+    join.on("message", (msg: Message) => {
+        onFragmentWrite(msg);
+    });
+}
+
+const execute = (task: string) => {
     if (!task) return;
 
     const file = path.basename(task);
     logOpen(`Begin executing ${file}`);
 
-    if (files.length === 0) {
-        fork(task).once("close", () => {
-            logClose(`Completed ${file}.`);
-            executedFiles.push(file);
-            logOpen("Beginning bundling process.");
-            initialBundle();
-        });
-    } else {
-        fork(task).once("close", () => {
-            logClose(`Completed ${file}.`);
-            executedFiles.push(file);
-            executeNext(files);
-        });
-    }
+    fork(task).on("message", (msg: Message) => {
+        logClose(`Completed ${file}.`);
+        onFragmentWrite(msg);
+    });
 }
 
+//initialBundle();
+
+
 glob(`${root}/{people,categories}/*.ts`, (err: Error | null, files: string[]) => {
-    if (err) return console.error(chalk.red(err));
-    executeNext(files);
+    files.forEach(execute);
 });
 
 const initialBundle = () => {
