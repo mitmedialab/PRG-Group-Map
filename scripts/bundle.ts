@@ -11,6 +11,7 @@ import fs from 'fs';
 
 export const bundle = async (rootDir: string, watch: boolean = false) => {
     const app = path.join(rootDir, 'app');
+    const site = path.join(app, 'site');
     const entry = path.join(app, 'index.ts');
 
     const appFiles: string[] = fs.readdirSync(app)
@@ -29,10 +30,13 @@ export const bundle = async (rootDir: string, watch: boolean = false) => {
     if (watch) {
         plugins.push(
             serve({
-                contentBase: './app/site/',
+                contentBase: site,
                 port: '8000'
             }),
-            livereload()
+            livereload({
+                watch: site,
+                clientUrl: process.env.CLIENT_URL
+            })
         )
     }
 
