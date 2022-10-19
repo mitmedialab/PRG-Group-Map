@@ -8,9 +8,8 @@ tasks:
     command: |
       git pull 
       export PRG_BRANCH="$(date +$(git config user.email | cut -d@ -f1)/gitpod/%Y-%m-%d-%H-%M-%S)"
-      export PRG_BRANCH="$(date +$(git config user.email | cut -d@ -f1))"
       git checkout -b $PRG_BRANCH
-      git push -- --set-upstream origin $PRG_BRANCH
+      git push --set-upstream origin $PRG_BRANCH
       export CLIENT_URL="$(gp url 35729)/livereload.js?snipver=1&port=443"
       npm run dev
     openMode: 'split-right'
