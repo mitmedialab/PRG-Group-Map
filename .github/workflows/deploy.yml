@@ -42,7 +42,7 @@ jobs:
       - name: Bundle
         run: |
           npm install
-          npm run bundle
+          npm run build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:

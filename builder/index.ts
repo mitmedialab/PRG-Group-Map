@@ -18,7 +18,8 @@ const emptyData: NormalizedData = {
     skills: {} as NormalizedData["skills"],
     roles: {} as NormalizedData["roles"],
     themes: {} as NormalizedData["themes"],
-    members: []
+    members: [],
+    memberLookup: {}
 }
 
 const ensureAppFolder = () => (!fs.existsSync(appFolder)) ? fs.mkdirSync(appFolder) : null;
@@ -164,7 +165,16 @@ export const set = <TDataKey extends keyof Data>(field: TDataKey, value: Data[TD
 
 export const describeYourself = (member: GroupMember) => {
     const data = getData();
-    data.members.push(normalizeMember(member));
+
+    if (member.name in data.memberLookup) {
+        const index = data.memberLookup[member.name];
+        data.members[index] = normalizeMember(member);
+    }
+    else {
+        const index = data.members.push(normalizeMember(member)) - 1;
+        data.memberLookup[member.name] = index;
+    }
+
     setData(data);
 }
 

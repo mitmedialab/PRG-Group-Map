@@ -4,9 +4,9 @@ import json from "./data.json";
 import cytoscape from "cytoscape";
 import { hideTooltipCss, showTooltipForNode, styleTooltip } from "./tooltip";
 
-const { skills, roles, themes, members } = json as any as NormalizedData;
+const { skills, roles, themes, members, memberLookup } = json as any as NormalizedData;
 
-const [prgProjectsElements, styling] = makeNodesAndEdges({ skills, roles, themes, members });
+const [prgProjectsElements, styling] = makeNodesAndEdges({ skills, roles, themes, members, memberLookup });
 
 var nodeWidth: number,
   nodeHeight: number,

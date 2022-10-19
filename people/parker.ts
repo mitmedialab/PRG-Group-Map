@@ -6,6 +6,6 @@ describeYourself({
     bio: "Howdy!",
     role: "Tech Developer",
     projects: ["Sound of AI", "AI Storybook", "Contours 2 Classification", "Feature Detection"],
-    skills: ["General AI"],
+    skills: ["General AI", "Dev"],
     years: 2020
 });
