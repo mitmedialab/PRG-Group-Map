@@ -7,11 +7,16 @@ import commonjs from "@rollup/plugin-commonjs";
 import { terser } from "rollup-plugin-terser";
 import serve from 'rollup-plugin-serve';
 import livereload from 'rollup-plugin-livereload';
+import fs from 'fs';
 
 export const bundle = async (rootDir: string, watch: boolean = false) => {
     const app = path.join(rootDir, 'app');
     const entry = path.join(app, 'index.ts');
-    const data = path.join(app, 'data.json');
+
+    const appFiles: string[] = fs.readdirSync(app)
+        .map(file => path.join(app, file))
+        .filter(file => !file.startsWith("."))
+        .filter(file => !fs.lstatSync(file).isDirectory());
 
     const plugins = [
         typescript(),
@@ -51,8 +56,6 @@ export const bundle = async (rootDir: string, watch: boolean = false) => {
     return watch ? rollup.watch({
         ...options,
         output: [output],
-        watch: {
-            include: [entry, data]
-        }
+        watch: { include: appFiles }
     }) : undefined;
 };

@@ -4,11 +4,10 @@
 
 tasks:
   - name: Install, bundle, and open
+    before: git checkout dev && git pull
     init: npm install
-    command: npm run bundle && python -m http.server 8000 --directory ./app/site/
+    command: npm run dev
+    openMode: split-right
 ports:
   - port: 8000
     onOpen: open-preview
-
-
-
