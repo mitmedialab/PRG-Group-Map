@@ -10,8 +10,8 @@ tasks:
       export CURRENT_BRANCH="$(git rev-parse --abbrev-ref HEAD)"
       export CREATE_NEW_BRANCH=$([[ $CURRENT_BRANCH = gitpod* ]] && echo false || echo true)
       if $CREATE_NEW_BRANCH; then export PRG_BRANCH="$(date +gitpod/$(git config user.email | cut -d@ -f1)/%Y-%m-%d-%H-%M-%S)"; fi
-      if $CREATE_NEW_BRANCH; git checkout -b $PRG_BRANCH; fi
-      if $CREATE_NEW_BRANCH; git push --set-upstream origin $PRG_BRANCH; fi
+      if $CREATE_NEW_BRANCH; then git checkout -b $PRG_BRANCH; fi
+      if $CREATE_NEW_BRANCH; then git push --set-upstream origin $PRG_BRANCH; fi
       export CLIENT_URL="$(gp url 35729)/livereload.js?snipver=1&port=443"
       npm run dev
     openMode: 'split-right'
