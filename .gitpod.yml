@@ -7,7 +7,7 @@ tasks:
     init: npm install
     command: |
       git pull 
-      export PRG_BRANCH="$(date +gitpod_$(git config user.email)_%Y_%m_%d_%H_%M_%S)"
+      export PRG_BRANCH="$(date +gitpod:$(git config user.email):%Y:%m:%d:%H:%M:%S)"
       git checkout -b $PRG_BRANCH
       git push -- --set-upstream origin $PRG_BRANCH
       export CLIENT_URL="$(gp url 35729)/livereload.js?snipver=1&port=443"
