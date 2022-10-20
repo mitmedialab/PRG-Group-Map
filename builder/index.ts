@@ -211,6 +211,10 @@ export const joinFragments = (fragment1: string, fragment2: string) => {
     sendToParent(process, { flag: Flag.WroteFragment, payload: fragment });
 };
 
+export const saveOffData = (fragment: string) => {
+    // TODO
+}
+
 export const pathToFileInAssetsFolder = (filename: string): PathToAsset => {
     const pathToFile = path.join(assetsFolder, filename);
     if (!fs.existsSync(pathToFile)) throw new Error(`Uh oh! The path to the desired asset doesn't exist: ${filename}`);

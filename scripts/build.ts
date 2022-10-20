@@ -29,6 +29,7 @@ clear();
 const executedFiles: string[] = [];
 
 let nextFragment: string | undefined = undefined;
+let fragmentCount = 0;
 
 const onFragmentWrite = (msg: Message) => {
     const { flag, payload } = msg;
@@ -38,7 +39,10 @@ const onFragmentWrite = (msg: Message) => {
     const join = fork(joinScript, [`-a`, `${nextFragment}`, `-b`, `${payload}`]);
     nextFragment = undefined;
     join.on("message", (msg: Message) => {
-        onFragmentWrite(msg);
+        fragmentCount -= 1;
+        if (fragmentCount > 1) return onFragmentWrite(msg);
+        const { payload } = msg;
+        initialBundle();
     });
 }
 
@@ -50,12 +54,10 @@ const execute = (task: string) => {
 
     fork(task).on("message", (msg: Message) => {
         logClose(`Completed ${file}.`);
+        fragmentCount++;
         onFragmentWrite(msg);
     });
 }
-
-//initialBundle();
-
 
 glob(`${root}/{people,categories}/*.ts`, (err: Error | null, files: string[]) => {
     files.forEach(execute);
