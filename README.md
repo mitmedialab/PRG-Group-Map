@@ -55,11 +55,12 @@ If you did not see a file with your name included in the `people/` directory, yo
     - There are a couple ways to open a terminal in gitpod, but the most straight forward way is to click on the 'hamburger' menu (3 stacked horizontal lines) on the top left and select _Terminal_ > _New Terminal_
     - **NOTE**: Do NOT interrupt the already running `Dev Server` command unless you know what you're doing!
 2. Run the following command, followed by your name (and do **NOT** include spaces): ```npm run new:person``` 
-    3. For example 
+    - For example:
 ```bash
 npm run new:person cynthia
 ```
-4. If successful, the command will point you to a newly created `.ts` file where you can add you details. Jump down to [Editing your information]() to see what to add (you can also close the newly create terminal window).
+3. If successful, the command will point you to a newly created `.ts` file where you can add your details. Jump down to [Editing your information]() to see what to add.
+    - **NOTE:** you can also close the newly create terminal window.
 
 #### Editing Your Information
 
@@ -69,7 +70,11 @@ We make use of [Typescript](https://www.typescriptlang.org/) to ensure this obje
 
 ##### Not sure what keys are available? 
 
-Typescript can tell us what keys belong in an object by typing a `"` within it's curly brackets (`{ ... }`). Any keys succeeded by a `?` are optional and can be left out. 
+Typescript can tell us what keys belong in an object by typing a `"` within it's curly brackets (`{ ... }`). 
+
+
+
+Any keys succeeded by a `?` are optional and can be left out. 
 
 ##### Not sure what values are appropriate?
 
@@ -78,6 +83,35 @@ Hover over a key to see documentation on what values it can take on. Often times
 If you provide a value that typescript doesn't like, it will underline the error in red. Hover over it to see a potentially-helpful error message. If you aren't able to resolve it, please contact [Parker](https://github.com/pmalacho-mit).
 
 #### Editing a Project
+
+##### Inline Project Summary
+
+The least information you can provided about a project is simply a summary about it. This will look like following (within the `projects` object passed to the `theme()` function):
+
+```ts
+theme({
+    ...
+    projects: {
+        "Name of Project": "This is a summary of project"
+    }
+});
+```
+
+##### Inline Project Details
+
+```ts
+theme({
+    ...
+    projects: {
+        "Name of Project": {
+            summary: "This is a summary of project",
+            description: "This is a longer description of the project"
+        }
+    }
+});
+```
+
+##### 
 
 
 ## Add yourself
