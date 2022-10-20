@@ -60,7 +60,9 @@ This requires the following:
 
 #### Adding Yourself to the Graph
 
-If you do not see a file with your name included in the `people/` directory, you'll need to create one. (If you do, hop down to [Editing Your Information]())
+If you do not see a file with your name included in the `people/` directory, you'll need to create one. 
+
+(If you do, hop down to [Editing Your Information]())
 
 1. **Open up a new terminal:** You'll need to open a new terminal in the workspace in order to run a a custom [npm script](https://docs.npmjs.com/cli/v8/commands/npm-run-script)
     - There are a couple ways to open a terminal in gitpod, but the most straight forward way is to click on the 'hamburger' menu (3 stacked horizontal lines) on the top left and select _Terminal_ > _New Terminal_
@@ -75,7 +77,7 @@ npm run new:person cynthia
 
 #### Editing Your Information
 
-Your details are fed to the graph through the `describeYourself(...)` function, which takes a [javascript object](https://www.w3schools.com/js/js_objects.asp) (a specific set of key/value pairs). 
+Inside of the file named for you, you'll find a call to the `describeYourself(...)` function, which is how youryYour details are fed to the graph (specifically through [javascript object](https://www.w3schools.com/js/js_objects.asp) passed to it as an argument). 
 
 We make use of [Typescript](https://www.typescriptlang.org/) to ensure this object contains all the necessary information, and to also make our lives easier through helpful suggestings and code-completion. 
 
