@@ -39,7 +39,7 @@ It should currently be executing a series of commands to setup your development 
 
 Once you see `Bundle End` outputted in the terminal, the development server is up and running. 
 
-As you make changes to files, the development server will automatically rebuild the project and refresh the webpage to reflect your changes (takes ~10s). 
+As you make changes to files, the development server will automatically rebuild the project and refresh the webpage to reflect your changes (~10s). 
    - **NOTE:** Because of how gitpod controls the file system, changes are automatically saved. This can trigger multiple rebuilds when you're editing (since every save triggers a rebuild), which is annoying but does not indicate a problem with your code or workflow. 
  
 For the best developer experience, keep this command/terminal running for your entire session. If it exits due to an error or you accidentally close it, you can restart it be running:
@@ -60,7 +60,7 @@ This requires the following:
 
 #### Adding Yourself to the Graph
 
-If you did not see a file with your name included in the `people/` directory, you'll need to create one. (If you do, hop down to [Editing Your Information]())
+If you do not see a file with your name included in the `people/` directory, you'll need to create one. (If you do, hop down to [Editing Your Information]())
 
 1. **Open up a new terminal:** You'll need to open a new terminal in the workspace in order to run a a custom [npm script](https://docs.npmjs.com/cli/v8/commands/npm-run-script)
     - There are a couple ways to open a terminal in gitpod, but the most straight forward way is to click on the 'hamburger' menu (3 stacked horizontal lines) on the top left and select _Terminal_ > _New Terminal_
@@ -75,12 +75,39 @@ npm run new:person cynthia
 
 #### Editing Your Information
 
-Your details are fed to the graph through the `describeYourself` function, which takes a [javascript object](https://www.w3schools.com/js/js_objects.asp) (a specific set of key/value pairs). 
+Your details are fed to the graph through the `describeYourself(...)` function, which takes a [javascript object](https://www.w3schools.com/js/js_objects.asp) (a specific set of key/value pairs). 
 
-We make use of [Typescript](https://www.typescriptlang.org/) to ensure this object contains all the necessary information, and to also make our lives easier through helpful suggestings and code-completion. Check out the [Why Typescript is Great]() section to see why ([Parker](https://github.com/pmalacho-mit) thinks) Typescript is great.
+We make use of [Typescript](https://www.typescriptlang.org/) to ensure this object contains all the necessary information, and to also make our lives easier through helpful suggestings and code-completion. 
+
+Check out the [Why Typescript is Great]() section to see why ([Parker](https://github.com/pmalacho-mit) thinks) Typescript is great, and how it can help you provide the necessary details to the `describeYourself(...)` function.
 
 #### Editing a Project
 
+Every group member works on 0 or more projects, specified in the `projects` field of the object passed to the `describeYourself(...)` function (mentioned above). 
+
+For example: 
+
+```ts
+describeYourself({
+    ...,
+    projects: ["Dancing with AI", { name: "Jibo", main: true }], 
+    ...,
+})
+```
+
+The acceptable values for project names are pulled from objects defined elsewhere in the project (which is part of the reason why Typescript is so useful to us). 
+
+Below we outline how you can locate and update these definitions.
+
+##### Locating a project definition
+
+The easiest way to locate a project definition is to highlight it's name and click `⌘ Cmd` + `↑ Shift` + `F` (maybe `Ctrl` + `↑ Shift` + `F` on Windows) to find it's usages in the project. 
+
+Locate the usage within a file inside of the `categories/themes/`. It will be used in one of the manners outlined below:
+- [Inline Project Summary -- defined in a single line within object passed to `theme(...)`]()
+- [Local Project Details -- defined within an object passed to `theme(...)`]()
+- [Exteneral Project Details -- defined within an object passed to `project(...)`]()
+- 
 ##### Inline Project Summary
 
 The minimum information you can provided about a project is simply a summary about it. This will look like following (within the `projects` object passed to the `theme()` function):
@@ -95,7 +122,7 @@ theme({
 });
 ```
 
-##### Inline Project Details
+##### Local Project Details
 
 If you'd like to say a little bit more about a project, you can specify project details like so:
 
