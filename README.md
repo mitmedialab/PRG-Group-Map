@@ -10,7 +10,7 @@ Organizing the (wonderful) people and (exciting) projects of the Personal Roboti
 1. **Login to Gitpod:** Click the above button to open [Gitpod](https://www.gitpod.io/), a service we'll use to access a cloud development environment pre-configured for this project.
     1. Unless you already have a gitpod account (and are logged in), you should be prompted with the below screen. Login through github and authorize gitpod when/if prompted.
     - **NOTE:** If you do NOT have a github account, please make one and let [Parker](https://github.com/pmalacho-mit) know. Once he gives you the necessary permissions, you can continue with the below steps. 
-2. **Give Gitpod write access:** Gitpod should then open you up a worskpace (cool, right?). Unfortunately, we need to make one permissions change before we can start editing.
+2. **Give Gitpod write access:** Gitpod should then open you up a worskpace (cool, right?). Unfortunately, we need to make one permissions change to ensure once we start editing we can preserve our changes.
     1. Click the green Gitpod button in the very bottom left corner of the screen, which will open up a list of gitpod commands. Select `Gitpod: Open Access Control`.
     2. In the tab that the previous step opened:
         1. Click on the 3 dots ("kebab" menu) to the right of _Github_ 
