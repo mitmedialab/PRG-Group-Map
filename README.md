@@ -42,11 +42,13 @@ This requires the following, [Adding yourself to the graph](), [Editing your inf
 
 #### Adding Yourself to the Graph
 
-If you did not see a file with your name on included in the `people/` directory, you'll need to create one.
+If you did not see a file with your name included in the `people/` directory, you'll need to create one.
 
-1. Open up a new terminal in the workspace (do not interrupt the already running `Dev Server` command unless you know what you're doing)
-    - There are a couple ways to do so in gitpod, but the most straight forward way is to click on the 'hamburger' menu (3 stacked horizontal lines) on the top left and select _Terminal_ > _New Terminal_
-2. Run the following command, followed by your name (do **NOT** use spaces): ```npm run new:person``` (for example ```npm run new:person cynthia```)
+1. **Open up a new terminal:** We'll need to open a new terminal in the workspace in order to run an npm script 
+    - There are a couple ways to open a terminal in gitpod, but the most straight forward way is to click on the 'hamburger' menu (3 stacked horizontal lines) on the top left and select _Terminal_ > _New Terminal_
+    - **NOTE**: Do NOT interrupt the already running `Dev Server` command unless you know what you're doing!
+2. Run the following command, followed by your name (and do **NOT** include spaces): ```npm run new:person``` (for example ```npm run new:person cynthia```)
+3. If successful, the command will point you to a newly create `.ts` file where you can add you details. Jump down to [Editing your information]() to see what to add.
 
 ## Add yourself
 
