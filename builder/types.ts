@@ -161,7 +161,7 @@ export type VerboseRole = {
      */
     year?: number
 };
-type Role = RoleName | VerboseRole;
+export type Role = RoleName | VerboseRole;
 export type RoleEntries = Entries<RoleName>;
 
 // People
