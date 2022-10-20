@@ -1,5 +1,6 @@
 export enum Flag {
     WroteFragment,
+    Add,
 }
 
 export type Message = {
