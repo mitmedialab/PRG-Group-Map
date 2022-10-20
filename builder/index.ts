@@ -15,8 +15,6 @@ const fragmentsFolder = path.join(builderFolder, 'fragments');
 const assetsFolder = path.join(projectRoot, "assets");
 const appFolder = path.join(projectRoot, "app");
 const dataFile = path.join(appFolder, "data.json");
-const graphFile = path.join(assetsFolder, "graph.json");
-
 const encoding: BufferEncoding = "utf8";
 
 const emptyData: NormalizedData = {
@@ -24,7 +22,6 @@ const emptyData: NormalizedData = {
     roles: {} as NormalizedData["roles"],
     themes: {} as NormalizedData["themes"],
     members: [],
-    memberLookup: {}
 }
 
 export const clear = () => {
@@ -32,16 +29,22 @@ export const clear = () => {
     fs.rmSync(dataFile, { force: true });
 }
 
+export const move = (filename: string) => {
+    fs.rmSync(dataFile, { force: true });
+    fs.renameSync(filename, dataFile);
+}
+
 const ensureAppFolder = () => (!fs.existsSync(appFolder)) ? fs.mkdirSync(appFolder) : null;
 
-const getData = (file?: string): NormalizedData => {
+export const getData = (file?: string): NormalizedData => {
     ensureAppFolder();
     return fs.existsSync(file ?? dataFile) ? JSON.parse(fs.readFileSync(file ?? dataFile, encoding)) : emptyData;
 }
 
-const setData = (data: NormalizedData, file?: string) => {
+export const setData = (data: NormalizedData, file?: string) => {
     ensureAppFolder();
     fs.writeFileSync(file ?? dataFile, JSON.stringify(data, null, 2));
+    if (file) sendToParent(process, { flag: Flag.WroteFragment, payload: file });
 }
 
 const isString = (query: any) => typeof query === 'string' || query instanceof String;
@@ -170,6 +173,7 @@ const getNewFragmentFile = () => {
     return path.join(fragmentsFolder, uuidv4())
 };
 
+
 export const set = <TDataKey extends keyof Data>(field: TDataKey, value: Data[TDataKey], x = __filename) => {
     const data = getData();
     const fragment = getNewFragmentFile();
@@ -178,17 +182,14 @@ export const set = <TDataKey extends keyof Data>(field: TDataKey, value: Data[TD
     if (!cleaned) throw new Error(`Data could not be cleaned for field ${field}`);
     data[field] = cleaned as NormalizedData[TDataKey];
     setData(data, fragment);
-    sendToParent(process, { flag: Flag.WroteFragment, payload: fragment });
 }
 
 export const describeYourself = (member: GroupMember) => {
     const data = getData();
     const fragment = getNewFragmentFile();
-
-    data.members.push(normalizeMember(member));
-
+    const index = data.members.findIndex((existing) => existing.name === member.name);
+    index >= 0 ? data.members[index] = normalizeMember(member) : data.members.push(normalizeMember(member));
     setData(data, fragment);
-    sendToParent(process, { flag: Flag.WroteFragment, payload: fragment });
 }
 
 export const joinFragments = (fragment1: string, fragment2: string) => {
@@ -205,15 +206,8 @@ export const joinFragments = (fragment1: string, fragment2: string) => {
         skills: { ...a.skills, ...b.skills },
         themes: { ...a.themes, ...b.themes },
         members: [...a.members, ...b.members],
-        memberLookup: {}
     }, fragment);
-
-    sendToParent(process, { flag: Flag.WroteFragment, payload: fragment });
 };
-
-export const saveOffData = (fragment: string) => {
-    // TODO
-}
 
 export const pathToFileInAssetsFolder = (filename: string): PathToAsset => {
     const pathToFile = path.join(assetsFolder, filename);

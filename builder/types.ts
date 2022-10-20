@@ -307,5 +307,4 @@ export type NormalizedData = {
     roles: Record<RoleName, NormalizedDetails>,
     themes: NormalizedThemeEntries,
     members: NormalizedMember[],
-    memberLookup: Record<string, number>
 }
