@@ -92,6 +92,7 @@ The minimum information you can provided about a project is simply a summary abo
 theme({
     ...
     projects: {
+        ...,
         "Name of Project": "This is a summary of project"
     }
 });
@@ -105,6 +106,7 @@ If you'd like to say a little bit more about a project, you can specify project 
 theme({
     ...
     projects: {
+        ...,
         "Name of Project": {
             summary: "This is a summary of project",
             description: "This is a longer description of the project"
@@ -132,7 +134,7 @@ export default project({
 3. Add the details about your project
 4. In the appropriate theme file, import the default export from your newly created file (e.g. `import callItWhateverYouWant from "./projects/newProject";`) and spread the object within `projects` object:
 
-```
+```ts
 // Inside of theme file
 import callItWhateverYouWant from "./projects/newProject";
 
