@@ -2,19 +2,32 @@
 # Please adjust to your needs (see https://www.gitpod.io/docs/config-gitpod-file)
 # and commit this file to your remote git repository to share the goodness with others.
 
+# To get livereloading working: https://www.gitpod.io/docs/introduction/languages/svelte#making-live-reload-work
+
 tasks:
   - name: Dev Server
     init: npm install
     command: |
+      echo "Pulling down latest version of the current branch (if this is a new gitpod workspace that should be 'main')"
       git pull 
+      echo "Creating an alias (i.e. shortcut command) to save all changes to git and stop the gitpod workspace"
       alias SaveAndQuit="git add . && git commit -m \"Automated commit from gitpod\" && git push && gp stop"
+      echo "Creating an alias (i.e. shortcut command) to stop the gitpod workspace"
       alias Quit="gp stop"
+      echo "Saving off the name of the current git branch"
       export CURRENT_BRANCH="$(git rev-parse --abbrev-ref HEAD)"
+      echo "Determing if a new gitpod-specific branch should be created, or if the current branch is already a gitpod-specific branch"
       export CREATE_NEW_BRANCH=$([[ $CURRENT_BRANCH = gitpod* ]] && echo false || echo true)
+      echo "If a new gitpod-specifc branch should be created, then:"
+      echo "(1) Create a name for the branch using the user's email and the current time stamp"
       if $CREATE_NEW_BRANCH; then export PRG_BRANCH="$(date +gitpod/$(git config user.email | cut -d@ -f1)/%Y-%m-%d-%H-%M-%S)"; fi
+      echo "(2) Checkout the new branch"
       if $CREATE_NEW_BRANCH; then git checkout -b $PRG_BRANCH; fi
+      echo "(3) Push the branch up to the remote git server immediately to avoid 'set-upstream' issues later"
       if $CREATE_NEW_BRANCH; then git push --set-upstream origin $PRG_BRANCH; fi
+      echo "Do some environment variable magic to make live reloading work (see link at top of .gitpod.yml file)"
       export CLIENT_URL="$(gp url 35729)/livereload.js?snipver=1&port=443"
+      echo "Start dev server"
       npm run dev
     openMode: 'split-right'
 ports:
