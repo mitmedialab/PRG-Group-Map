@@ -5,14 +5,16 @@ Organizing the (wonderful) people and (exciting) projects of the Personal Roboti
 
 ### Gitpod Configuration
 
-1. **Login to Gitpod:** Click the following button to open [Gitpod](https://www.gitpod.io/), a service we'll use to access a cloud development environment pre-configured for this project: 
+Because we are forcing everyone to write code, we want to make it as easy as possible to get going with this project. To do this, we'll make use of [Gitpod](https://www.gitpod.io/), which provides access to virtual development environments.
+
+1. **Login to Gitpod:** Click the following button to open a [Gitpod](https://www.gitpod.io/) workspace for this project: 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/mitmedialab/PRG-Group-Map)
     1. Unless you already have a gitpod account (and are logged in), you should be prompted to `Continue with Github`. After clicking `Continue with Github`, login to github (if prompted) and authorize gitpod (if prompted).
     - **NOTE:** If you do NOT have a github account, please make one and let [Parker](https://github.com/pmalacho-mit) know. Once he gives you the necessary permissions, you can continue with the below steps. 
 2. **Configure User Preferences**: Once logged in, gitpod will likely ask you about some user preferences. We recommend the following:
     - Select 'VS Code Broswer for your editor
     - Select 'Dark' theme
-3. **Give Gitpod write access:** Gitpod should then open you up a worskpace (cool, right?). Unfortunately, we need to make one permissions change to ensure once we start editing we can preserve our changes.
+3. **Give Gitpod write access:** Gitpod should then open you up a worskpace (cool, right?). We just need to make one permissions change to ensure once we start editing code we can preserve our changes through [git](https://git-scm.com/).
     1. Click the green Gitpod button in the very bottom left corner of the screen, which will open up a list of gitpod commands. Select `Gitpod: Open Access Control`.
         - **NOTE:** The gitpod workspace might be a little slow to start, so if nothing happens when you click the button, wait a moment and try again.
     3. In the tab that the previous step opened:
@@ -25,14 +27,16 @@ Organizing the (wonderful) people and (exciting) projects of the Personal Roboti
 
 ### Tour of Workspace
 
-1. After navigating back to your workspace tab, you should be ready to start editing! There's a few things to notice about your workspace:
-    1. **Terminal**: A terminal window (also know as a _command line_) should be visible at the bottom of your screen. It is currently executing a series of commands to setup your development environment and then eventually start a development server to host the Group Map site. 
-        1. **ADVANCED**: Some of initial commands include: 
-            - Checking out a git branch off of `main`, named `gitpod/<email username>/<time stamp>`
-            - Setuping bash aliases to enable: (1) closing the gitpod workspace ("Quit"); (2) adding, committing, and pushing all changes, and then closing the gitpod workspace ("SaveAndQuit")
-    2. **Browser Preview**: Once the development server starts up, a browser window will be opened at the top right of your screen displaying the project. 
-        - **NOTE**: Due to an issue with live-reloading on gitpod, you might need to refresh the window a couple times in order for the map to display initially. 
-    4. **File explorer:** All of the files included in the project will be displayed in the panel on the left. 
+After navigating back to your workspace tab, you should be ready to start editing! But first, there's a few things to notice about your workspace:
+
+1. **Terminal**: A terminal window (also know as a _command line_) should be visible at the bottom of your screen. It is currently executing a series of commands to setup your development environment and then eventually start a development server to host the Group Map site. 
+    1. **ADVANCED**: Some of initial commands include: 
+        - Checking out a git branch off of `main`, named `gitpod/<email username>/<time stamp>`
+        - Setuping bash aliases to enable: (1) closing the gitpod workspace ("Quit"); (2) adding, committing, and pushing all changes, and then closing the gitpod workspace ("SaveAndQuit")
+2. **Browser Preview**: Once the development server starts up, a browser window will be opened at the top right of your screen displaying the project. 
+     - **NOTE**: Due to an issue with live-reloading on gitpod, you might need to refresh the window a couple times in order for the map to display initially. 
+3. **File explorer:** All of the files included in the project will be displayed in the panel on the left. 
+    - You can open them by either clicking on their name directly, or by selecting `Open File` in the File menu (accessed through the "hamburger" menu in the top left)
 
 ### Editing the Project
 
@@ -57,7 +61,7 @@ If you did not see a file with your name included in the `people/` directory, yo
 
 Your details are fed to the graph through the `describeYourself` function, which takes a [javascript object](https://www.w3schools.com/js/js_objects.asp) (a specific set of key/value pairs). 
 
-We make use of [Typescript](https://www.typescriptlang.org/) to ensure this object contains all the necessary information, and also to make our lives easier through helpful suggestings and code-completion.
+We make use of [Typescript](https://www.typescriptlang.org/) to ensure this object contains all the necessary information, and to also make our lives easier through helpful suggestings and code-completion.
 
 ##### Not sure what keys are available? 
 
@@ -66,6 +70,11 @@ Typescript can tell us what keys belong in an object by typing a `"` within it's
 ##### Not sure what values are appropriate?
 
 Hover over a key to see documentation on what values it can take on. Often times they'll be multiple acceptable values, and you can pick which is most convenient to convey the necessary information. 
+
+If you provide a value that typescript doesn't like, it will underline the error in red. Hover over it to see a potentially-helpful error message. If you aren't able to resolve it, please contact [Parker](https://github.com/pmalacho-mit).
+
+#### Editing a Project
+
 
 ## Add yourself
 
