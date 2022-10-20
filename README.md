@@ -1,6 +1,11 @@
 # PRG-Group-Map
 Organizing the (wonderful) people and (exciting) projects of the Personal Robotics Group
 
+## Start editing!
+
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/mitmedialab/PRG-Group-Map)
+
+
 # How to:
 
 ## Add yourself
