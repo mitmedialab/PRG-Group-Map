@@ -7,9 +7,7 @@
     "ts": "node_modules/.bin/ts-node",
     "build": "npm run ts scripts/build.ts",
     "dev": "npm run ts scripts/build.ts -- -w",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "new:person": "npm run ts scripts/createNew.ts -- --type people --name",
-    "simplified:git": "git add . && git commit -m \"Automated commit from gitpod\" && git push"
+    "new:person": "npm run ts scripts/createNew.ts -- --type people --name"
   },
   "repository": {
     "type": "git",
