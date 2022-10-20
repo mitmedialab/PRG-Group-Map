@@ -35,14 +35,15 @@ But first, there's a few things to notice about your workspace:
 
 A terminal window (also know as a _command line_) should be visible at the bottom of your screen. 
 
-It should be currently executing a series of commands to setup your development environment and then eventually start a development server to host the Group Map site. 
+It should currently be executing a series of commands to setup your development environment and then eventually start a development server to host the Group Map site. 
 
-Once you see `Bundle End` outputted in the terminal, the development server should be up and running. 
+Once you see `Bundle End` outputted in the terminal, the development server is up and running. 
 
 As you make changes to files, the development server will automatically rebuild the project and refresh the webpage to reflect your changes (takes ~10s). 
    - **NOTE:** Because of how gitpod controls the file system, changes are automatically saved. This can trigger multiple rebuilds when you're editing (since every save triggers a rebuild), which is annoying but does not indicate a problem with your code or workflow. 
  
  For the best developer experience, keep this command/terminal running for your entire session. If it exits due to an error or you accidentally close it, you can restart it be running `npm run dev` (it will take around ~30s to start up again).
+ 
 ##### **ADVANCED**
 Some of the initial commands include: 
     - Checking out a git branch off of `main`, named `gitpod/<email username>/<time stamp>`
