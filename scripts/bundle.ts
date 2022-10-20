@@ -35,7 +35,8 @@ export const bundle = async (rootDir: string, watch: boolean = false) => {
             }),
             livereload({
                 watch: site,
-                clientUrl: process.env.CLIENT_URL
+                clientUrl: process.env.CLIENT_URL,
+                delay: 500
             })
         )
     }

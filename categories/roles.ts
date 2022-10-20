@@ -1,7 +1,11 @@
 import { category, set } from "../builder";
 
 const roles = category({
-    "Director": "",
+    "Director": {
+        summary: "Summary",
+        "description": "Longer description",
+        
+    },
     "Admin & Finance": "",
     "Lab Management": "Whatever it takes to keep the lab running smoothly",
     "Tech Developer": "",

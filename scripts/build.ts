@@ -96,6 +96,14 @@ const initialBundle = () => {
         }
     });
 
+    const themesFile = path.join(root, 'categories', 'projectsByTheme.ts');
+    const themesFileName = path.basename(themesFile);
+    chokidar.watch(`${root}/categories/themes/**/*.ts`).on('change', (path, stats) => {
+        openingLog(`Change in ${path}`);
+        openingLog(`Begin re-executing ${themesFileName}.`);
+        process(themesFile, themesFileName, () => flush(data));
+    });
+
     bundle(root, true).then(watcher => {
         if (!watcher) return;
 
