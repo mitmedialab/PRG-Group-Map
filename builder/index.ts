@@ -4,9 +4,7 @@ import * as path from "path";
 import { RoleName } from "../categories/roles";
 import { ProjectName } from "../categories/projectsByTheme";
 import { isObject } from "../app/utils";
-import { v4 as uuidv4 } from 'uuid';
 import { Flag, Message, sendToParent } from "../scripts/communication";
-import { Serializable } from "child_process";
 
 const projectRoot = path.resolve(__dirname, "..");
 
