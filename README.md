@@ -5,6 +5,8 @@ Organizing the (wonderful) people and (exciting) projects of the Personal Roboti
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/mitmedialab/PRG-Group-Map)
 
+### Gitpod Configuration
+
 1. **Login to Gitpod:** Click the above button to open [Gitpod](https://www.gitpod.io/), a service we'll use to access a cloud development environment pre-configured for this project.
     1. Unless you already have a gitpod account (and are logged in), you should be prompted with the below screen. Login through github and authorize gitpod when/if prompted.
     - **NOTE:** If you do NOT have a github account, please make one and let [Parker](https://github.com/pmalacho-mit) know. Once he gives you the necessary permissions, you can continue with the below steps. 
