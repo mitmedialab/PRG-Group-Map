@@ -3,6 +3,10 @@ Organizing the (wonderful) people and (exciting) projects of the Personal Roboti
 
 ## Contributing through Gitpod (reccomended)
 
+1. [Gitpod Configuration]()
+2. [Tour of Gitpod Workspace]()
+3. [Where you come in]()
+
 ### Gitpod Configuration
 
 Because we are forcing everyone to write code, we want to make it as easy as possible to get going with this project. To do this, we'll make use of [Gitpod](https://www.gitpod.io/), which provides access to virtual development environments.
