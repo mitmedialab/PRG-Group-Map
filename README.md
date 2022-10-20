@@ -13,8 +13,8 @@ Organizing the (wonderful) people and (exciting) projects of the Personal Roboti
     2. Once redirected, click `Go to Dashboard`.
     3. From your gitpod dashboard, (1) click on your user icon, (2) navigate to _Settings_ > _Integrations_, (3) click on the 3 dots ("kebab" menu) beside _Github_, (4) select `Edit Permissions`, (5) enable `public_repo`, and (6) select `Update Permissions`.
         - **NOTE:** If anyone has security concerns about enabling this setting, please discuss with [Parker](https://github.com/pmalacho-mit)
-3. **Restart workspace**: Once you can write to public repositories from gitpod (which only needs to be enabled once), we should re-start our workspace. Do so, by 
-selecting `Workspaces` in the top left corner, and click to open your workspace (there should be only one if you're a first time gitpod user).
+3. **Restart workspace**: Once you can write to public repositories from gitpod (which only needs to be enabled once), we should re-start our workspace. 
+    1. Select `Workspaces` in the top left corner, and click to open your workspace (there should be only one if you're a first time gitpod user).
 # How to (work in progress, ignore for now):
 
 ## Add yourself
