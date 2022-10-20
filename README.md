@@ -54,8 +54,12 @@ If you did not see a file with your name included in the `people/` directory, yo
 1. **Open up a new terminal:** You'll need to open a new terminal in the workspace in order to run a a custom [npm script](https://docs.npmjs.com/cli/v8/commands/npm-run-script)
     - There are a couple ways to open a terminal in gitpod, but the most straight forward way is to click on the 'hamburger' menu (3 stacked horizontal lines) on the top left and select _Terminal_ > _New Terminal_
     - **NOTE**: Do NOT interrupt the already running `Dev Server` command unless you know what you're doing!
-2. Run the following command, followed by your name (and do **NOT** include spaces): ```npm run new:person``` (for example ```npm run new:person cynthia```)
-3. If successful, the command will point you to a newly created `.ts` file where you can add you details. Jump down to [Editing your information]() to see what to add (you can also close the newly create terminal window).
+2. Run the following command, followed by your name (and do **NOT** include spaces): ```npm run new:person``` 
+    3. For example 
+```bash
+npm run new:person cynthia
+```
+4. If successful, the command will point you to a newly created `.ts` file where you can add you details. Jump down to [Editing your information]() to see what to add (you can also close the newly create terminal window).
 
 #### Editing Your Information
 
