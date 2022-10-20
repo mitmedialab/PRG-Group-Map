@@ -10,19 +10,17 @@ tasks:
     command: |
       echo "Pulling down latest version of the current branch (if this is a new gitpod workspace that should be 'main')"
       git pull 
-      echo "Saving off the name of the current git branch"
-      export CURRENT_BRANCH="$(git rev-parse --abbrev-ref HEAD)"
+      echo "Creating an alias (i.e. shortcut command) to determine the current git branch"
+      alias prg_get_current_branch="echo $(git rev-parse --abbrev-ref HEAD)"
       echo "Determing if a new gitpod-specific branch should be created, or if the current branch is already a gitpod-specific branch"
-      export CREATE_NEW_BRANCH=$([[ $CURRENT_BRANCH = gitpod* ]] && echo false || echo true)
+      export CREATE_NEW_BRANCH=$([[ prg_get_current_branch = gitpod* ]] && echo false || echo true)
       echo "If a new gitpod-specifc branch should be created, then:"
       echo "(1) Create a name for the branch using the user's email and the current time stamp"
       if $CREATE_NEW_BRANCH; then export PRG_BRANCH="$(date +gitpod/$(git config user.email | cut -d@ -f1)/%Y-%m-%d-%H-%M-%S)"; fi
       echo "(2) Checkout the new branch"
       if $CREATE_NEW_BRANCH; then git checkout -b $PRG_BRANCH; fi
-      echo "(3) Save off new current branch"
-      export CURRENT_BRANCH="$(git rev-parse --abbrev-ref HEAD)"
       echo "Creating an alias (i.e. shortcut command) for gitpush that will first check if the branch has already been push to remote, and if not it will set the upstream branch"
-      alias prg_push_alias="[[ $(git ls-remote --heads origin $CURRENT_BRANCH | wc -l | bc) = 1 ]] && echo \"git push\" || echo \"git push --set-upstream origin $CURRENT_BRANCH\""
+      alias prg_push_alias="[[ $(git ls-remote --heads origin prg_get_current_branch | wc -l | bc) = 1 ]] && echo \"git push\" || echo \"git push --set-upstream origin prg_get_current_branch\""
       echo "Creating an alias (i.e. shortcut command) to save all changes to git and stop the gitpod workspace"
       alias SaveAndQuit="git add . && git commit -m \"Automated commit from gitpod\" && prg_push_alias && gp stop"
       echo "Creating an alias (i.e. shortcut command) to stop the gitpod workspace"
