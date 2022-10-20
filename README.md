@@ -42,21 +42,15 @@ Once you see `Bundle End` outputted in the terminal, the development server is u
 As you make changes to files, the development server will automatically rebuild the project and refresh the webpage to reflect your changes (takes ~10s). 
    - **NOTE:** Because of how gitpod controls the file system, changes are automatically saved. This can trigger multiple rebuilds when you're editing (since every save triggers a rebuild), which is annoying but does not indicate a problem with your code or workflow. 
  
- For the best developer experience, keep this command/terminal running for your entire session. If it exits due to an error or you accidentally close it, you can restart it be running `npm run dev` (it will take around ~30s to start up again).
- 
-##### **ADVANCED**
-Some of the initial commands include: 
-    - Checking out a git branch off of `main`, named `gitpod/<email username>/<time stamp>`
-    - Setuping bash aliases to enable: (1) closing the gitpod workspace ("Quit"); (2) adding, committing, and pushing all changes, and then closing the gitpod workspace ("SaveAndQuit")
-    
-2. **Browser Preview**: Once the development server starts up, a simple-browser window will be opened at the top right of your screen displaying the project. 
-     - **NOTE**: Due to an issue with live-reloading on gitpod, you might need to refresh the window in order for the map to display initially once the developmet server is up and running. 
-3. **File explorer:** All of the files included in the project will be displayed in the panel on the left. 
-    - You can open them by either clicking on their name directly, or by selecting `Open File` in the File menu (accessed through the "hamburger" menu in the top left)
+For the best developer experience, keep this command/terminal running for your entire session. If it exits due to an error or you accidentally close it, you can restart it be running:
+
+```bash
+npm run dev # it will take around ~30s to start up again
+```
 
 ### Where you come in
 
-As a member of PRG, we are tasking you to: (1) keep your information in the group map up to date, and (2) keep the information about the projects you work on up to date.  
+As a member of PRG, we are asking you to: (1) keep your information in the group map up to date, and (2) keep the information about the projects you work on up to date.  
 
 This requires the following:
 - [Adding Yourself to The Graph](#Adding-Yourself-to-the-Graph)
@@ -172,3 +166,13 @@ If you provide a value that typescript doesn't like, it will underline the error
 ## Advanced editing
 
 ...Coming soon...
+
+## Advanced Details
+Some of the initial commands on startup include: 
+    - Checking out a git branch off of `main`, named `gitpod/<email username>/<time stamp>`
+    - Setuping bash aliases to enable: (1) closing the gitpod workspace ("Quit"); (2) adding, committing, and pushing all changes, and then closing the gitpod workspace ("SaveAndQuit")
+    
+2. **Browser Preview**: Once the development server starts up, a simple-browser window will be opened at the top right of your screen displaying the project. 
+     - **NOTE**: Due to an issue with live-reloading on gitpod, you might need to refresh the window in order for the map to display initially once the developmet server is up and running. 
+3. **File explorer:** All of the files included in the project will be displayed in the panel on the left. 
+    - You can open them by either clicking on their name directly, or by selecting `Open File` in the File menu (accessed through the "hamburger" menu in the top left)
