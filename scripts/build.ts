@@ -1,13 +1,12 @@
 import path from 'path';
-import fs from 'fs';
 import chalk from "chalk";
 import glob from "glob";
 import { fork } from "child_process";
 import * as chokidar from "chokidar";
 import { bundle } from './bundle';
 import { processCommandLineArgs } from './CLI';
-import { Flag, Message } from './communication';
-import { clear, getData, move } from '../builder';
+import { Message } from './communication';
+import { clear, decodeMessage, flush, init, NormalizedData } from '../builder';
 
 const { watch } = processCommandLineArgs("npm run build --", {
     watch: {
@@ -18,65 +17,80 @@ const { watch } = processCommandLineArgs("npm run build --", {
     }
 });
 
+clear();
+
+const data = init();
+
 const root = path.resolve(__dirname, "..");
-const joinScript = path.join(__dirname, "join.ts");
 
 const openingLog = (msg: string) => console.log(chalk.cyan(msg));
 const closingLog = (msg: string) => console.log(chalk.green(msg));
-
-let nextFragment: string | undefined = undefined;
-let fragmentCount = 0;
-
-const onFragmentWrite = (msg: Message) => {
-    const { flag, payload } = msg;
-    if (flag !== Flag.WroteFragment) return;
-    if (nextFragment === undefined) return nextFragment = payload;
-
-    const join = fork(joinScript, [`-a`, `${nextFragment}`, `-b`, `${payload}`]);
-    nextFragment = undefined;
-
-    join.on("message", (msg: Message) => {
-        fragmentCount -= 1;
-        if (fragmentCount > 1) return onFragmentWrite(msg);
-        const { payload } = msg;
-        move(payload);
-        initialBundle();
-    });
-}
+const errorLog = (msg: string) => console.error(chalk.red(msg));
 
 const executedFiles: string[] = [];
-const execute = (file: string) => {
+const memberIndexByFile: Record<string, number> = {};
+
+const process = (file: string, name: string, onComplete?: () => void) =>
+    fork(file).on("message", (msg: Message) => {
+        const decoded = decodeMessage(msg);
+        if (!decoded) return errorLog(`Error decoding data from ${name}`);
+
+        const [key, value] = decoded;
+        switch (key) {
+            case "themes":
+                data[key] = value as NormalizedData[typeof key];
+                break;
+            case "roles":
+                data[key] = value as NormalizedData[typeof key];
+                break;
+            case "skills":
+                data[key] = value as NormalizedData[typeof key];
+                break;
+            case "members":
+                const member = (value as NormalizedData["members"])[0];
+                file in memberIndexByFile
+                    ? data["members"][memberIndexByFile[file]] = member
+                    : memberIndexByFile[file] = data[key].push(member) - 1;
+                break;
+        }
+
+        closingLog(`Completed ${name}.`);
+        if (onComplete) onComplete();
+    });
+
+let initialProcessCount = 0;
+
+const initialExecute = (file: string) => {
     executedFiles.push(file);
     const fileName = path.basename(file);
     openingLog(`Begin executing ${fileName}`);
 
-    fork(file).on("message", (msg: Message) => {
-        closingLog(`Completed ${fileName}.`);
-        fragmentCount++;
-        onFragmentWrite(msg);
+    initialProcessCount++;
+    process(file, fileName, () => {
+        initialProcessCount--;
+        if (initialProcessCount == 0) initialBundle();
     });
 }
 
+const executableFilesQuery = `${root}/{people,categories}/*.ts`;
 
 const initialBundle = () => {
+    flush(data);
+
     if (!watch) return bundle(root);
 
-    chokidar.watch(`${root}/{people,categories}/*.ts`).on('all', (event, file) => {
+    chokidar.watch(executableFilesQuery).on('all', (event, file) => {
         const fileName = path.basename(file);
 
         switch (event) {
             case "change":
                 openingLog(`Begin re-executing ${fileName}.`);
-                fork(file).on("message", (msg: Message) => {
-                    closingLog(`Completed ${fileName}.`);
-                    const { flag, payload } = msg;
-                    if (flag == Flag.WroteFragment) return move(payload);
-                });
+                process(file, fileName, () => flush(data));
                 return;
             case "add":
                 if (executedFiles.includes(file)) return;
                 openingLog(`Executing new file: ${fileName}.`);
-                fork(file).once("close", () => closingLog(`Completed ${fileName}.`));
+                process(file, fileName, () => flush(data));
                 executedFiles.push(fileName);
                 return;
         }
@@ -92,8 +106,7 @@ const initialBundle = () => {
     });
 }
 
-clear();
-
-glob(`${root}/{people,categories}/*.ts`, (err: Error | null, files: string[]) => {
-    files.forEach(execute);
+glob(executableFilesQuery, (err: Error | null, files: string[]) => {
+    if (err) return errorLog(`${err.name}: ${err.message} ${err.stack ?? ""}`);
+    files.forEach(initialExecute);
 });

@@ -1,11 +1,12 @@
+import { Serializable } from "child_process";
+
 export enum Flag {
-    WroteFragment,
     Add,
 }
 
 export type Message = {
     flag: Flag,
-    payload: string
+    payload: Serializable
 }
 
 export const sendToParent = (child: NodeJS.Process, message: Message) => {

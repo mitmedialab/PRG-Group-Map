@@ -5,12 +5,10 @@ import { RoleName } from "../categories/roles";
 import { ProjectName } from "../categories/projectsByTheme";
 import { isObject } from "../app/utils";
 import { v4 as uuidv4 } from 'uuid';
-import { Flag, sendToParent } from "../scripts/communication";
+import { Flag, Message, sendToParent } from "../scripts/communication";
+import { Serializable } from "child_process";
 
 const projectRoot = path.resolve(__dirname, "..");
-
-const builderFolder = path.resolve(projectRoot, 'builder');
-const fragmentsFolder = path.join(builderFolder, 'fragments');
 
 const assetsFolder = path.join(projectRoot, "assets");
 const appFolder = path.join(projectRoot, "app");
@@ -25,26 +23,25 @@ const emptyData: NormalizedData = {
 }
 
 export const clear = () => {
-    fs.rmSync(fragmentsFolder, { force: true, recursive: true });
     fs.rmSync(dataFile, { force: true });
 }
 
-export const move = (filename: string) => {
-    fs.rmSync(dataFile, { force: true });
-    fs.renameSync(filename, dataFile);
+export const flush = (data: NormalizedData) => {
+    setData(data);
 }
+
+export const init = (): NormalizedData => emptyData;
 
 const ensureAppFolder = () => (!fs.existsSync(appFolder)) ? fs.mkdirSync(appFolder) : null;
 
-export const getData = (file?: string): NormalizedData => {
+const getData = (): NormalizedData => {
     ensureAppFolder();
-    return fs.existsSync(file ?? dataFile) ? JSON.parse(fs.readFileSync(file ?? dataFile, encoding)) : emptyData;
+    return fs.existsSync(dataFile) ? JSON.parse(fs.readFileSync(dataFile, encoding)) : emptyData;
 }
 
-export const setData = (data: NormalizedData, file?: string) => {
+const setData = (data: NormalizedData) => {
     ensureAppFolder();
-    fs.writeFileSync(file ?? dataFile, JSON.stringify(data, null, 2));
-    if (file) sendToParent(process, { flag: Flag.WroteFragment, payload: file });
+    fs.writeFileSync(dataFile, JSON.stringify(data, null, 2));
 }
 
 const isString = (query: any) => typeof query === 'string' || query instanceof String;
@@ -168,46 +165,34 @@ const normalize = <T extends Data[TKey], TKey extends keyof NormalizedData & key
     return normalized;
 };
 
-const getNewFragmentFile = () => {
-    if (!fs.existsSync(fragmentsFolder)) fs.mkdirSync(fragmentsFolder);
-    return path.join(fragmentsFolder, uuidv4())
+const send = <TKey extends keyof NormalizedData>(update: { [k in TKey]: NormalizedData[TKey] }) => {
+    sendToParent(process, { flag: Flag.Add, payload: update });
 };
 
+type DataKeyAndValue<T extends keyof NormalizedData> = [T, NormalizedData[T]];
 
-export const set = <TDataKey extends keyof Data>(field: TDataKey, value: Data[TDataKey], x = __filename) => {
-    const data = getData();
-    const fragment = getNewFragmentFile();
+export const decodeMessage = (msg: Message) => {
+    const { flag, payload } = msg;
+    if (flag !== Flag.Add) return undefined;
+    const addition = payload as { [k in keyof NormalizedData]: NormalizedData[k] };
+    const key = Object.keys(addition)[0] as keyof NormalizedData;
+    const value = Object.values(addition)[0];
+    return [key, value] as DataKeyAndValue<typeof key>;
+}
 
-    const cleaned = normalize(value, field);
-    if (!cleaned) throw new Error(`Data could not be cleaned for field ${field}`);
-    data[field] = cleaned as NormalizedData[TDataKey];
-    setData(data, fragment);
+export const set = <TDataKey extends keyof Data & keyof NormalizedData>(field: TDataKey, value: Data[TDataKey]) => {
+    const normalized = normalize(value, field);
+
+    if (!normalized) throw new Error(`Data could not be cleaned for field ${field}`);
+
+    const update = { [field]: normalized } as { [k in TDataKey]: NormalizedData[TDataKey] };
+    send(update);
 }
 
 export const describeYourself = (member: GroupMember) => {
-    const data = getData();
-    const fragment = getNewFragmentFile();
-    const index = data.members.findIndex((existing) => existing.name === member.name);
-    index >= 0 ? data.members[index] = normalizeMember(member) : data.members.push(normalizeMember(member));
-    setData(data, fragment);
+    const normalized = normalizeMember(member);
+    send({ ["members"]: [normalized] });
 }
-
-export const joinFragments = (fragment1: string, fragment2: string) => {
-    const a = getData(fragment1);
-    const b = getData(fragment2);
-
-    fs.rmSync(fragment1);
-    fs.rmSync(fragment2);
-
-    const fragment = getNewFragmentFile();
-
-    setData({
-        roles: { ...a.roles, ...b.roles },
-        skills: { ...a.skills, ...b.skills },
-        themes: { ...a.themes, ...b.themes },
-        members: [...a.members, ...b.members],
-    }, fragment);
-};
 
 export const pathToFileInAssetsFolder = (filename: string): PathToAsset => {
     const pathToFile = path.join(assetsFolder, filename);
