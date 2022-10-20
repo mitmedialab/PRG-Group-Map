@@ -5,8 +5,7 @@ Organizing the (wonderful) people and (exciting) projects of the Personal Roboti
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/mitmedialab/PRG-Group-Map)
 
-
-# How to:
+# How to (work in progress, ignore for now):
 
 ## Add yourself
 
