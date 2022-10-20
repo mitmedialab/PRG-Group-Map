@@ -105,7 +105,7 @@ describeYourself({
 
 The acceptable values for project names are pulled from objects defined elsewhere in the project (which is part of the reason why Typescript is so useful to us). 
 
-Below we outline how you can locate and update these definitions.
+Below we outline how you can locate and update these definitions. Please do so for projects you work on, 
 
 ##### Locating a project definition
 
