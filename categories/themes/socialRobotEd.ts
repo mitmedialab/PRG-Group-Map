@@ -5,7 +5,9 @@ export default theme({
     details: "",
     projects: {
         Jibo: "",
-        "Doodle Bot": "",
+        "Doodle Bot": {
+            summary: "This is a summary!!"
+        },
         PopBots: "",
         "Gizmo & ScratchX": "",
         "How to Train Your Robot": "",
