@@ -19,6 +19,7 @@ Organizing the (wonderful) people and (exciting) projects of the Personal Roboti
         3. Enable `public_repo`
         4. Click `Update Permissions`.
         - **NOTE:** If anyone has security concerns about enabling this setting, please discuss with [Parker](https://github.com/pmalacho-mit)
+    - **NOTE:** This also could have been completed as part of the initial user preference setup. 
 
 ### 
 
