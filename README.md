@@ -26,7 +26,7 @@ Organizing the (wonderful) people and (exciting) projects of the Personal Roboti
 ### Tour of Workspace
 
 1. After navigating back to your workspace tab, you should be ready to start editing! There's a few things to notice about your workspace:
-    1. **Terminal**: A terminal window should be visible at the bottom of your screen. It is currently executing a series of commands to setup your development environment and then eventually start a development server to host the Group Map site (). 
+    1. **Terminal**: A terminal window (also know as a _command line_) should be visible at the bottom of your screen. It is currently executing a series of commands to setup your development environment and then eventually start a development server to host the Group Map site. 
         1. **ADVANCED**: Some of initial commands include: 
             - Checking out a git branch off of `main`, named `gitpod/<email username>/<time stamp>`
             - Setuping bash aliases to enable: (1) closing the gitpod workspace ("Quit"); (2) adding, committing, and pushing all changes, and then closing the gitpod workspace ("SaveAndQuit")
@@ -38,17 +38,34 @@ Organizing the (wonderful) people and (exciting) projects of the Personal Roboti
 
 As a member of PRG, we are tasking you to: (1) keep your information in the group map up to date, and (2) keep the information about the projects you work on up to date.  
 
-This requires the following, [Adding yourself to the graph](), [Editing your information](), and [Editing infromation about projects]().
+This requires the following:
+- [Adding Yourself to The Graph](#Adding-Yourself-to-the-Graph)
+- [Editing your information]()
+- [Editing infromation about projects]().
 
 #### Adding Yourself to the Graph
 
 If you did not see a file with your name included in the `people/` directory, you'll need to create one.
 
-1. **Open up a new terminal:** We'll need to open a new terminal in the workspace in order to run an npm script 
+1. **Open up a new terminal:** You'll need to open a new terminal in the workspace in order to run a a custom [npm script](https://docs.npmjs.com/cli/v8/commands/npm-run-script)
     - There are a couple ways to open a terminal in gitpod, but the most straight forward way is to click on the 'hamburger' menu (3 stacked horizontal lines) on the top left and select _Terminal_ > _New Terminal_
     - **NOTE**: Do NOT interrupt the already running `Dev Server` command unless you know what you're doing!
 2. Run the following command, followed by your name (and do **NOT** include spaces): ```npm run new:person``` (for example ```npm run new:person cynthia```)
-3. If successful, the command will point you to a newly create `.ts` file where you can add you details. Jump down to [Editing your information]() to see what to add.
+3. If successful, the command will point you to a newly created `.ts` file where you can add you details. Jump down to [Editing your information]() to see what to add (you can also close the newly create terminal window).
+
+#### Editing Your Information
+
+Your details are fed to the graph through the `describeYourself` function, which takes a [javascript object](https://www.w3schools.com/js/js_objects.asp) (a specific set of key/value pairs). 
+
+We make use of [Typescript](https://www.typescriptlang.org/) to ensure this object contains all the necessary information, and also to make our lives easier through helpful suggestings and code-completion.
+
+##### Not sure what keys are available? 
+
+Typescript can tell us what keys belong in an object by typing a `"` within it's curly brackets (`{ ... }`). Any keys succeeded by a `?` are optional and can be left out. 
+
+##### Not sure what values are appropriate?
+
+Hover over a key to see documentation on what values it can take on. Often times they'll be multiple acceptable values, and you can pick which is most convenient to convey the necessary information. 
 
 ## Add yourself
 
