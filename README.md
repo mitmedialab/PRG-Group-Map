@@ -5,7 +5,9 @@ Organizing the (wonderful) people and (exciting) projects of the Personal Roboti
 
 1. [Gitpod Configuration]()
 2. [Tour of Gitpod Workspace]()
-3. [Where you come in]()
+    1. Terminal
+    2.  
+4. [Where you come in]()
 
 ### Gitpod Configuration
 
@@ -40,6 +42,8 @@ But first, there's a few things to notice about your workspace:
 A terminal window (also know as a _command line_) should be visible at the bottom of your screen. 
 
 It should currently be executing a series of commands to setup your development environment and then eventually start a development server to host the Group Map site. 
+
+##### Development Server
 
 Once you see `Bundle End` outputted in the terminal, the development server is up and running. 
 
