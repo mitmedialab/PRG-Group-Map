@@ -49,6 +49,7 @@ This requires the following:
 - [Adding Yourself to The Graph](#Adding-Yourself-to-the-Graph)
 - [Editing your information]()
 - [Editing infromation about projects]().
+- [Saving you changes]()
 
 #### Adding Yourself to the Graph
 
