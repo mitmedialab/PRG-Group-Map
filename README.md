@@ -27,16 +27,27 @@ Because we are forcing everyone to write code, we want to make it as easy as pos
 
 ### Tour of Workspace
 
-After navigating back to your workspace tab, you should be ready to start editing! But first, there's a few things to notice about your workspace:
+After navigating back to your workspace tab, you should be ready to start editing! 
 
-1. **Terminal**: A terminal window (also know as a _command line_) should be visible at the bottom of your screen. It should be currently executing a series of commands to setup your development environment and then eventually start a development server to host the Group Map site. 
-    1. Once you see `Bundle End` outputted in the terminal, the development server should be up and running. 
-    2. As you make changes to files, the development server will automatically rebuild the project and refresh the webpage to reflect your changes (takes ~10s). 
-        - **NOTE:** Because of how gitpod controls the file system, changes are automatically saved. This can trigger multiple rebuilds when you're editing (since every save triggers a rebuild), which is annoying but does not indicate a problem with your code or workflow. 
-    3. For the best developer experience, keep this command/terminal running for your entire session. If it exits due to an error or you accidentally close it, you can restart it be running `npm run dev` (it will take around ~30s to start up again).
-    4. **ADVANCED**: Some of the initial commands include: 
-        - Checking out a git branch off of `main`, named `gitpod/<email username>/<time stamp>`
-        - Setuping bash aliases to enable: (1) closing the gitpod workspace ("Quit"); (2) adding, committing, and pushing all changes, and then closing the gitpod workspace ("SaveAndQuit")
+But first, there's a few things to notice about your workspace:
+
+#### Terminal
+
+A terminal window (also know as a _command line_) should be visible at the bottom of your screen. 
+
+It should be currently executing a series of commands to setup your development environment and then eventually start a development server to host the Group Map site. 
+
+Once you see `Bundle End` outputted in the terminal, the development server should be up and running. 
+
+As you make changes to files, the development server will automatically rebuild the project and refresh the webpage to reflect your changes (takes ~10s). 
+   - **NOTE:** Because of how gitpod controls the file system, changes are automatically saved. This can trigger multiple rebuilds when you're editing (since every save triggers a rebuild), which is annoying but does not indicate a problem with your code or workflow. 
+ 
+ For the best developer experience, keep this command/terminal running for your entire session. If it exits due to an error or you accidentally close it, you can restart it be running `npm run dev` (it will take around ~30s to start up again).
+##### **ADVANCED**
+Some of the initial commands include: 
+    - Checking out a git branch off of `main`, named `gitpod/<email username>/<time stamp>`
+    - Setuping bash aliases to enable: (1) closing the gitpod workspace ("Quit"); (2) adding, committing, and pushing all changes, and then closing the gitpod workspace ("SaveAndQuit")
+    
 2. **Browser Preview**: Once the development server starts up, a simple-browser window will be opened at the top right of your screen displaying the project. 
      - **NOTE**: Due to an issue with live-reloading on gitpod, you might need to refresh the window in order for the map to display initially once the developmet server is up and running. 
 3. **File explorer:** All of the files included in the project will be displayed in the panel on the left. 
