@@ -56,6 +56,15 @@ For the best developer experience, keep this command/terminal running for your e
 npm run dev # it will take around ~30s to start up again
 ```
 
+#### Browser Preview
+ 
+Once the development server starts up, a simple-browser window will be opened at the top right of your screen displaying the project. 
+     - **NOTE**: Due to an issue with live-reloading on gitpod, you might need to refresh the window in order for the map to display initially once the developmet server is up and running. 
+     
+#### File explorer
+All of the files included in the project will be displayed in the panel on the left. 
+    - You can open them by either clicking on their name directly, or by selecting `Open File` in the File menu (accessed through the "hamburger" menu in the top left)
+
 ### Where you come in
 
 As a member of PRG, we are asking you to: (1) keep your information in the group map up to date, and (2) keep the information about the projects you work on up to date.  
