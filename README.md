@@ -77,7 +77,13 @@ npm run new:person cynthia
 
 #### Editing Your Information
 
-Inside of the file named for you, you'll find a call to the `describeYourself(...)` function, which is how youryYour details are fed to the graph (specifically through [javascript object](https://www.w3schools.com/js/js_objects.asp) passed to it as an argument). 
+Inside of the file named for you, you'll find a call to the `describeYourself(...)` function, which is how your details are fed to the graph (specifically through [javascript object](https://www.w3schools.com/js/js_objects.asp) passed to the function as an argument). 
+
+```ts
+describeYourself({
+   ... your details go here ...
+})
+```
 
 We make use of [Typescript](https://www.typescriptlang.org/) to ensure this object contains all the necessary information, and to also make our lives easier through helpful suggestings and code-completion. 
 
