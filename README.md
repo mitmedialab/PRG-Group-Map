@@ -5,7 +5,8 @@ Organizing the (wonderful) people and (exciting) projects of the Personal Roboti
 
 ### Gitpod Configuration
 
-1. **Login to Gitpod:** Click the following button to open [Gitpod](https://www.gitpod.io/), a service we'll use to access a cloud development environment pre-configured for this project: [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/mitmedialab/PRG-Group-Map)
+1. **Login to Gitpod:** Click the following button to open [Gitpod](https://www.gitpod.io/), a service we'll use to access a cloud development environment pre-configured for this project: 
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/mitmedialab/PRG-Group-Map)
     1. Unless you already have a gitpod account (and are logged in), you should be prompted to `Continue with Github`. After clicking `Continue with Github`, login to github (if prompted) and authorize gitpod (if prompted).
     - **NOTE:** If you do NOT have a github account, please make one and let [Parker](https://github.com/pmalacho-mit) know. Once he gives you the necessary permissions, you can continue with the below steps. 
 2. Once logged in, gitpod will likely ask you about some user preferences. We recommend the following:
