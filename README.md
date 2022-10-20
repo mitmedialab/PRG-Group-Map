@@ -30,15 +30,18 @@ Because we are forcing everyone to write code, we want to make it as easy as pos
 After navigating back to your workspace tab, you should be ready to start editing! But first, there's a few things to notice about your workspace:
 
 1. **Terminal**: A terminal window (also know as a _command line_) should be visible at the bottom of your screen. It is currently executing a series of commands to setup your development environment and then eventually start a development server to host the Group Map site. 
-    1. **ADVANCED**: Some of initial commands include: 
+    1. Once you see `Bundle End` (in grey) outputted from the terminal, the development server should be up and running.
+    2. As you make changes to files, the development server will automatically rebuild the project and refresh the webpage to reflect your changes (takes ~10s). 
+        - **NOTE:** Because of how gitpod controls the file system, changes are automatically saved. This can trigger multiple rebuilds when you're editing (since every save triggers a rebuild), which is annoying but does not indicate a problem with your code or workflow. 
+    4. **ADVANCED**: Some of the initial commands include: 
         - Checking out a git branch off of `main`, named `gitpod/<email username>/<time stamp>`
         - Setuping bash aliases to enable: (1) closing the gitpod workspace ("Quit"); (2) adding, committing, and pushing all changes, and then closing the gitpod workspace ("SaveAndQuit")
-2. **Browser Preview**: Once the development server starts up, a browser window will be opened at the top right of your screen displaying the project. 
-     - **NOTE**: Due to an issue with live-reloading on gitpod, you might need to refresh the window a couple times in order for the map to display initially. 
+2. **Browser Preview**: Once the development server starts up, a simple-browser window will be opened at the top right of your screen displaying the project. 
+     - **NOTE**: Due to an issue with live-reloading on gitpod, you might need to refresh the window in order for the map to display initially once the developmet server is up and running. 
 3. **File explorer:** All of the files included in the project will be displayed in the panel on the left. 
     - You can open them by either clicking on their name directly, or by selecting `Open File` in the File menu (accessed through the "hamburger" menu in the top left)
 
-### Editing the Project
+### Where you come in
 
 As a member of PRG, we are tasking you to: (1) keep your information in the group map up to date, and (2) keep the information about the projects you work on up to date.  
 
@@ -49,7 +52,7 @@ This requires the following:
 
 #### Adding Yourself to the Graph
 
-If you did not see a file with your name included in the `people/` directory, you'll need to create one.
+If you did not see a file with your name included in the `people/` directory, you'll need to create one. (If you do, hop down to [Editing Your Information]())
 
 1. **Open up a new terminal:** You'll need to open a new terminal in the workspace in order to run a a custom [npm script](https://docs.npmjs.com/cli/v8/commands/npm-run-script)
     - There are a couple ways to open a terminal in gitpod, but the most straight forward way is to click on the 'hamburger' menu (3 stacked horizontal lines) on the top left and select _Terminal_ > _New Terminal_
@@ -59,28 +62,14 @@ If you did not see a file with your name included in the `people/` directory, yo
 ```bash
 npm run new:person cynthia
 ```
-3. If successful, the command will point you to a newly created `.ts` file where you can add your details. Jump down to [Editing your information]() to see what to add.
+3. If successful, the command will point you to a newly created `.ts` file where you can add your details. Jump down to [Editing your information](https://github.com/pmalacho-mit) to see what to add.
     - **NOTE:** you can also close the newly create terminal window.
 
 #### Editing Your Information
 
 Your details are fed to the graph through the `describeYourself` function, which takes a [javascript object](https://www.w3schools.com/js/js_objects.asp) (a specific set of key/value pairs). 
 
-We make use of [Typescript](https://www.typescriptlang.org/) to ensure this object contains all the necessary information, and to also make our lives easier through helpful suggestings and code-completion.
-
-##### Not sure what keys are available? 
-
-Typescript can tell us what keys belong in an object by typing a `"` within it's curly brackets (`{ ... }`). 
-
-
-
-Any keys succeeded by a `?` are optional and can be left out. 
-
-##### Not sure what values are appropriate?
-
-Hover over a key to see documentation on what values it can take on. Often times they'll be multiple acceptable values, and you can pick which is most convenient to convey the necessary information. 
-
-If you provide a value that typescript doesn't like, it will underline the error in red. Hover over it to see a potentially-helpful error message. If you aren't able to resolve it, please contact [Parker](https://github.com/pmalacho-mit).
+We make use of [Typescript](https://www.typescriptlang.org/) to ensure this object contains all the necessary information, and to also make our lives easier through helpful suggestings and code-completion. Check out the [Why Typescript is Great]() section to see why ([Parker](https://github.com/pmalacho-mit) thinks) Typescript is great.
 
 #### Editing a Project
 
@@ -150,36 +139,22 @@ theme({
 > NOTE: The above file creation + boilerpalte will soon be turned into a command.
 
 
-## Add yourself
+## Why Typescript Is Great
 
-1. Create a new typescription file (`.ts` extension) inside of the `people/` directory. For example, `cynthia.ts`.
+### Not sure what keys are available in an object? 
 
-2. This code file will be responsible for doing one thing, which is calling the `describeYourself` function. This function takes a single paramter, which is an [object](https://www.w3schools.com/js/js_objects.asp) that, well, *describes you*. Check out the below examples:
+Typescript can tell us what keys belong in an object by typing a `"` within it's curly brackets (`{ ... }`). 
 
-```ts
-// Inside of ./people/cynthia.ts
 
-import { describeYourself } from "../builder";
 
-describeYourself({
-    name: "Cynthia Breazeal",
-    email: "cynthiab@media.mit.edu",
-    bio: "Mother of robots",
-    role: "Principle Investigator",
-    projects: ["All of them"],
-    skills: ["Also all of them"],
-    yearsActive: // I don't know, @parker ask someone!
-});
-```
+Any keys succeeded by a `?` are optional and can be left out. 
 
-3. Use type hints, typescript errors, and code documentation (visible when you hover over a field/') to fill out the function's argument properly. 
+### Not sure what values are appropriate?
 
-## Add a Project
+Hover over a key to see documentation on what values it can take on. Often times they'll be multiple acceptable values, and you can pick which is most convenient to convey the necessary information. 
 
-## Add a Theme
+If you provide a value that typescript doesn't like, it will underline the error in red. Hover over it to see a potentially-helpful error message. If you aren't able to resolve it, please contact [Parker](https://github.com/pmalacho-mit).
 
-## Add a Role
+## Advanced editing
 
-## Add a Skill
-
-## Add a Category that doesn't exist yet
+...Coming soon...
