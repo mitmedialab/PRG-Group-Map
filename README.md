@@ -86,7 +86,7 @@ If you provide a value that typescript doesn't like, it will underline the error
 
 ##### Inline Project Summary
 
-The least information you can provided about a project is simply a summary about it. This will look like following (within the `projects` object passed to the `theme()` function):
+The minimum information you can provided about a project is simply a summary about it. This will look like following (within the `projects` object passed to the `theme()` function):
 
 ```ts
 theme({
@@ -98,6 +98,8 @@ theme({
 ```
 
 ##### Inline Project Details
+
+If you'd like to say a little bit more about a project, you can specify project details like so:
 
 ```ts
 theme({
@@ -111,7 +113,39 @@ theme({
 });
 ```
 
-##### 
+##### External Project Details
+
+If you have so much to say about a project that it will hurt the readability of the object passed to the `theme()` function, you can opt to define the project in a seperate file, and then [import](https://www.javascripttutorial.net/es-next/javascript-import/) the definition into the theme.
+
+1. Create a new file in `categories/themes/projects`
+2. Copy the following boilerplate into it:
+```ts
+import { project } from "../../../builder";
+
+export default project({
+    name: "Name of Project",
+    details: {
+        summary: "This is a summary of project",
+    }
+});
+```
+3. Add the details about your project
+4. In the appropriate theme file, import the default export from your newly created file (e.g. `import callItWhateverYouWant from "./projects/newProject";`) and spread the object within `projects` object:
+
+```
+// Inside of theme file
+import callItWhateverYouWant from "./projects/newProject";
+
+theme({
+    ...
+    projects: {
+        ...callItWhateverYouWant,
+    }
+});
+```
+
+
+> NOTE: The above file creation + boilerpalte will soon be turned into a command.
 
 
 ## Add yourself
