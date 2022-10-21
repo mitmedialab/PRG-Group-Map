@@ -37,6 +37,8 @@ We are able to configure these environment so that you will be immediately ready
         4. Click `Update Permissions`.
         - **NOTE:** If anyone has security concerns about enabling this setting, please discuss with [Parker](https://github.com/pmalacho-mit)
     - **NOTE:** These 'integrations' permissions also could have been granted as part of the initial user preference setup. 
+    
+![](Permissions.mp4)
 
 ### Tour of Workspace
 
