@@ -37,7 +37,7 @@ We are able to configure these environment so that you will be immediately ready
         3. Enable `public_repo`
         4. Click `Update Permissions`.
         - **NOTE:** If anyone has security concerns about enabling this setting, please discuss with [Parker](https://github.com/pmalacho-mit)
-        - <img src="https://user-images.githubusercontent.com/95306112/197117571-f22296da-9a60-4577-b02f-46399fd19d51.gif" width="50%"/>
+        - <center><img src="https://user-images.githubusercontent.com/95306112/197117571-f22296da-9a60-4577-b02f-46399fd19d51.gif" width="200"/></center>
     - **NOTE:** These 'integrations' permissions also could have been granted as part of the initial user preference setup. 
 
 
