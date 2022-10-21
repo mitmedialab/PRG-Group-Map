@@ -56,7 +56,7 @@ If you'd like to run any commands, you should open a new terminal, either using 
 
 Once you see `Bundle End` outputted in the terminal, the development server is up and running. 
 
-As you make changes to files, the development server will automatically rebuild the project and refresh the webpage to reflect your changes (~10s). 
+As you make changes to files, the development server will automatically rebuild the project and refresh the [webpage]() to reflect your changes (~10s). 
    - **NOTE:** Because of how gitpod controls the file system, changes are automatically saved (think Google Drive). This can trigger multiple rebuilds when you're editing (since every save triggers a rebuild), which can be annoying but does not indicate a problem with your code or workflow. 
  
 For the best developer experience, keep this command/terminal running for your entire session. If it exits due to an error or you accidentally close it, you can restart it be running:
@@ -65,9 +65,9 @@ For the best developer experience, keep this command/terminal running for your e
 npm run dev # it will take around ~30s to start up again
 ```
 
-#### Browser Preview
+#### Browser / Website Preview
  
-Once the development server starts up, a simple-browser window will be opened at the top right of your screen displaying the project. 
+Once the development server starts up, a simple-browser window will be opened at the top right of your workspace displaying the project. 
      - **NOTE**: Due to an issue with live-reloading on gitpod, you might need to refresh the window in order for the map to display initially once the developmet server is up and running. 
      
 #### File explorer
@@ -78,7 +78,7 @@ You will mainly be expected to edit files contained with the `people/` and `cate
 
 ### Where You Come In
 
-As a member of PRG, we are asking you to: (1) keep your information in the group map up to date, and (2) keep the information about the projects you work on up to date.  
+As a member of PRG, we are asking you to keep your information and the information about the projects you work on up to date.  
 
 This requires the following:
 - [Adding Yourself to The Graph](#Adding-Yourself-to-the-Graph)
@@ -94,14 +94,14 @@ If you do not see a file with your name included in the `people/` directory, you
 
 1. **Open up a new terminal:** You'll need to open a new terminal in the workspace in order to run a a custom [npm script](https://docs.npmjs.com/cli/v8/commands/npm-run-script)
     - There are a couple ways to open a terminal in gitpod, but the most straight forward way is to click on the "hamburger" menu on the top left and select _Terminal_ > _New Terminal_
-    - **NOTE**: Do NOT interrupt the already running `Dev Server` command unless you know what you're doing!
-2. In the new terminal, run the following command followed by your name (and do **NOT** include spaces): ```npm run new:person``` 
+    - **NOTE**: Do NOT interrupt the already running `Dev Server` command (unless you know what you're doing)!
+2. In the new terminal, run the following command followed by your name (and do **NOT** include any spaces): ```npm run new:person``` 
     - For example:
 ```bash
 npm run new:person cynthiaBreazeal 
 ```
-3. If successful, the command will point you to a newly created `.ts` file where you can add your details. Jump down to [Editing your information](https://github.com/pmalacho-mit) to see what to add.
-    - **NOTE:** you can also close the newly create terminal window.
+3. If successful, the command will point you to a newly created `.ts` file where you can add your details. Jump down to [Editing your information]() to see what to add.
+    - **NOTE:** you can close the newly created terminal window after executing the `new:person` command.
 
 #### Editing Your Information
 
@@ -135,7 +135,7 @@ describeYourself({
 
 The acceptable values for project names are pulled from objects defined elsewhere in the project (which is part of the reason why Typescript is so useful to us). 
 
-Below we outline how you can locate and update these definitions. Please do so for the projects you work on, especially those that you are a _main_ contributor to. 
+Below we outline how you can locate and update these definitions. Please do so for the projects you work on, especially those that you are a _main_ contributor on. 
 
 ##### Locating a project definition
 
@@ -143,9 +143,9 @@ The easiest way to locate a project definition is to highlight it's name and cli
 
 Locate the usage within a file inside of the `categories/themes/` directory. It will be used in one of the manners outlined below:
 
-- [Inline Project Summary -- defined in a single line within object passed to `theme(...)`]()
-- [Local Project Details -- defined within an object passed to `theme(...)`]()
-- [Exteneral Project Details -- defined within an object passed to `project(...)`]()
+- [Inline Project Summary](): Defined in a single line within the object passed to `theme(...)`
+- [Local Project Details](): Defined within a nested object of the object passed to `theme(...)`
+- [Exteneral Project Details](): Defined within an object passed to `project(...)` (and imported into `theme(...)`)
 
 Make sure to also check out [how typescript can help you]() to fill out a projects details correctly. 
 
