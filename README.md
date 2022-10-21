@@ -30,18 +30,23 @@ We are able to configure these environment so that you will be immediately ready
 3. **Give Gitpod write access:** Gitpod should then open you up a worskpace (cool, right?). We just need to make one permissions change to ensure once we start editing code we can preserve our changes through [git](https://git-scm.com/).
     1. Click the green Gitpod button in the very bottom left corner of the screen, which will open up a list of gitpod commands. Select `Gitpod: Open Access Control`.
         - **NOTE:** The gitpod workspace might be a little slow to start, so if nothing happens when you click the button, wait a moment and try again.
-    3. In the tab that the previous step opened:
+<details>
+  <Editing Permissions (video)</summary>
+  
+<video src="https://user-images.githubusercontent.com/95306112/197115437-35c2cc59-bf24-45e8-acf4-34bb17e41d0d.mp4" height="5"></video>
+</details>     
+    2. In the tab that the previous step opened:
         1. Click on the 3 dots ("kebab" menu) to the right of _Github_ 
         2. Click `Edit Permissions`
         3. Enable `public_repo`
         4. Click `Update Permissions`.
         - **NOTE:** If anyone has security concerns about enabling this setting, please discuss with [Parker](https://github.com/pmalacho-mit)
+    - **NOTE:** These 'integrations' permissions also could have been granted as part of the initial user preference setup. 
 <details>
-  <summary>Video Demo</summary>
+  <Editing Permissions (video)</summary>
   
 <video src="https://user-images.githubusercontent.com/95306112/197115437-35c2cc59-bf24-45e8-acf4-34bb17e41d0d.mp4" height="5"></video>
 </details>
-    - **NOTE:** These 'integrations' permissions also could have been granted as part of the initial user preference setup. 
 
 
 
