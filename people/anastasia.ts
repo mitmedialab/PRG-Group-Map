@@ -10,7 +10,7 @@ describeYourself({
         "Wellness",
         "Medications Adherence",
         "Older Adult Co-Design",
-        { name: "Robot Policy Toolkit", main: true },
+        { name: "Robot Policy Design Toolkit", main: true },
         { name: "Design Justice", main: true }
     ],
     skills: [
