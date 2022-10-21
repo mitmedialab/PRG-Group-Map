@@ -18,6 +18,8 @@ Organizing the (wonderful) people and (exciting) projects of the Personal Roboti
 
 Because we are forcing everyone to write code, we want to make it as easy as possible to get going with this project. To do this, we'll make use of [Gitpod](https://www.gitpod.io/), which provides access to virtual development environments.
 
+We are able to configure these environment so that you will be immediately ready to develop and add in your changes. Also, we are using gitpod in such a way that you can open a new environment (called a "workspace"), make your changes, and then delete the workspace immediately after. And the next time you need to develop, you can simply click the button below to start up a new workspace. 
+
 1. **Login to Gitpod:** Click the following button to open a [Gitpod](https://www.gitpod.io/) workspace for this project: 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/mitmedialab/PRG-Group-Map)
     1. Unless you already have a gitpod account (and are logged in), you should be prompted to `Continue with Github`. After clicking `Continue with Github`, login to github (if prompted) and authorize gitpod (if prompted).
@@ -218,8 +220,11 @@ theme({
 
 Often a difficult aspect of software projects is using [git for version control](https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control).
 
-To make this easier, we've tried to automate the process for you. Once you're done make your changes, simply run one of the following (either in a new terminal window or you can cntrl-c the _Dev Server_ command):
+To make this easier, we've tried to automate the process for you.
 
+(If you are comfortable with git, feel free to `add`, `commit`, and `push` as normal. Just note that you should use the branch that gitpod automatically checked out for you, which starts with `gitpod/<your email>`)
+
+Once you're done making your changes, simply run one of the following commands (either in a new terminal window or you can cntrl-c the _Dev Server_ command):
 
 ##### Automatically push up all changes to remote repository and shutdown gitpod workspace
 
