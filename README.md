@@ -79,6 +79,8 @@ Once the development server starts up, a simple-browser window will be opened at
      - **NOTE**: Due to an issue with live-reloading on gitpod, you might need to refresh the window in order for the map to display initially once the developmet server is up and running. 
      
 #### File explorer
+<img src="https://user-images.githubusercontent.com/95306112/197124024-1fff7779-0059-4614-885c-483b2cd4dddb.gif"/>
+
 All of the files included in the project will be displayed in the panel on the left. 
     - You can open them by either clicking on their name directly, or by selecting `Open File` in the File menu (accessed through the "hamburger" menu in the top left)
     
