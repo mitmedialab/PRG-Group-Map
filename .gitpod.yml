@@ -21,8 +21,10 @@ tasks:
       if $CREATE_NEW_BRANCH; then git checkout -b $PRG_BRANCH; fi
       echo "Creating an alias (i.e. shortcut command) for gitpush that will first check if the branch has already been push to remote, and if not it will set the upstream branch"
       alias prg_push_alias="[[ $(git ls-remote --heads origin $(prg_get_current_branch) | wc -l | bc) = 1 ]] && git push || git push --set-upstream origin $(prg_get_current_branch)"
+      echo "Creating an alias (i.e. shortcut command) to save all changes to git"
+      alias Save="git add . && git commit -m \"Automated commit from gitpod\" && prg_push_alias"
       echo "Creating an alias (i.e. shortcut command) to save all changes to git and stop the gitpod workspace"
-      alias SaveAndQuit="git add . && git commit -m \"Automated commit from gitpod\" && prg_push_alias && gp stop"
+      alias SaveAndQuit="Save && gp stop"
       echo "Creating an alias (i.e. shortcut command) to stop the gitpod workspace"
       alias Quit="gp stop"
       echo "Do some environment variable magic to make live reloading work (see link at top of .gitpod.yml file)"
