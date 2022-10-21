@@ -16,9 +16,7 @@ Organizing the (wonderful) people and (exciting) projects of the Personal Roboti
 
 ### Gitpod Configuration
 
-Because we are forcing everyone to write code, we want to make it as easy as possible to get going with this project. To do this, we'll make use of [Gitpod](https://www.gitpod.io/), which provides access to virtual development environments.
-
-We are able to configure these environment so that you will be immediately ready to develop and add in your changes. Also, we are using gitpod in such a way that you can open a new environment (called a "workspace"), make your changes, and then delete the workspace immediately after. And the next time you need to develop, you can simply click the button below to start up a new workspace. 
+Because we are forcing everyone to write code, we want to make it as easy as possible to get going with this project. To do this, we'll make use of [Gitpod](https://www.gitpod.io/), which provides access to virtual development environments (think code editor directly in your browser pre-configured to work with this project).
 
 1. **Login to Gitpod:** Click the following button to open a [Gitpod](https://www.gitpod.io/) workspace for this project: 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/mitmedialab/PRG-Group-Map)
