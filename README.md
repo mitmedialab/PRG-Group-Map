@@ -31,7 +31,7 @@ We are able to configure these environment so that you will be immediately ready
     1. Click the green Gitpod button in the very bottom left corner of the screen, which will open up a list of gitpod commands. Select `Gitpod: Open Access Control`.
         - **NOTE:** The gitpod workspace might be a little slow to start, so if nothing happens when you click the button, wait a moment and try again.
 <details>
-  <Editing Permissions (video)</summary>
+  <summary>Editing Permissions (video)</summary>
   
 <video src="https://user-images.githubusercontent.com/95306112/197115437-35c2cc59-bf24-45e8-acf4-34bb17e41d0d.mp4" height="5"></video>
 </details>     
@@ -43,9 +43,9 @@ We are able to configure these environment so that you will be immediately ready
         - **NOTE:** If anyone has security concerns about enabling this setting, please discuss with [Parker](https://github.com/pmalacho-mit)
     - **NOTE:** These 'integrations' permissions also could have been granted as part of the initial user preference setup. 
 <details>
-  <Editing Permissions (video)</summary>
+  <summary>Editing Permissions (video)</summary>
   
-<video src="https://user-images.githubusercontent.com/95306112/197115437-35c2cc59-bf24-45e8-acf4-34bb17e41d0d.mp4" height="5"></video>
+    <video src="https://user-images.githubusercontent.com/95306112/197115437-35c2cc59-bf24-45e8-acf4-34bb17e41d0d.mp4" height="5"></video>
 </details>
 
 
