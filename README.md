@@ -76,9 +76,11 @@ npm run dev # it will take around ~30s to start up again
 <img src="https://user-images.githubusercontent.com/95306112/197122781-0637cf42-1f99-4376-808b-a03420ede437.gif" />
 
 Once the development server starts up, a simple-browser window will be opened at the top right of your workspace displaying the project. 
-     - **NOTE**: Due to an issue with live-reloading on gitpod, you might need to refresh the window in order for the map to display initially once the developmet server is up and running. 
+     - **NOTE**: Due to an issue with live-reloading on gitpod, you might need to refresh the window in order for the map to display initially once the developmet server starts. 
      
 #### File explorer
+<img src="https://user-images.githubusercontent.com/95306112/197124024-1fff7779-0059-4614-885c-483b2cd4dddb.gif"/>
+
 All of the files included in the project will be displayed in the panel on the left. 
     - You can open them by either clicking on their name directly, or by selecting `Open File` in the File menu (accessed through the "hamburger" menu in the top left)
     
@@ -258,13 +260,15 @@ Quit
 
 Typescript can tell us what keys belong in an object by typing a `"` within it's curly brackets (`{ ... }`). 
 
-
+<img src="https://user-images.githubusercontent.com/95306112/197124987-b1092a4d-3207-44a6-a84f-611416e22caf.gif" width="400"/>
 
 Any keys succeeded by a `?` are optional and can be left out. 
 
 ### Not sure what values are appropriate?
 
 Hover over a key to see documentation on what values a field can take on. Often times they'll be multiple acceptable values, and you can pick which is most convenient to convey the necessary information. 
+
+<img src="https://user-images.githubusercontent.com/95306112/197125589-9e699420-b7af-4f39-ad93-e5d64c31d634.gif" />
 
 If you provide a value that typescript doesn't like, it will underline the error in red. Hover over it to see a potentially-helpful error message. If you aren't able to resolve it, please contact [Parker](https://github.com/pmalacho-mit).
 
