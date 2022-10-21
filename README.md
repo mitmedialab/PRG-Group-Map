@@ -72,7 +72,9 @@ npm run dev # it will take around ~30s to start up again
 ```
 
 #### Browser / Website Preview
- 
+
+<img src="https://user-images.githubusercontent.com/95306112/197122781-0637cf42-1f99-4376-808b-a03420ede437.gif" />
+
 Once the development server starts up, a simple-browser window will be opened at the top right of your workspace displaying the project. 
      - **NOTE**: Due to an issue with live-reloading on gitpod, you might need to refresh the window in order for the map to display initially once the developmet server is up and running. 
      
