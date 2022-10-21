@@ -263,13 +263,3 @@ If you provide a value that typescript doesn't like, it will underline the error
 ## Advanced editing
 
 ...Coming soon...
-
-## Advanced Details
-Some of the initial commands on startup include: 
-    - Checking out a git branch off of `main`, named `gitpod/<email username>/<time stamp>`
-    - Setuping bash aliases to enable: (1) closing the gitpod workspace ("Quit"); (2) adding, committing, and pushing all changes, and then closing the gitpod workspace ("SaveAndQuit")
-    
-2. **Browser Preview**: Once the development server starts up, a simple-browser window will be opened at the top right of your screen displaying the project. 
-     - **NOTE**: Due to an issue with live-reloading on gitpod, you might need to refresh the window in order for the map to display initially once the developmet server is up and running. 
-3. **File explorer:** All of the files included in the project will be displayed in the panel on the left. 
-    - You can open them by either clicking on their name directly, or by selecting `Open File` in the File menu (accessed through the "hamburger" menu in the top left)
