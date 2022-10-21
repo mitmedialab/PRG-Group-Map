@@ -38,7 +38,7 @@ We are able to configure these environment so that you will be immediately ready
         - **NOTE:** If anyone has security concerns about enabling this setting, please discuss with [Parker](https://github.com/pmalacho-mit)
     - **NOTE:** These 'integrations' permissions also could have been granted as part of the initial user preference setup. 
 
-<video src="https://user-images.githubusercontent.com/95306112/197115437-35c2cc59-bf24-45e8-acf4-34bb17e41d0d.mp4" width="5px"></video>
+<video src="https://user-images.githubusercontent.com/95306112/197115437-35c2cc59-bf24-45e8-acf4-34bb17e41d0d.mp4" height="5"></video>
 
 
 ### Tour of Workspace
