@@ -31,7 +31,7 @@ We are able to configure these environment so that you will be immediately ready
     1. Click the green Gitpod button in the very bottom left corner of the screen, which will open up a list of gitpod commands. Select `Gitpod: Open Access Control`.
         - **NOTE:** The gitpod workspace might be a little slow to start, so if nothing happens when you click the button, wait a moment and try again.
     2. In the tab that the previous step opened:
-        - ![](https://user-images.githubusercontent.com/95306112/197117571-f22296da-9a60-4577-b02f-46399fd19d51.gif)
+<img src="https://user-images.githubusercontent.com/95306112/197117571-f22296da-9a60-4577-b02f-46399fd19d51.gif" />
         1. Click on the 3 dots ("kebab" menu) to the right of _Github_ 
         2. Click `Edit Permissions`
         3. Enable `public_repo`
