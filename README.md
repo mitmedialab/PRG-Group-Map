@@ -151,6 +151,8 @@ Below we outline how you can locate and update these definitions. Please do so f
 
 The easiest way to locate a project definition is to highlight it's name and click `⌘ Cmd` + `↑ Shift` + `F` (maybe `Ctrl` + `↑ Shift` + `F` on Windows) to find it's usages in the project. 
 
+<img src="https://user-images.githubusercontent.com/95306112/197128846-b166f835-e395-47ae-87f7-af52080d27d2.gif"/>
+
 Locate the usage within a file inside of the `categories/themes/` directory. It will be used in one of the manners outlined below:
 
 - [Inline Project Summary](#inline-project-summary): Defined in a single line within the object passed to `theme(...)`
