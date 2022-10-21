@@ -32,7 +32,7 @@ We are able to configure these environment so that you will be immediately ready
         - **NOTE:** The gitpod workspace might be a little slow to start, so if nothing happens when you click the button, wait a moment and try again.
 <details>
   <summary>Editing Permissions</summary>
-   <video src="https://user-images.githubusercontent.com/95306112/197115437-35c2cc59-bf24-45e8-acf4-34bb17e41d0d.mp4">
+   <video src="https://user-images.githubusercontent.com/95306112/197115437-35c2cc59-bf24-45e8-acf4-34bb17e41d0d.mp4"/>
 </details>     
 
     2. In the tab that the previous step opened:
