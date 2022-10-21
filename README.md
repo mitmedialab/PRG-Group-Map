@@ -28,10 +28,11 @@ We are able to configure these environment so that you will be immediately ready
     - Select 'VS Code Broswer for your editor
     - Select 'Dark' theme
 3. **Give Gitpod write access:** Gitpod should then open you up a worskpace (cool, right?). We just need to make one permissions change to ensure once we start editing code we can preserve our changes through [git](https://git-scm.com/).
-    1. Click the green Gitpod button in the very bottom left corner of the screen, which will open up a list of gitpod commands. Select `Gitpod: Open Access Control`.
+    1. Click the green Gitpod button in the very bottom left corner of the screen.
+        - <img src="https://user-images.githubusercontent.com/95306112/197118951-94509ee8-3d41-4863-ada8-acc5e30bb577.gif" width="100"/> 
         - **NOTE:** The gitpod workspace might be a little slow to start, so if nothing happens when you click the button, wait a moment and try again.
-        - <img src="https://user-images.githubusercontent.com/95306112/197118951-94509ee8-3d41-4863-ada8-acc5e30bb577.gif"/>
-        - <img src="https://user-images.githubusercontent.com/95306112/197118742-320c55a1-bca8-46fd-883e-1929649d0fcf.gif" width="400"/>
+    2. That will open up a list of gitpod commands. Select `Gitpod: Open Access Control`.
+        - <img src="https://user-images.githubusercontent.com/95306112/197118742-320c55a1-bca8-46fd-883e-1929649d0fcf.gif" width="200"/>
     2. In the tab that the previous step opened:
         1. Click on the 3 dots ("kebab" menu) to the right of _Github_ 
         2. Click `Edit Permissions`
