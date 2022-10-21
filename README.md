@@ -34,7 +34,7 @@ Because we are forcing everyone to write code, we want to make it as easy as pos
         3. Enable `public_repo`
         4. Click `Update Permissions`.
         - **NOTE:** If anyone has security concerns about enabling this setting, please discuss with [Parker](https://github.com/pmalacho-mit)
-    - **NOTE:** This also could have been completed as part of the initial user preference setup. 
+    - **NOTE:** These 'integrations' permissions also could have been granted as part of the initial user preference setup. 
 
 ### Tour of Workspace
 
@@ -46,16 +46,16 @@ But first, there's a few things to notice about your workspace:
 
 A terminal window (also know as a _command line_) should be visible at the bottom of your screen. 
 
-It should currently be executing a series of commands to setup your development environment and then eventually start a [development server]() to host the Group Map site, which will run continuously.
+It should currently be executing a series of commands to setup your development environment and then eventually start a [development server]() to host the Group Map website (which will remain running). 
 
-If you'd like to run any commands, you should open a new terminal, either using buttons in the terminal UI, or by clicking on the 'hamburger' menu on the top left and select _Terminal_ > _New Terminal_.
+If you'd like to run any commands, you should open a new terminal, either using buttons in the terminal UI, or by clicking on the "hamburger" menu on the top left and select _Terminal_ > _New Terminal_.
 
 ##### Development Server
 
 Once you see `Bundle End` outputted in the terminal, the development server is up and running. 
 
 As you make changes to files, the development server will automatically rebuild the project and refresh the webpage to reflect your changes (~10s). 
-   - **NOTE:** Because of how gitpod controls the file system, changes are automatically saved. This can trigger multiple rebuilds when you're editing (since every save triggers a rebuild), which is annoying but does not indicate a problem with your code or workflow. 
+   - **NOTE:** Because of how gitpod controls the file system, changes are automatically saved (think Google Drive). This can trigger multiple rebuilds when you're editing (since every save triggers a rebuild), which can be annoying but does not indicate a problem with your code or workflow. 
  
 For the best developer experience, keep this command/terminal running for your entire session. If it exits due to an error or you accidentally close it, you can restart it be running:
 
@@ -72,9 +72,9 @@ Once the development server starts up, a simple-browser window will be opened at
 All of the files included in the project will be displayed in the panel on the left. 
     - You can open them by either clicking on their name directly, or by selecting `Open File` in the File menu (accessed through the "hamburger" menu in the top left)
     
-You will mainly be expected to edit files contained with the `people/` and `categories/` directories, which contain files responsible for defining (information about) nodes in the group map/graph. 
+You will mainly be expected to edit files contained with the `people/` and `categories/` directories, which are responsible for defining (information about) nodes in the group map/graph. 
 
-### Where you come in
+### Where You Come In
 
 As a member of PRG, we are asking you to: (1) keep your information in the group map up to date, and (2) keep the information about the projects you work on up to date.  
 
@@ -82,28 +82,28 @@ This requires the following:
 - [Adding Yourself to The Graph](#Adding-Yourself-to-the-Graph)
 - [Editing your information]()
 - [Editing infromation about projects]().
-- [Saving you changes]()
+- [Saving your changes]()
 
 #### Adding Yourself to the Graph
 
 If you do not see a file with your name included in the `people/` directory, you'll need to create one. 
 
-(If you do, hop down to [Editing Your Information]())
+(If you do see a file with your name/details, hop down to [Editing Your Information]())
 
 1. **Open up a new terminal:** You'll need to open a new terminal in the workspace in order to run a a custom [npm script](https://docs.npmjs.com/cli/v8/commands/npm-run-script)
-    - There are a couple ways to open a terminal in gitpod, but the most straight forward way is to click on the 'hamburger' menu (3 stacked horizontal lines) on the top left and select _Terminal_ > _New Terminal_
+    - There are a couple ways to open a terminal in gitpod, but the most straight forward way is to click on the "hamburger" menu on the top left and select _Terminal_ > _New Terminal_
     - **NOTE**: Do NOT interrupt the already running `Dev Server` command unless you know what you're doing!
-2. Run the following command, followed by your name (and do **NOT** include spaces): ```npm run new:person``` 
+2. In the new terminal, run the following command followed by your name (and do **NOT** include spaces): ```npm run new:person``` 
     - For example:
 ```bash
-npm run new:person cynthia
+npm run new:person cynthiaBreazeal 
 ```
 3. If successful, the command will point you to a newly created `.ts` file where you can add your details. Jump down to [Editing your information](https://github.com/pmalacho-mit) to see what to add.
     - **NOTE:** you can also close the newly create terminal window.
 
 #### Editing Your Information
 
-Inside of the file named for you, you'll find a call to the `describeYourself(...)` function, which is how your details are fed to the graph (specifically through [javascript object](https://www.w3schools.com/js/js_objects.asp) passed to the function as an argument). 
+Inside of the file named for you, you'll find a call to the `describeYourself(...)` function, which is how your details are fed to the graph (specifically through the [javascript object](https://www.w3schools.com/js/js_objects.asp) passed to the function as an argument). 
 
 ```ts
 describeYourself({
@@ -117,7 +117,9 @@ Check out the [Why Typescript is Great]() section to see why ([Parker](https://g
 
 #### Editing a Project
 
-Every group member works on 0 or more projects, specified in the `projects` field of the object passed to the `describeYourself(...)` function (mentioned above). 
+The projects a group member works on are specified by the `projects` field of the object passed to the `describeYourself(...)` function (mentioned above).
+
+This field will typically look like an [array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) of Project Names, with occasional extra bits of information (like whether or not a project is someone's _main_ project).
 
 For example: 
 
@@ -131,17 +133,20 @@ describeYourself({
 
 The acceptable values for project names are pulled from objects defined elsewhere in the project (which is part of the reason why Typescript is so useful to us). 
 
-Below we outline how you can locate and update these definitions. Please do so for projects you work on, 
+Below we outline how you can locate and update these definitions. Please do so for the projects you work on, especially those that you are a _main_ contributor to. 
 
 ##### Locating a project definition
 
 The easiest way to locate a project definition is to highlight it's name and click `⌘ Cmd` + `↑ Shift` + `F` (maybe `Ctrl` + `↑ Shift` + `F` on Windows) to find it's usages in the project. 
 
-Locate the usage within a file inside of the `categories/themes/`. It will be used in one of the manners outlined below:
+Locate the usage within a file inside of the `categories/themes/` directory. It will be used in one of the manners outlined below:
+
 - [Inline Project Summary -- defined in a single line within object passed to `theme(...)`]()
 - [Local Project Details -- defined within an object passed to `theme(...)`]()
 - [Exteneral Project Details -- defined within an object passed to `project(...)`]()
-- 
+
+Make sure to also check out [how typescript can help you]() to fill out a projects details correctly. 
+
 ##### Inline Project Summary
 
 The minimum information you can provided about a project is simply a summary about it. This will look like following (within the `projects` object passed to the `theme()` function):
@@ -167,7 +172,8 @@ theme({
         ...,
         "Name of Project": {
             summary: "This is a summary of project",
-            description: "This is a longer description of the project"
+            description: "This is a longer description of the project",
+            links: [ { text: "homepage", link: "https://www.media.mit.edu/groups/personal-robots/overview/" } ],
         }
     }
 });
@@ -176,6 +182,8 @@ theme({
 ##### External Project Details
 
 If you have so much to say about a project that it will hurt the readability of the object passed to the `theme()` function, you can opt to define the project in a seperate file, and then [import](https://www.javascripttutorial.net/es-next/javascript-import/) the definition into the theme.
+
+> NOTE: The below file creation + boilerpalte steps will soon be turned into a command.
 
 1. Create a new file in `categories/themes/projects`
 2. Copy the following boilerplate into it:
@@ -190,7 +198,7 @@ export default project({
 });
 ```
 3. Add the details about your project
-4. In the appropriate theme file, import the default export from your newly created file (e.g. `import callItWhateverYouWant from "./projects/newProject";`) and spread the object within `projects` object:
+4. In the appropriate theme file, import the default export from your newly created file (e.g. `import callItWhateverYouWant from "./projects/newProject";`) and spread the object within the `projects` object:
 
 ```ts
 // Inside of theme file
@@ -199,14 +207,37 @@ import callItWhateverYouWant from "./projects/newProject";
 theme({
     ...
     projects: {
+        ...,
         ...callItWhateverYouWant,
+        ...,
     }
 });
 ```
 
+#### Saving Your Changes
 
-> NOTE: The above file creation + boilerpalte will soon be turned into a command.
+Often a difficult aspect of software projects is using [git for version control](https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control).
 
+To make this easier, we've tried to automate the process for you. Once you're done make your changes, simply run one of the following (either in a new terminal window or you can cntrl-c the _Dev Server_ command):
+
+
+##### Automatically push up all changes to remote repository and shutdown gitpod workspace
+
+```bash
+SaveAndQuit
+```
+
+##### Automatically push up all changes to remote repository
+
+```bash
+Save
+```
+
+**NOTE**: You should get in the habit of shutting down your workspaces (as your limited to 50hrs / month), but they will also automatically supsend after 30 minutes of inactivity. You can do this easily by running the command (you guessed it!):
+
+```bash
+Quit
+```
 
 ## Why Typescript Is Great
 
