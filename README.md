@@ -5,9 +5,14 @@ Organizing the (wonderful) people and (exciting) projects of the Personal Roboti
 
 1. [Gitpod Configuration]()
 2. [Tour of Gitpod Workspace]()
-    1. Terminal
-    2.  
-4. [Where you come in]()
+    1. [Terminal]()
+    2. [Site Preview]()
+    3. [File Explorer / System]()
+3. [Where you come in!]()
+    1. [Adding Yourself to The Graph](#Adding-Yourself-to-the-Graph)
+    2. [Editing your information]()
+    3. [Editing infromation about projects]().
+    4. [Saving you changes]()
 
 ### Gitpod Configuration
 
@@ -41,7 +46,9 @@ But first, there's a few things to notice about your workspace:
 
 A terminal window (also know as a _command line_) should be visible at the bottom of your screen. 
 
-It should currently be executing a series of commands to setup your development environment and then eventually start a development server to host the Group Map site. 
+It should currently be executing a series of commands to setup your development environment and then eventually start a [development server]() to host the Group Map site, which will run continuously.
+
+If you'd like to run any commands, you should open a new terminal, either using buttons in the terminal UI, or by clicking on the 'hamburger' menu on the top left and select _Terminal_ > _New Terminal_.
 
 ##### Development Server
 
@@ -64,6 +71,8 @@ Once the development server starts up, a simple-browser window will be opened at
 #### File explorer
 All of the files included in the project will be displayed in the panel on the left. 
     - You can open them by either clicking on their name directly, or by selecting `Open File` in the File menu (accessed through the "hamburger" menu in the top left)
+    
+You will mainly be expected to edit files contained with the `people/` and `categories/` directories, which contain files responsible for defining (information about) nodes in the group map/graph. 
 
 ### Where you come in
 
