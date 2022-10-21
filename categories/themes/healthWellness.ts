@@ -6,7 +6,7 @@ export default theme({
     projects: {
         Wellness: "",
         "Medications Adherence": "",
-        "Elderly Co-Design": "",
+        "Older Adult Co-Design": "",
         "Depression & Suicide Modeling": "",
         "Personal storytelling":""
     }
