@@ -260,7 +260,9 @@ Quit
 
 Typescript can tell us what keys belong in an object by typing a `"` within it's curly brackets (`{ ... }`). 
 
-<img src="https://user-images.githubusercontent.com/95306112/197124987-b1092a4d-3207-44a6-a84f-611416e22caf.gif" width="300"/>
+<center>
+<img src="https://user-images.githubusercontent.com/95306112/197124987-b1092a4d-3207-44a6-a84f-611416e22caf.gif" width="400"/>
+</center>
 
 Any keys succeeded by a `?` are optional and can be left out. 
 
