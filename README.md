@@ -36,13 +36,14 @@ We are able to configure these environment so that you will be immediately ready
         3. Enable `public_repo`
         4. Click `Update Permissions`.
         - **NOTE:** If anyone has security concerns about enabling this setting, please discuss with [Parker](https://github.com/pmalacho-mit)
-    - **NOTE:** These 'integrations' permissions also could have been granted as part of the initial user preference setup. 
-
-<details>
+        - <details>
   <summary>Click me</summary>
   
 <video src="https://user-images.githubusercontent.com/95306112/197115437-35c2cc59-bf24-45e8-acf4-34bb17e41d0d.mp4" height="5"></video>
 </details>
+    - **NOTE:** These 'integrations' permissions also could have been granted as part of the initial user preference setup. 
+
+
 
 ### Tour of Workspace
 
