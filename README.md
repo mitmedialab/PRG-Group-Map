@@ -3,16 +3,16 @@ Organizing the (wonderful) people and (exciting) projects of the Personal Roboti
 
 ## Contributing through Gitpod (reccomended)
 
-1. [Gitpod Configuration]()
-2. [Tour of Gitpod Workspace]()
-    1. [Terminal]()
-    2. [Site Preview]()
-    3. [File Explorer / System]()
-3. [Where you come in!]()
-    1. [Adding Yourself to The Graph](#Adding-Yourself-to-the-Graph)
-    2. [Editing your information]()
-    3. [Editing infromation about projects]().
-    4. [Saving you changes]()
+1. [Gitpod Configuration](#contributing-through-gitpod-reccomended)
+2. [Tour of Gitpod Workspace](#tour-of-workspace)
+    1. [Terminal](#tour-of-workspace)
+    2. [Site Preview](#browser--website-preview)
+    3. [File Explorer / System](#file-explorer)
+3. [Where you come in!](#where-you-come-in)
+    1. [Adding Yourself to The Graph](#adding-yourself-to-the-graph)
+    2. [Editing your information](#editing-your-information)
+    3. [Editing infromation about projects](#editing-a-project).
+    4. [Saving you changes](#saving-your-changes)
 
 ### Gitpod Configuration
 
@@ -54,7 +54,7 @@ But first, there's a few things to notice about your workspace:
 
 A terminal window (also know as a _command line_) should be visible at the bottom of your screen. 
 
-It should currently be executing a series of commands to setup your development environment and then eventually start a [development server]() to host the Group Map website (which will remain running). 
+It should currently be executing a series of commands to setup your development environment and then eventually start a [development server](#development-server) to host the Group Map website (which will keep running). 
 
 If you'd like to run any commands, you should open a new terminal, either using buttons in the terminal UI, or by clicking on the "hamburger" menu on the top left and select _Terminal_ > _New Terminal_.
 
@@ -62,7 +62,7 @@ If you'd like to run any commands, you should open a new terminal, either using 
 
 Once you see `Bundle End` outputted in the terminal, the development server is up and running. 
 
-As you make changes to files, the development server will automatically rebuild the project and refresh the [webpage]() to reflect your changes (~10s). 
+As you make changes to files, the development server will automatically rebuild the project and refresh the [webpage](#browser--website-preview) to reflect your changes (~10s). 
    - **NOTE:** Because of how gitpod controls the file system, changes are automatically saved (think Google Drive). This can trigger multiple rebuilds when you're editing (since every save triggers a rebuild), which can be annoying but does not indicate a problem with your code or workflow. 
  
 For the best developer experience, keep this command/terminal running for your entire session. If it exits due to an error or you accidentally close it, you can restart it be running:
@@ -72,11 +72,15 @@ npm run dev # it will take around ~30s to start up again
 ```
 
 #### Browser / Website Preview
- 
+
+<img src="https://user-images.githubusercontent.com/95306112/197122781-0637cf42-1f99-4376-808b-a03420ede437.gif" />
+
 Once the development server starts up, a simple-browser window will be opened at the top right of your workspace displaying the project. 
-     - **NOTE**: Due to an issue with live-reloading on gitpod, you might need to refresh the window in order for the map to display initially once the developmet server is up and running. 
+     - **NOTE**: Due to an issue with live-reloading on gitpod, you might need to refresh the window in order for the map to display initially once the developmet server starts. 
      
 #### File explorer
+<img src="https://user-images.githubusercontent.com/95306112/197124024-1fff7779-0059-4614-885c-483b2cd4dddb.gif"/>
+
 All of the files included in the project will be displayed in the panel on the left. 
     - You can open them by either clicking on their name directly, or by selecting `Open File` in the File menu (accessed through the "hamburger" menu in the top left)
     
@@ -87,16 +91,16 @@ You will mainly be expected to edit files contained with the `people/` and `cate
 As a member of PRG, we are asking you to keep your information and the information about the projects you work on up to date.  
 
 This requires the following:
-- [Adding Yourself to The Graph](#Adding-Yourself-to-the-Graph)
-- [Editing your information]()
-- [Editing infromation about projects]().
-- [Saving your changes]()
+- [Adding Yourself to The Graph](#adding-yourself-to-the-graph)
+- [Editing your information](#editing-your-information)
+- [Editing infromation about projects](#editing-a-project).
+- [Saving you changes](#saving-your-changes)
 
 #### Adding Yourself to the Graph
 
 If you do not see a file with your name included in the `people/` directory, you'll need to create one. 
 
-(If you do see a file with your name/details, hop down to [Editing Your Information]())
+(If you do see a file with your name/details, hop down to [Editing Your Information](#editing-your-information))
 
 1. **Open up a new terminal:** You'll need to open a new terminal in the workspace in order to run a a custom [npm script](https://docs.npmjs.com/cli/v8/commands/npm-run-script)
     - There are a couple ways to open a terminal in gitpod, but the most straight forward way is to click on the "hamburger" menu on the top left and select _Terminal_ > _New Terminal_
@@ -106,7 +110,7 @@ If you do not see a file with your name included in the `people/` directory, you
 ```bash
 npm run new:person cynthiaBreazeal 
 ```
-3. If successful, the command will point you to a newly created `.ts` file where you can add your details. Jump down to [Editing your information]() to see what to add.
+3. If successful, the command will point you to a newly created `.ts` file where you can add your details. Jump down to [Editing your information](#editing-your-information) to see what to add.
     - **NOTE:** you can close the newly created terminal window after executing the `new:person` command.
 
 #### Editing Your Information
@@ -121,7 +125,7 @@ describeYourself({
 
 We make use of [Typescript](https://www.typescriptlang.org/) to ensure this object contains all the necessary information, and to also make our lives easier through helpful suggestings and code-completion. 
 
-Check out the [Why Typescript is Great]() section to see why ([Parker](https://github.com/pmalacho-mit) thinks) Typescript is great, and how it can help you provide the necessary details to the `describeYourself(...)` function.
+Check out the [Why Typescript is Great](#why-typescript-is-great) section to see why ([Parker](https://github.com/pmalacho-mit) thinks) Typescript is great, and how it can help you provide the necessary details to the `describeYourself(...)` function.
 
 #### Editing a Project
 
@@ -147,13 +151,15 @@ Below we outline how you can locate and update these definitions. Please do so f
 
 The easiest way to locate a project definition is to highlight it's name and click `⌘ Cmd` + `↑ Shift` + `F` (maybe `Ctrl` + `↑ Shift` + `F` on Windows) to find it's usages in the project. 
 
+<img src="https://user-images.githubusercontent.com/95306112/197128846-b166f835-e395-47ae-87f7-af52080d27d2.gif"/>
+
 Locate the usage within a file inside of the `categories/themes/` directory. It will be used in one of the manners outlined below:
 
-- [Inline Project Summary](): Defined in a single line within the object passed to `theme(...)`
-- [Local Project Details](): Defined within a nested object of the object passed to `theme(...)`
-- [Exteneral Project Details](): Defined within an object passed to `project(...)` (and imported into `theme(...)`)
+- [Inline Project Summary](#inline-project-summary): Defined in a single line within the object passed to `theme(...)`
+- [Local Project Details](#local-project-details): Defined within a nested object of the object passed to `theme(...)`
+- [Exteneral Project Details](#external-project-details): Defined within an object passed to `project(...)` (and imported into `theme(...)`)
 
-Make sure to also check out [how typescript can help you]() to fill out a projects details correctly. 
+Make sure to also check out [how typescript can help you](#why-typescript-is-great) to fill out a projects details correctly. 
 
 ##### Inline Project Summary
 
@@ -230,7 +236,7 @@ To make this easier, we've tried to automate the process for you.
 
 (If you are comfortable with git, feel free to `add`, `commit`, and `push` as normal. Just note that you should use the branch that gitpod automatically checked out for you, which starts with `gitpod/<your email>`)
 
-Once you're done making your changes, simply run one of the following commands (either in a new terminal window or you can cntrl-c the _Dev Server_ command):
+Once you're done making your changes, simply run one of the following commands (either in a new terminal window or you can cntrl-c the _Dev Server_ command and re-use that terminal):
 
 ##### Automatically push up all changes to remote repository and shutdown gitpod workspace
 
@@ -256,13 +262,15 @@ Quit
 
 Typescript can tell us what keys belong in an object by typing a `"` within it's curly brackets (`{ ... }`). 
 
-
+<img src="https://user-images.githubusercontent.com/95306112/197124987-b1092a4d-3207-44a6-a84f-611416e22caf.gif" width="400"/>
 
 Any keys succeeded by a `?` are optional and can be left out. 
 
 ### Not sure what values are appropriate?
 
 Hover over a key to see documentation on what values a field can take on. Often times they'll be multiple acceptable values, and you can pick which is most convenient to convey the necessary information. 
+
+<img src="https://user-images.githubusercontent.com/95306112/197125589-9e699420-b7af-4f39-ad93-e5d64c31d634.gif" />
 
 If you provide a value that typescript doesn't like, it will underline the error in red. Hover over it to see a potentially-helpful error message. If you aren't able to resolve it, please contact [Parker](https://github.com/pmalacho-mit).
 
