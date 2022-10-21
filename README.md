@@ -50,6 +50,8 @@ But first, there's a few things to notice about your workspace:
 
 #### Terminal
 
+<img src="https://user-images.githubusercontent.com/95306112/197121861-5af68c32-88c8-458c-b74f-8030685cd25f.gif"/>
+
 A terminal window (also know as a _command line_) should be visible at the bottom of your screen. 
 
 It should currently be executing a series of commands to setup your development environment and then eventually start a [development server]() to host the Group Map website (which will remain running). 
