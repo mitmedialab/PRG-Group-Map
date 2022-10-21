@@ -256,7 +256,7 @@ Any keys succeeded by a `?` are optional and can be left out.
 
 ### Not sure what values are appropriate?
 
-Hover over a key to see documentation on what values it can take on. Often times they'll be multiple acceptable values, and you can pick which is most convenient to convey the necessary information. 
+Hover over a key to see documentation on what values a field can take on. Often times they'll be multiple acceptable values, and you can pick which is most convenient to convey the necessary information. 
 
 If you provide a value that typescript doesn't like, it will underline the error in red. Hover over it to see a potentially-helpful error message. If you aren't able to resolve it, please contact [Parker](https://github.com/pmalacho-mit).
 
