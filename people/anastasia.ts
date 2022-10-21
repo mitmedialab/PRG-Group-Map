@@ -23,7 +23,8 @@ describeYourself({
         "Mixed Method",
         "Policy",
         "Project Management",
-        { name: "Design Education", main: true }
+        { name: "Design Education", main: true },
+        { name: "Human-Centered Design", main: true }
     ],
     years: 2018,
     links: [{ text: "Anastasia Ostrowski", url: "https://www.media.mit.edu/people/akostrow/overview/" }]
