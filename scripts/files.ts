@@ -13,3 +13,5 @@ const getFile = (...fromRoot: string[]): FileDetails => {
 }
 
 export const theme: FileDetails = getFile('categories', 'projectsByTheme.ts');
+
+export const dataFile: FileDetails = getFile('app', 'data.json');

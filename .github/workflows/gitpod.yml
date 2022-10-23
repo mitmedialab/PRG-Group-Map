@@ -1,7 +1,8 @@
 name: workflow on push from gitpod
 on:
   push:
-    branches: ["gitpod/**"]
+    branches: 
+      - 'gitpod/**'
 permissions:
   contents: read
   id-token: write

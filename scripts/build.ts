@@ -1,4 +1,5 @@
 import path from 'path';
+import fs from 'fs';
 import glob from "glob";
 import { fork } from "child_process";
 import * as chokidar from "chokidar";
@@ -6,7 +7,7 @@ import { bundle } from './bundle';
 import { processCommandLineArgs } from './CLI';
 import { Message } from './communication';
 import { clear, decodeMessage, flush, init, NormalizedData } from '../builder';
-import { theme } from './files';
+import { dataFile, theme } from './files';
 import { Color, error, log } from './logInColor';
 import fetch from 'node-fetch';
 
@@ -25,7 +26,7 @@ const { watch, clean } = processCommandLineArgs("npm run build --", {
     }
 });
 
-clear();
+if (clean) clear();
 
 const data = init();
 const memberIndexByFile: Record<string, number> = {};
@@ -64,8 +65,15 @@ const process = (file: string, name: string, onComplete?: () => void) =>
     });
 
 const bundlerAfterRetrievingPrebuiltData = async () => {
-    const url = "https://mitmedialab.github.io/PRG-Group-Map/artifacts/data.json";
-    const prebuilt: any = await (await fetch(url)).json();
+    let prebuilt: any;
+    if (fs.existsSync(dataFile.path)) {
+        prebuilt = JSON.parse(fs.readFileSync(dataFile.path, "utf8"));
+    }
+    else {
+        const url = "https://mitmedialab.github.io/PRG-Group-Map/artifacts/data.json";
+        prebuilt = await (await fetch(url)).json();
+    }
+
     for (const key in prebuilt) {
         key === "memberIndexByFile"
             ? Object.assign(memberIndexByFile, prebuilt[key] as any)
