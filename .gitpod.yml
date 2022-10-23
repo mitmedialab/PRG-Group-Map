@@ -8,6 +8,7 @@ tasks:
   - name: Dev Server
     init: npm install
     command: |
+      git config --global --add --bool push.autoSetupRemote true
       echo "Pulling down latest version of the current branch (if this is a new gitpod workspace that should be 'main')"
       git pull 
       echo "Determing if a new gitpod-specific branch should be created, or if the current branch is already a gitpod-specific branch"
@@ -17,10 +18,8 @@ tasks:
       if $CREATE_NEW_BRANCH; then export PRG_BRANCH="$(date +gitpod/$(git config user.email | cut -d@ -f1)/%Y-%m-%d-%H-%M-%S)"; fi
       echo "(2) Checkout the new branch"
       if $CREATE_NEW_BRANCH; then git checkout -b $PRG_BRANCH; fi
-      echo "Creating an alias (i.e. shortcut command) for gitpush that will first check if the branch has already been push to remote, and if not it will set the upstream branch"
-      alias prg_push_alias="[[ $(git ls-remote --heads origin $(git rev-parse --abbrev-ref HEAD) | wc -l | bc) = 1 ]] && git push || git push --set-upstream origin $(prg_get_current_branch)"
       echo "Creating an alias (i.e. shortcut command) to save all changes to git"
-      alias Save="git add . && git commit -m \"Automated commit from gitpod\" && prg_push_alias"
+      alias Save="git add . && git commit -m \"Automated commit from gitpod\" && git push"
       echo "Creating an alias (i.e. shortcut command) to save all changes to git and stop the gitpod workspace"
       alias SaveAndQuit="Save && gp stop"
       echo "Creating an alias (i.e. shortcut command) to stop the gitpod workspace"
