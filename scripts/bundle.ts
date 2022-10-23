@@ -8,6 +8,7 @@ import { terser } from "rollup-plugin-terser";
 import serve from 'rollup-plugin-serve';
 import livereload from 'rollup-plugin-livereload';
 import fs from 'fs';
+import { Color, log } from './logInColor';
 
 export const bundle = async (rootDir: string, watch: boolean = false) => {
     const app = path.join(rootDir, 'app');
@@ -58,9 +59,16 @@ export const bundle = async (rootDir: string, watch: boolean = false) => {
 
     bundle.write(output);
 
-    return watch ? rollup.watch({
+    if (!watch) return;
+
+    const watcher = rollup.watch({
         ...options,
         output: [output],
         watch: { include: appFiles }
-    }) : undefined;
+    });
+
+    watcher.on('event', (event) => {
+        log(event.code, Color.Grey);
+        if (event.code === "BUNDLE_END") event.result?.close();
+    });
 };

@@ -30,7 +30,7 @@ tasks:
       echo "Do some environment variable magic to make live reloading work (see link at top of .gitpod.yml file)"
       export CLIENT_URL="$(gp url 35729)/livereload.js?snipver=1&port=443"
       echo "Start dev server"
-      npm run dev
+      npm run gitpod:dev
     openMode: 'split-right'
 ports:
   - port: 8000

@@ -24,7 +24,7 @@ type CommandLineOptions = Record<string, CommandLineOption<OptionType>>;
 export const processCommandLineArgs = <T extends CommandLineOptions>(
     command: string,
     options: T,
-    parseOptions: commandLineArgs.ParseOptions = { partial: true }
+    parseOptions: commandLineArgs.ParseOptions = { partial: false }
 ) => {
     const optionsAndHelp = { ...options, help };
 

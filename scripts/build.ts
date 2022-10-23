@@ -1,5 +1,4 @@
 import path from 'path';
-import chalk from "chalk";
 import glob from "glob";
 import { fork } from "child_process";
 import * as chokidar from "chokidar";
@@ -7,63 +6,84 @@ import { bundle } from './bundle';
 import { processCommandLineArgs } from './CLI';
 import { Message } from './communication';
 import { clear, decodeMessage, flush, init, NormalizedData } from '../builder';
+import { theme } from './files';
+import { Color, error, log } from './logInColor';
+import fetch from 'node-fetch';
 
-const { watch } = processCommandLineArgs("npm run build --", {
+const { watch, clean } = processCommandLineArgs("npm run build --", {
     watch: {
         alias: 'w',
         description: 'watch for file changes',
         type: Boolean,
         trueIfPresent: true
+    },
+    clean: {
+        alias: 'c',
+        description: 'Fetches data from the most recent build (instead of rebuilding it locally -- helpful on slower systems)',
+        type: Boolean,
+        defaultValue: false,
     }
 });
 
 clear();
 
 const data = init();
+const memberIndexByFile: Record<string, number> = {};
+
+const write = () => flush({ ...data, memberIndexByFile });
 
 const root = path.resolve(__dirname, "..");
-
-const openingLog = (msg: string) => console.log(chalk.cyan(msg));
-const closingLog = (msg: string) => console.log(chalk.green(msg));
-const errorLog = (msg: string) => console.error(chalk.red(msg));
-
 const executedFiles: string[] = [];
-const memberIndexByFile: Record<string, number> = {};
+
+const set = <T extends keyof NormalizedData>(key: T, value: NormalizedData[T]) => data[key] = value;
+type ValueFor<T extends keyof NormalizedData> = NormalizedData[T];
 
 const process = (file: string, name: string, onComplete?: () => void) =>
     fork(file).on("message", (msg: Message) => {
         const decoded = decodeMessage(msg);
-        if (!decoded) return errorLog(`Error decoding data from ${name}`);
+        if (!decoded) return error(`Error decoding data from ${name}`);
 
         const [key, value] = decoded;
         switch (key) {
             case "themes":
-                data[key] = value as NormalizedData[typeof key];
-                break;
             case "roles":
-                data[key] = value as NormalizedData[typeof key];
-                break;
             case "skills":
-                data[key] = value as NormalizedData[typeof key];
+                set(key, value as ValueFor<typeof key>);
                 break;
             case "members":
-                const member = (value as NormalizedData["members"])[0];
-                file in memberIndexByFile
-                    ? data["members"][memberIndexByFile[file]] = member
-                    : memberIndexByFile[file] = data[key].push(member) - 1;
+                const member = (value as ValueFor<"members">)[0];
+                const relative = path.relative(root, file);
+                relative in memberIndexByFile
+                    ? data["members"][memberIndexByFile[relative]] = member
+                    : memberIndexByFile[relative] = data[key].push(member) - 1;
                 break;
         }
 
-        closingLog(`Completed ${name}.`);
+        log(`Completed ${name}.`, Color.Green);
         if (onComplete) onComplete();
     });
 
+const bundlerAfterRetrievingPrebuiltData = async () => {
+    const url = "https://mitmedialab.github.io/PRG-Group-Map/artifacts/data.json";
+    const prebuilt: any = await (await fetch(url)).json();
+    for (const key in prebuilt) {
+        key === "memberIndexByFile"
+            ? Object.assign(memberIndexByFile, prebuilt[key] as any)
+            : (data as any)[key] = prebuilt[key];
+    }
+
+    initialBundle();
+}
+
 let initialProcessCount = 0;
 
-const initialExecute = (file: string) => {
+const initialExecute = async (file: string, index: number) => {
     executedFiles.push(file);
     const fileName = path.basename(file);
-    openingLog(`Begin executing ${fileName}`);
+
+    log(`${clean ? "Begin executing" : "Skipping execution of"} ${fileName}`, Color.Cyan);
+
+    if (!clean) return index == 0 ? bundlerAfterRetrievingPrebuiltData() : null;
 
     initialProcessCount++;
     process(file, fileName, () => {
@@ -75,7 +95,7 @@ const initialExecute = (file: string) => {
 const executableFilesQuery = `${root}/{people,categories}/*.ts`;
 
 const initialBundle = () => {
-    flush(data);
+    write();
 
     if (!watch) return bundle(root);
 
@@ -84,37 +104,28 @@ const initialBundle = () => {
 
         switch (event) {
             case "change":
-                openingLog(`Begin re-executing ${fileName}.`);
-                process(file, fileName, () => flush(data));
+                log(`Begin re-executing ${fileName}.`, Color.Cyan);
+                process(file, fileName, write);
                 return;
             case "add":
                 if (executedFiles.includes(file)) return;
-                openingLog(`Executing new file: ${fileName}.`);
-                process(file, fileName, () => flush(data));
+                log(`Executing new file: ${fileName}.`, Color.Cyan);
+                process(file, fileName, write);
                 executedFiles.push(fileName);
                 return;
         }
     });
 
-    const themesFile = path.join(root, 'categories', 'projectsByTheme.ts');
-    const themesFileName = path.basename(themesFile);
-    chokidar.watch(`${root}/categories/themes/**/*.ts`).on('change', (path, stats) => {
-        openingLog(`Change in ${path}`);
-        openingLog(`Begin re-executing ${themesFileName}.`);
-        process(themesFile, themesFileName, () => flush(data));
+    chokidar.watch(`${root}/categories/themes/**/*.ts`).on('change', (path) => {
+        log(`Change in ${path}`, Color.Cyan);
+        log(`Begin re-executing ${theme.name}.`, Color.Cyan);
+        process(theme.path, theme.name, () => flush(data));
     });
 
-    bundle(root, true).then(watcher => {
-        if (!watcher) return;
-
-        watcher.on('event', (event) => {
-            console.log(chalk.gray(event.code))
-            if (event.code === "BUNDLE_END") { event.result?.close() }
-        });
-    });
+    bundle(root, true);
 }
 
 glob(executableFilesQuery, (err: Error | null, files: string[]) => {
-    if (err) return errorLog(`${err.name}: ${err.message} ${err.stack ?? ""}`);
+    if (err) return error(`${err.name}: ${err.message} ${err.stack ?? ""}`);
     files.forEach(initialExecute);
 });

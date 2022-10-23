@@ -24,7 +24,7 @@ export const clear = () => {
     fs.rmSync(dataFile, { force: true });
 }
 
-export const flush = (data: NormalizedData) => {
+export const flush = <T extends NormalizedData>(data: T) => {
     setData(data);
 }
 
