@@ -65,6 +65,7 @@ const process = (file: string, name: string, onComplete?: () => void) => {
         if (onComplete) onComplete();
     });
     child.on("error", () => console.log("ERROR -- ERROR -- ERROR"));
+    child.on("exit", () => console.log("EXIT -- EXIT -- EXIT"))
     return child;
 }
 
