@@ -39,8 +39,9 @@ const executedFiles: string[] = [];
 const set = <T extends keyof NormalizedData>(key: T, value: NormalizedData[T]) => data[key] = value;
 type ValueFor<T extends keyof NormalizedData> = NormalizedData[T];
 
-const process = (file: string, name: string, onComplete?: () => void) =>
-    fork(file).on("message", (msg: Message) => {
+const process = (file: string, name: string, onComplete?: () => void) => {
+    const child = fork(file);
+    child.on("message", (msg: Message) => {
         const decoded = decodeMessage(msg);
         if (!decoded) return error(`Error decoding data from ${name}`);
 
@@ -63,6 +64,10 @@ const process = (file: string, name: string, onComplete?: () => void) =>
         log(`Completed ${name}.`, Color.Green);
         if (onComplete) onComplete();
     });
+    child.on("error", () => console.log("ERROR -- ERROR -- ERROR"));
+    return child;
+}
+
 
 const bundlerAfterRetrievingPrebuiltData = async () => {
     let prebuilt: any;
