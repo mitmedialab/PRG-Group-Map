@@ -95,7 +95,7 @@ export type ProjectDetails = CategoryDetails;
 
 type projects<T> = { [K in keyof T]: ProjectDetails };
 
-type Themes = { themes: readonly ThemeName[] };
+type Themes = { themes: ThemeName | readonly ThemeName[] };
 
 export const project = <T extends string>(obj: Name<T> & Details & Themes): { [key in T]: ProjectDetails } => {
     return { [obj.name]: obj.details } as { [key in T]: ProjectDetails }

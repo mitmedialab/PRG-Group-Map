@@ -10,5 +10,5 @@ export default project({
         ],
         years: 3030
     },
-    themes: ["Project STEM"]
+    themes: "Project STEM"
 });
