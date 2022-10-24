@@ -233,7 +233,10 @@ To make this easier, we've tried to automate the process for you.
 
 (If you are comfortable with git, feel free to `add`, `commit`, and `push` as normal. Just note that you should use the branch that gitpod automatically checked out for you, which starts with `gitpod/<your email>`)
 
-Once you're done making your changes, simply run one of the following commands (either in a new terminal window or you can cntrl-c the _Dev Server_ command and re-use that terminal):
+Once you're done making your changes:
+1. Cntrl-c in the terminal running the development server process
+2. Run one of the following commands:
+-**NOTE**: These commands must be ran in the terminal that was executing the development server
 
 ##### Automatically push up all changes to remote repository and shutdown gitpod workspace
 
