@@ -10,6 +10,7 @@ describeYourself({
     "Contours 2 Classification",
     "Day of AI",
     "Autonomous Agents",
+    "RAICA"
   ],
   skills: [
     "Assessment",

@@ -5,7 +5,7 @@ describeYourself({
     email: "ralcanta@mit.edu",
     bio: "",
     role: "MEng. Student",
-    projects: "Doodle Bot",
+    projects: ["Doodle Bot", "Autonomous Car Curriculum"],
     skills: ["Dev"],
     years: 2022
 });
