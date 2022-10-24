@@ -34,4 +34,5 @@ export const showTooltipForNode = (node: cytoscape.NodeSingular, pos: { x: any; 
     tooltip.style.left = `${pos.x}px`;
     tooltip.style.top = `${pos.y}px`;
     tooltip.style.opacity = `${1}`;
+    tooltip.style.maxHeight = `${window.innerHeight - pos.y - 30}px`;
 };
