@@ -2,25 +2,37 @@ import { describeYourself } from "../builder";
 
 describeYourself({
   name: "Randi Williams",
-  email: "",
-  bio: `Randi Williams is a graduate research assistant 
-  in the Personal Robots group at the MIT Media Lab. 
-  She received her Master of Science in Media Arts in Sciences from MIT in 2018 
-  and her Bachelor of Science in Computer Engineering from UMBC in 2016.`,
+  email: "randiw12@mit.edu",
+  bio: `Randi Williams is a PhD student in the group who works at the intersection
+  of human-robot interaction and preK-12 education, with a particular focus on engaging
+  students from diverse backgrounds. She has developed a number of AI education curricula,
+  platforms, and robots.`,
   role: { name: "PhD Student", year: 5 },
   projects: [
-    "Doodle Bot",
+    "Dancing with AI",
+    { name: "RAICA", main: true },
+    "Autonomous Car Curriculum",
+    { name: "LevelUp", main: true },
+    { name: "AI Playground", main: true },
+    { name: "AI & Ethics in Middle School", main: true },
+    { name: "Doodle Bot", main: true },
     "PopBots",
-    "Gizmo & ScratchX",
+    "Arduino and Micro:bit Robots",
     "How to Train Your Robot",
-    "Sound of AI",
     "Primary AI",
-    "DAILy",
+    "Feature Detection",
   ],
   skills: [
     "Child-Robot Interaction",
     "General AI",
     "Dev",
+    "Ethics",
+    "Teacher Training",
+    "Assessment",
+    "Human Study Design",
+    "Human-Computer Interaction",
+    "STEM Education",
+    "Curriculum Design",
     "Inclusive Education",
     "Robot Engineering",
     "Scratch Master",

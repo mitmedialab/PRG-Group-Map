@@ -184,7 +184,7 @@ theme({
         "Name of Project": {
             summary: "This is a summary of project",
             description: "This is a longer description of the project",
-            links: [ { text: "homepage", link: "https://www.media.mit.edu/groups/personal-robots/overview/" } ],
+            links: [ { text: "homepage", url: "https://www.media.mit.edu/groups/personal-robots/overview/" } ],
         }
     }
 });
