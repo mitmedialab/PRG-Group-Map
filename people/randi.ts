@@ -14,7 +14,6 @@ describeYourself({
     "Autonomous Car Curriculum",
     { name: "LevelUp", main: true },
     { name: "AI Playground", main: true },
-    { name: "AI + Ethics Education", main: true },
     { name: "Doodle Bot", main: true },
     "PopBots",
     "Arduino and Micro:bit Robots",
