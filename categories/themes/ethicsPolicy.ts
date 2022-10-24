@@ -5,9 +5,20 @@ export default theme({
     details: "",
     projects: {
         "Ethics of Deepfakes": "",
-        "Debating technology and AI with your child": "",
-        "AI & Data Privacy": "",
-        "AI & Ethics in Middle School": "",
+        "Debating technology and AI with your child": {
+            summary: `The guide provides resources for how to structure a debate-like discussion  for families to talk more deeply about current controversial technology policies and practices, as well as articles to get started.`,
+            links: [{ text: "guide", url: "https://docs.google.com/document/d/1lXoYMWo4H644gudsTgg8XS2AgwFzyGnzvrLboxSL7LQ/edit#heading=h.e677npvx3rs8" }],
+        },
+        "AI & Data Privacy": {
+            summary: `Policymakers, practitioners, and researchers are grappling with some herculean questions regarding kids' safety online. This project seeks to inform youth about data and privacy topics through a
+            series of hands-on activities. The goal is to encourage students to form their own opinions and think more critically about the platforms they use every day, instead of solely listing the dangers and the “what not to do’s."`,
+            links: [{text: "materials", url: "https://docs.google.com/document/d/17x1vwEAS-NT5OoFjaxwPliUrmhrt2LChN0xtWntRr68/edit"}],
+        },
+        "AI & Ethics in Middle School": {
+            summary: `This project seeks to develop an open source curriculum for middle school students on the topic of artificial intelligence. Through a series of lessons and activities, students learn technical
+            concepts—such as how to train a simple classifier—and the ethical implications those technical concepts entail, such as algorithmic bias.`,
+            links: [{text: "materials", url: "https://docs.google.com/document/d/1e9wx9oBg7CR0s5O7YnYHVmX7H7pnITfoDxNdrSGkp60/edit#heading=h.ictx1ljsx0z4"}],
+        },
         "Robot Policy Design Toolkit": {
             summary: `The Robot Policy Design Toolkit is designed to allow any generation to design and consider how we can develop policy for social robot technologies around nine ethic topics. 
             The toolkit is situated around the context of you in your home considering how policy around robots may affect your environment and interactions with technology and other people. 
