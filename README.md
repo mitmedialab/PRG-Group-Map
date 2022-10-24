@@ -1,9 +1,9 @@
 # PRG-Group-Map
 Organizing the (wonderful) people and (exciting) projects of the Personal Robotics Group
 
-## Contributing through Gitpod (reccomended)
+## Contributing through Gitpod (recommended)
 
-1. [Gitpod Configuration](#contributing-through-gitpod-reccomended)
+1. [Gitpod Configuration](#contributing-through-gitpod-recommended)
 2. [Tour of Gitpod Workspace](#tour-of-workspace)
     1. [Terminal](#tour-of-workspace)
     2. [Site Preview](#browser--website-preview)
@@ -11,8 +11,8 @@ Organizing the (wonderful) people and (exciting) projects of the Personal Roboti
 3. [Where you come in!](#where-you-come-in)
     1. [Adding Yourself to The Graph](#adding-yourself-to-the-graph)
     2. [Editing your information](#editing-your-information)
-    3. [Editing infromation about projects](#editing-a-project).
-    4. [Saving you changes](#saving-your-changes)
+    3. [Editing information about projects](#editing-a-project).
+    4. [Saving your changes](#saving-your-changes)
 
 ### Gitpod Configuration
 
@@ -24,7 +24,7 @@ Because we are forcing everyone to write code, we want to make it as easy as pos
 2. **Configure User Preferences**: Once logged in, gitpod will likely ask you about some user preferences. We recommend the following:
     - Select 'VS Code Broswer for your editor
     - Select 'Dark' theme
-3. **Give Gitpod write access:** Gitpod should then open you up a worskpace (cool, right?). We just need to make one permissions change to ensure once we start editing code we can preserve our changes through [git](https://git-scm.com/).
+3. **Give Gitpod write access:** Gitpod should then open you up a workspace (cool, right?). We just need to make one permissions change to ensure once we start editing code we can preserve our changes through [git](https://git-scm.com/).
     1. Click the green Gitpod button in the very bottom left corner of the screen.
         - <img src="https://user-images.githubusercontent.com/95306112/197118951-94509ee8-3d41-4863-ada8-acc5e30bb577.gif" width="100"/> 
         - **NOTE:** The gitpod workspace might be a little slow to start, so if nothing happens when you click the button, wait a moment and try again.
