@@ -13,11 +13,11 @@ export default theme({
             years: [[2010, 2012], 2020],
         },
         ...project({
-            name: "Dancing with AI",
+            name: "Dancing with AI", // also fits under AI ed
             details: {
                 "summary": "",
                 "links": [{ url: "https://dancingwithai.media.mit.edu/", text: "Project Site" }],
-                years: [[2010, 2012], 2020],
+                years: [[2020, 2022]],
             }
         } as const),
         "GANPaint for Kids": "",
