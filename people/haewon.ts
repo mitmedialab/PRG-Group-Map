@@ -12,7 +12,7 @@ describeYourself({
         "Museum Interaction",
         "Wellness",
         "Medications Adherence",
-        "Elderly Co-Design",
+        "Older Adult Co-Design",
         "Design Justice",
         "Exploration Literacy",
         "Robots in the Home",
