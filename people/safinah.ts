@@ -10,7 +10,6 @@ describeYourself({
         "DAILy",
         "Creativity and GANs for Middle School",
         "Dancing with AI",
-        "AI & Ethics in Middle School",
         "RAICA",
         "GANPaint for Kids",
         "AI & Growth Mindset",

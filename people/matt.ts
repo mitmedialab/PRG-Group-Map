@@ -14,7 +14,6 @@ describeYourself({
         "Computational Action",
         "Data Activism",
         "AI Playground",
-        "AI & Ethics in Middle School"
     ],
     skills: ["General AI"],
     years: 2020
