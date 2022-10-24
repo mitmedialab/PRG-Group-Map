@@ -8,10 +8,6 @@ export default theme({
     },
     projects: {
         "Creativity and GANs for Middle School": "",
-        "ee": {
-            summary: "",
-            years: [[2010, 2012], 2020],
-        },
         ...project({
             name: "Dancing with AI",
             details: {
