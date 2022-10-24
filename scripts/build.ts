@@ -64,8 +64,9 @@ const process = (file: string, name: string, onComplete?: () => void) => {
         log(`Completed ${name}.`, Color.Green);
         if (onComplete) onComplete();
     });
-    child.on("error", () => console.log("ERROR -- ERROR -- ERROR"));
-    child.on("exit", () => console.log("EXIT -- EXIT -- EXIT"))
+    child.on("exit", (e) => {
+        console.log("Exit code: " + e);
+    });
     return child;
 }
 
