@@ -10,6 +10,8 @@ describeYourself({
         "DAILy",
         "Creativity and GANs for Middle School",
         "Dancing with AI",
+        "AI + Ethics Education",
+        "RAICA",
         "GANPaint for Kids",
         "AI & Growth Mindset",
         { name: "Social Emotional Learning", main: true },

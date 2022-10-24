@@ -13,6 +13,8 @@ describeYourself({
         "Sound of AI",
         "Computational Action",
         "Data Activism",
+        "AI Playground",
+        "AI + Ethics Education"
     ],
     skills: ["General AI"],
     years: 2020
