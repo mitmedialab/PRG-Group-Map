@@ -21,6 +21,37 @@
     <div class="legend-item"><span style="font-size: 28px; margin: 0 5px 5px 0;">&#11043;</span> Projects</div>
     <div class="legend-item" style="margin-top: -14px"><span
         style="font-size: 22px; margin: 0 7px 5px 2px;">&#11044;</span> People</div>
+    <hr/>
+    <div class="legend-title">Filter</div>
+    <div class="legend-item">
+      <div>
+        <input type="checkbox" id="displayThemes" checked="true">
+        Themes
+      </div>
+      <input list="themeSelectList" id="themeSelect" placeholder="Select Theme">
+      <datalist class="item-select" name="themeSelect" id="themeSelectList">
+      </datalist>
+    </div>
+    <div class="legend-item">
+      <div>
+        <input type="checkbox" id="displayProjects" checked="true">
+        Projects
+      </div>
+      <input list="projectSelectList" id="projectSelect" placeholder="Select Project">
+      <datalist class="item-select" name="projectSelect" id="projectSelectList">
+      </datalist>
+    </div>
+    <div class="legend-item">
+      <div>
+        <input type="checkbox" id="displayPeople" checked="true">
+        People
+      </div>
+      <input list="personSelectList" id="personSelect" placeholder="Select Person" style="margin-left: 8px">
+      <datalist class="item-select" name="personSelect" id="personSelectList">
+      </datalist>
+    </div>
+    <hr/>
+    <button id="takeATour"><span style="font-size: 16px; margin: 0 5px 5px 0;">&#9654;</span>Take a Tour</button>
   </div>
 
   <!-- Create div structure for Tooltip -->
