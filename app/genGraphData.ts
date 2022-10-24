@@ -20,7 +20,11 @@ export const makeNodesAndEdges = (data: NormalizedData): [cytoscape.ElementDefin
 
     const staffRoles: RoleName[] = ["Lab Management", "Tech Developer", "Admin & Finance"];
     const researchers = members.filter((m) => !staffRoles.includes(m.role.name));
-    const staff = members.filter((m) => staffRoles.includes(m.role.name));
+    const staff = members.filter((m) => staffRoles.includes(m.role.name)).sort((a, b) => {
+        if (a.role.name < b.role.name) return -1;
+        if (a.role.name > b.role.name) return 1;
+        return 0;
+    });
 
     const projectNames = Object.keys(allProjects);
 

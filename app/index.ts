@@ -2,7 +2,7 @@ import { NormalizedData } from "../builder";
 import { makeNodesAndEdges } from "./genGraphData";
 import json from "./data.json";
 import cytoscape from "cytoscape";
-import { hideTooltipCss, showTooltipForNode, styleTooltip } from "./tooltip";
+import { hideTooltipCss, showTooltipForNode, showTooltipWithDesc, styleTooltip } from "./tooltip";
 
 const { skills, roles, themes, members } = json as any as NormalizedData;
 
@@ -27,6 +27,61 @@ const selectPerson         = document.getElementById("personSelect") as HTMLSele
 const selectThemeList      = document.getElementById("themeSelectList") as HTMLSelectElement;
 const selectProjectList    = document.getElementById("projectSelectList") as HTMLSelectElement;
 const selectPersonList     = document.getElementById("personSelectList") as HTMLSelectElement;
+const takeATour            = document.getElementById("takeATour") as HTMLButtonElement;
+
+async function runTour(cy: cytoscape.Core) {
+  const pos = { x: 0, y: 0 };
+  cy.trigger("tap");
+  cy.elements().addClass("semitransp");
+
+  // TODO: move description to data
+  // start with center
+  const center = cy.nodes("node[class='director']").union(cy.nodes("node[class='title']"));
+  center.addClass("highlight").removeClass("semitransp");
+  showTooltipWithDesc(
+    "Personal Robots Group", 
+    "Welcome to the Personal Robots Group! The Personal Robots Group focuses on developing the principles, techniques, and technologies for personal robots.", 
+    pos
+  );
+  await new Promise(f => setTimeout(f, 5000));
+  center.removeClass("highlight").addClass("semitransp");
+
+  // go over themes
+  const themes = cy.nodes("node[class='theme']");
+  themes.addClass("highlight").removeClass("semitransp");
+  showTooltipWithDesc(
+    "Personal Robots Group: Themes", 
+    "All of the projects of the Personal Robots Group center around themes from AI Education to the Air Force.", 
+    pos
+  );
+  await new Promise(f => setTimeout(f, 5000));
+  themes.removeClass("highlight").addClass("semitransp");
+
+  // go over projects
+  const projects = cy.nodes("node[class='project']");
+  projects.addClass("highlight").removeClass("semitransp");
+  showTooltipWithDesc(
+    "Personal Robots Group: Projects", 
+    "We have a bunch of cool projects with a wide range of goals.", 
+    pos
+  );
+  await new Promise(f => setTimeout(f, 5000));
+  projects.removeClass("highlight").addClass("semitransp");
+
+  // go over people
+  const people = cy.nodes("node[class='person']").union(cy.nodes("node[class='staff']"));
+  people.addClass("highlight").removeClass("semitransp");
+  people.parents().addClass("highlight").removeClass("semitransp");
+  showTooltipWithDesc(
+    "Personal Robots Group: People", 
+    "We also have amazing researchers and staff who make these projects possible.", 
+    pos
+  );
+  await new Promise(f => setTimeout(f, 5000));
+
+  styleTooltip(hideTooltipCss);
+  cy.elements().removeClass("semitransp").removeClass("highlight");
+}
 
 const fullLayout: cytoscape.LayoutOptions = {
   name: "concentric",
@@ -64,12 +119,11 @@ const zoomedLayout: cytoscape.LayoutOptions = {
   animate: true,
 };
 const runStaffLayout = (cy: cytoscape.Core) => {
-  cy.nodes().filter("node[class='staff']").layout(staffLayout).run();
+  cy.nodes("node[class='staff']").layout(staffLayout).run();
 }
 const updateSelections = (cy: cytoscape.Core, category: string) => {
   const nodes = cy.nodes();
   const all = category === "all";
-  console.log(category);
   switch (category) {
     case "all":
     case "themes":
@@ -105,7 +159,6 @@ const updateSelections = (cy: cytoscape.Core, category: string) => {
   }
 }
 const selectItem = (cy: cytoscape.Core, id: string) => {
-  console.log(id);
   const node = cy.nodes(`node[id='${id}']`);
   if (node.length === 0) return;
   node.trigger("tap");
@@ -120,7 +173,6 @@ const removeNodes = (collection: cytoscape.NodeCollection, classes: string[]) =>
   }
   return collection;
 }
-
 const isNode = (node: cytoscape.NodeSingular) => {
   return ![undefined, "title"].includes(node.data("class"));
 };
@@ -170,7 +222,8 @@ const handleMouseOut = () => {
 };
 
 const handlePan = () => {
-  styleTooltip(hideTooltipCss);
+  const prevStyling = styleTooltip(hideTooltipCss);
+  styleTooltip(prevStyling);
 };
 
 const director = {
@@ -182,6 +235,7 @@ const director = {
 
 const handleTap = (evt: cytoscape.EventObject) => {
   const node = evt.target;
+  if (!isNode(node)) styleTooltip(hideTooltipCss);;
   if (node.data("class") === "director") {
     // clicked director node
     handleMouseOut();
@@ -200,7 +254,7 @@ const handleTap = (evt: cytoscape.EventObject) => {
     cy.unbind("mouseover").unbind("mouseout");
     currentLayout = "zoomedLayout";
   } else if (currentLayout === "zoomedLayout" && !isNode(node)) {
-    // graph is zoomed in and user clicked on a node
+    // graph is zoomed in and user clicked on outside to zoom out
     const { name, ...directorAttr } = director;
     nodeWidth = cy.nodes()[0].width();
     nodeHeight = cy.nodes()[0].height();
@@ -232,8 +286,7 @@ const handleTap = (evt: cytoscape.EventObject) => {
       },
     ];
 
-    cy.nodes()
-      .filter("node[class='theme']")
+    cy.nodes("node[class='theme']")
       .forEach((node: cytoscape.NodeSingular) => {
         addNodes.push({
           data: {
@@ -258,8 +311,8 @@ const handleTap = (evt: cytoscape.EventObject) => {
     });
 
     cy.nodes()
-      .difference(cy.nodes().filter("node[class='staff']"))
-      .difference(cy.nodes().filter("node[class='department']"))
+      .difference(cy.nodes("node[class='staff']"))
+      .difference(cy.nodes("node[class='department']"))
       .layout(fullLayout)
       .run();
 
@@ -366,6 +419,7 @@ const handleTap = (evt: cytoscape.EventObject) => {
       });
   }
 };
+
 const formatCy = (cy: cytoscape.Core) => {
   removedNodes["coreNodes"] = cy.collection();
   removedNodes["themeNodes"] = cy.collection();
@@ -378,8 +432,8 @@ const formatCy = (cy: cytoscape.Core) => {
   nodeY = staffY;
   runStaffLayout(cy);
   cy.nodes()
-    .difference(cy.nodes().filter("node[class='staff']"))
-    .difference(cy.nodes().filter("node[class='department']"))
+    .difference(cy.nodes("node[class='staff']"))
+    .difference(cy.nodes("node[class='department']"))
     .layout(fullLayout)
     .run();
 
@@ -395,14 +449,15 @@ const formatCy = (cy: cytoscape.Core) => {
 
   displayThemesCheck?.addEventListener("change", () => {
     if (displayThemesCheck.checked) {
+      console.log(removedNodes["themeNodes"])
       removedNodes["themeNodes"].restore();
       updateSelections(cy, "themes");
-      cy.nodes('[class="director"]').trigger("tap");
+      cy.trigger("tap");
       handleMouseOut();
     } else {
-      removeNodes(removedNodes["themeNodes"], ["theme"]);
+      removedNodes["themeNodes"] = removeNodes(removedNodes["themeNodes"], ["theme"]);
       updateSelections(cy, "themes");
-      cy.nodes('[class="director"]').trigger("tap");
+      cy.trigger("tap");
       handleMouseOut();
     }
   });
@@ -410,12 +465,12 @@ const formatCy = (cy: cytoscape.Core) => {
     if (displayProjectsCheck.checked) {
       removedNodes["projectNodes"].restore();
       updateSelections(cy, "projects");
-      cy.nodes('[class="director"]').trigger("tap");
+      cy.trigger("tap");
       handleMouseOut();
     } else {
-      removeNodes(removedNodes["projectNodes"], ["project"]);
+      removedNodes["projectNodes"] = removeNodes(removedNodes["projectNodes"], ["project"]);
       updateSelections(cy, "projects");
-      cy.nodes('[class="director"]').trigger("tap");
+      cy.trigger("tap");
       handleMouseOut();
     }
   });
@@ -423,12 +478,12 @@ const formatCy = (cy: cytoscape.Core) => {
     if (displayPeopleCheck.checked) {
       removedNodes["peopleNodes"].restore();
       updateSelections(cy, "people");
-      cy.nodes('[class="director"]').trigger("tap");
+      cy.trigger("tap");
       handleMouseOut();
     } else {
-      removeNodes(removedNodes["peopleNodes"], ["person", "staff", "department"]);
+      removedNodes["peopleNodes"] = removeNodes(removedNodes["peopleNodes"], ["person", "staff", "department"]);
       updateSelections(cy, "people");
-      cy.nodes('[class="director"]').trigger("tap");
+      cy.trigger("tap");
       handleMouseOut();
     }
   });
@@ -444,6 +499,10 @@ const formatCy = (cy: cytoscape.Core) => {
   selectPerson?.addEventListener("change", () => {
     const selectedPerson = selectPerson.value;
     selectItem(cy, selectedPerson);
+  });
+
+  takeATour?.addEventListener("click", () => {
+    runTour(cy);
   });
 };
 
