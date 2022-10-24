@@ -27,9 +27,11 @@ const skills = category({
     "Teacher Education": "",
     "STEM Education": "",
     "Project Management": "",
-    "NLP":"",
-    "Curriculum Design": "", 
-    "User Experience": "", 
+    "NLP": "",
+    "Curriculum Design": "",
+    "User Experience": "",
+    "Design Education": "",
+    "Human-Centered Design": ""
 });
 
 set("skills", skills);

@@ -39,8 +39,12 @@ const executedFiles: string[] = [];
 const set = <T extends keyof NormalizedData>(key: T, value: NormalizedData[T]) => data[key] = value;
 type ValueFor<T extends keyof NormalizedData> = NormalizedData[T];
 
-const process = (file: string, name: string, onComplete?: () => void) =>
-    fork(file).on("message", (msg: Message) => {
+let errorInBuild = false;
+
+const process = (file: string, name: string, onComplete?: () => void, onError?: () => void) => {
+    const child = fork(file);
+
+    child.on("message", (msg: Message) => {
         const decoded = decodeMessage(msg);
         if (!decoded) return error(`Error decoding data from ${name}`);
 
@@ -64,6 +68,16 @@ const process = (file: string, name: string, onComplete?: () => void) =>
         if (onComplete) onComplete();
     });
 
+    child.on("exit", (e) => {
+        if (e === 0) return;
+        errorInBuild = true;
+        if (onError) onError();
+    });
+
+    return child;
+}
+
+
 const bundlerAfterRetrievingPrebuiltData = async () => {
     let prebuilt: any;
     if (fs.existsSync(dataFile.path)) {
@@ -84,6 +98,10 @@ const bundlerAfterRetrievingPrebuiltData = async () => {
 }
 
 let initialProcessCount = 0;
+const decrement = () => {
+    initialProcessCount--;
+    if (initialProcessCount == 0) initialBundle();
+};
 
 const initialExecute = async (file: string, index: number) => {
     executedFiles.push(file);
@@ -94,15 +112,16 @@ const initialExecute = async (file: string, index: number) => {
     if (!clean) return index == 0 ? bundlerAfterRetrievingPrebuiltData() : null;
 
     initialProcessCount++;
-    process(file, fileName, () => {
-        initialProcessCount--;
-        if (initialProcessCount == 0) initialBundle();
-    });
+    process(file, fileName, decrement, decrement);
 }
 
 const executableFilesQuery = `${root}/{people,categories}/*.ts`;
 
 const initialBundle = () => {
+    if (errorInBuild) {
+        throw new Error("Error raised during build (scroll up to see specific error(s)). Exiting without writing out data nor bundling...");
+    }
+
     write();
 
     if (!watch) return bundle(root);
