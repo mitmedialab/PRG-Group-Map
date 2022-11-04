@@ -4,7 +4,6 @@ import typescript from '@rollup/plugin-typescript';
 import json from '@rollup/plugin-json';
 import nodeResolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
-import { terser } from "rollup-plugin-terser";
 import serve from 'rollup-plugin-serve';
 import livereload from 'rollup-plugin-livereload';
 import fs from 'fs';
@@ -21,11 +20,12 @@ export const bundle = async (rootDir: string, watch: boolean = false) => {
         .filter(file => !fs.lstatSync(file).isDirectory());
 
     const plugins = [
-        typescript(),
+        typescript({
+            noEmitOnError: false,
+        }),
         json(),
         commonjs(),
         nodeResolve(),
-        terser(),
     ];
 
     if (watch) {
@@ -36,8 +36,7 @@ export const bundle = async (rootDir: string, watch: boolean = false) => {
             }),
             livereload({
                 watch: site,
-                clientUrl: process.env.CLIENT_URL,
-                delay: 500
+                clientUrl: process.env.CLIENT_URL
             })
         )
     }
@@ -64,7 +63,7 @@ export const bundle = async (rootDir: string, watch: boolean = false) => {
     const watcher = rollup.watch({
         ...options,
         output: [output],
-        watch: { include: appFiles }
+        watch: { include: appFiles, skipWrite: false, chokidar: { usePolling: true } }
     });
 
     watcher.on('event', (event) => {

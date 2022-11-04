@@ -4,30 +4,30 @@ import json from "./data.json";
 import cytoscape from "cytoscape";
 import { hideTooltipCss, showTooltipForNode, showTooltipWithDesc, styleTooltip } from "./tooltip";
 
-const { skills, roles, themes, members } = json as any as NormalizedData;
+const { skills, roles, themes, people, projects } = json as any as NormalizedData;
 
-const [prgProjectsElements, styling] = makeNodesAndEdges({ skills, roles, themes, members });
+const [prgProjectsElements, styling] = makeNodesAndEdges({ skills, roles, themes, people, projects });
 
 var nodeWidth: number,
-    nodeHeight: number,
-    staffX: number,
-    staffY: number,
-    nodeY: number,
-    dept: string,
-    currentLayout = "fullLayout",
-    removedNodes: { [collection: string]: cytoscape.NodeCollection } = {};
+  nodeHeight: number,
+  staffX: number,
+  staffY: number,
+  nodeY: number,
+  dept: string,
+  currentLayout = "fullLayout",
+  removedNodes: { [collection: string]: cytoscape.NodeCollection } = {};
 
-const cyContainer          = document.getElementById("cy");
-const displayThemesCheck   = document.getElementById("displayThemes") as HTMLInputElement;
+const cyContainer = document.getElementById("cy");
+const displayThemesCheck = document.getElementById("displayThemes") as HTMLInputElement;
 const displayProjectsCheck = document.getElementById("displayProjects") as HTMLInputElement;
-const displayPeopleCheck   = document.getElementById("displayPeople") as HTMLInputElement;
-const selectTheme          = document.getElementById("themeSelect") as HTMLSelectElement;
-const selectProject        = document.getElementById("projectSelect") as HTMLSelectElement;
-const selectPerson         = document.getElementById("personSelect") as HTMLSelectElement;
-const selectThemeList      = document.getElementById("themeSelectList") as HTMLSelectElement;
-const selectProjectList    = document.getElementById("projectSelectList") as HTMLSelectElement;
-const selectPersonList     = document.getElementById("personSelectList") as HTMLSelectElement;
-const takeATour            = document.getElementById("takeATour") as HTMLButtonElement;
+const displayPeopleCheck = document.getElementById("displayPeople") as HTMLInputElement;
+const selectTheme = document.getElementById("themeSelect") as HTMLSelectElement;
+const selectProject = document.getElementById("projectSelect") as HTMLSelectElement;
+const selectPerson = document.getElementById("personSelect") as HTMLSelectElement;
+const selectThemeList = document.getElementById("themeSelectList") as HTMLSelectElement;
+const selectProjectList = document.getElementById("projectSelectList") as HTMLSelectElement;
+const selectPersonList = document.getElementById("personSelectList") as HTMLSelectElement;
+const takeATour = document.getElementById("takeATour") as HTMLButtonElement;
 
 async function runTour(cy: cytoscape.Core) {
   const pos = { x: 0, y: 0 };
@@ -39,8 +39,8 @@ async function runTour(cy: cytoscape.Core) {
   const center = cy.nodes("node[class='director']").union(cy.nodes("node[class='title']"));
   center.addClass("highlight").removeClass("semitransp");
   showTooltipWithDesc(
-    "Personal Robots Group", 
-    "Welcome to the Personal Robots Group! The Personal Robots Group focuses on developing the principles, techniques, and technologies for personal robots.", 
+    "Personal Robots Group",
+    "Welcome to the Personal Robots Group! The Personal Robots Group focuses on developing the principles, techniques, and technologies for personal robots.",
     pos
   );
   await new Promise(f => setTimeout(f, 5000));
@@ -50,8 +50,8 @@ async function runTour(cy: cytoscape.Core) {
   const themes = cy.nodes("node[class='theme']");
   themes.addClass("highlight").removeClass("semitransp");
   showTooltipWithDesc(
-    "Personal Robots Group: Themes", 
-    "All of the projects of the Personal Robots Group center around themes from AI Education to the Air Force.", 
+    "Personal Robots Group: Themes",
+    "All of the projects of the Personal Robots Group center around themes from AI Education to the Air Force.",
     pos
   );
   await new Promise(f => setTimeout(f, 5000));
@@ -61,8 +61,8 @@ async function runTour(cy: cytoscape.Core) {
   const projects = cy.nodes("node[class='project']");
   projects.addClass("highlight").removeClass("semitransp");
   showTooltipWithDesc(
-    "Personal Robots Group: Projects", 
-    "We have a bunch of cool projects with a wide range of goals.", 
+    "Personal Robots Group: Projects",
+    "We have a bunch of cool projects with a wide range of goals.",
     pos
   );
   await new Promise(f => setTimeout(f, 5000));
@@ -73,8 +73,8 @@ async function runTour(cy: cytoscape.Core) {
   people.addClass("highlight").removeClass("semitransp");
   people.parents().addClass("highlight").removeClass("semitransp");
   showTooltipWithDesc(
-    "Personal Robots Group: People", 
-    "We also have amazing researchers and staff who make these projects possible.", 
+    "Personal Robots Group: People",
+    "We also have amazing researchers and staff who make these projects possible.",
     pos
   );
   await new Promise(f => setTimeout(f, 5000));
@@ -96,9 +96,10 @@ const fullLayout: cytoscape.LayoutOptions = {
     return position;
   },
 };
-const staffLayout: cytoscape.LayoutOptions = {
+const staffLayout: cytoscape.PresetLayoutOptions = {
   name: "preset",
   positions: (node: cytoscape.NodeSingular) => {
+    console.log("YOOOOOO");
     if (node.data("parent") !== dept) {
       dept = node.data("parent");
       nodeY += nodeHeight * 2.5;
@@ -111,10 +112,10 @@ const staffLayout: cytoscape.LayoutOptions = {
     };
   },
 };
-const zoomedLayout: cytoscape.LayoutOptions = {
+const zoomedLayout: cytoscape.ConcentricLayoutOptions = {
   name: "concentric",
-  concentric: function (node: cytoscape.NodeSingular) {
-    return node.data("zoomedLevel");
+  concentric: function (node: cytoscape.NodeSingular & { degree(): number; }) {
+    return node.data("zoomedLevel") as number;
   },
   animate: true,
 };
