@@ -4,9 +4,9 @@ import json from "./data.json";
 import cytoscape from "cytoscape";
 import { hideTooltipCss, showTooltipForNode, showTooltipWithDesc, styleTooltip } from "./tooltip";
 
-const { skills, roles, themes, people, projects } = json as any as NormalizedData;
+const data = json as any as NormalizedData;
 
-const [prgProjectsElements, styling] = makeNodesAndEdges({ skills, roles, themes, people, projects });
+const [prgProjectsElements, styling] = makeNodesAndEdges(data);
 
 var nodeWidth: number,
   nodeHeight: number,
@@ -17,7 +17,7 @@ var nodeWidth: number,
   currentLayout = "fullLayout",
   removedNodes: { [collection: string]: cytoscape.NodeCollection } = {};
 
-const cyContainer = document.getElementById("cy");
+const cyContainer = document.getElementById("cyto");
 const displayThemesCheck = document.getElementById("displayThemes") as HTMLInputElement;
 const displayProjectsCheck = document.getElementById("displayProjects") as HTMLInputElement;
 const displayPeopleCheck = document.getElementById("displayPeople") as HTMLInputElement;
@@ -86,20 +86,23 @@ async function runTour(cy: cytoscape.Core) {
 const fullLayout: cytoscape.LayoutOptions = {
   name: "concentric",
   concentric: function (node: cytoscape.NodeSingular & { degree(): number }): number {
+    console.log("h");
     return node.data("level");
   },
   avoidOverlap: false,
   equidistant: true,
   animationDuration: 500,
   transform(node, position) {
+    console.log("d");
     if (node.data("class") === "director") position.y += nodeHeight * 1.2;
     return position;
   },
 };
+
 const staffLayout: cytoscape.PresetLayoutOptions = {
   name: "preset",
+  /*
   positions: (node: cytoscape.NodeSingular) => {
-    console.log("YOOOOOO");
     if (node.data("parent") !== dept) {
       dept = node.data("parent");
       nodeY += nodeHeight * 2.5;
@@ -110,12 +113,12 @@ const staffLayout: cytoscape.PresetLayoutOptions = {
       x: staffX,
       y: nodeY,
     };
-  },
+  },*/
 };
 const zoomedLayout: cytoscape.ConcentricLayoutOptions = {
   name: "concentric",
   concentric: function (node: cytoscape.NodeSingular & { degree(): number; }) {
-    return node.data("zoomedLevel") as number;
+    return node.data("zoomedLevel");
   },
   animate: true,
 };
@@ -168,7 +171,7 @@ const selectItem = (cy: cytoscape.Core, id: string) => {
   selectPerson.value = "";
 }
 
-const removeNodes = (collection: cytoscape.NodeCollection, classes: string[]) => {
+const removeNodes = (cy: cytoscape.Core, collection: cytoscape.NodeCollection, classes: string[]) => {
   for (const className of classes) {
     collection = collection.union(cy.nodes(`[class="${className}"]`).remove());
   }
@@ -178,7 +181,7 @@ const isNode = (node: cytoscape.NodeSingular) => {
   return ![undefined, "title"].includes(node.data("class"));
 };
 
-const handleMouseOver = (evt: cytoscape.EventObject) => {
+const handleMouseOver = (cy: cytoscape.Core, evt: cytoscape.EventObject) => {
   const node = evt.target;
   if (node.data("class") === "title") return;
 
@@ -217,7 +220,7 @@ const handleMouseOver = (evt: cytoscape.EventObject) => {
   });
 };
 
-const handleMouseOut = () => {
+const handleMouseOut = (cy: cytoscape.Core) => {
   styleTooltip(hideTooltipCss);
   cy.elements().removeClass("semitransp").removeClass("highlight");
 };
@@ -234,13 +237,13 @@ const director = {
   "past projects": "https://robots.media.mit.edu/project-portfolio/applications/",
 };
 
-const handleTap = (evt: cytoscape.EventObject) => {
+const handleTap = (cy: cytoscape.Core, evt: cytoscape.EventObject) => {
   const node = evt.target;
   if (!isNode(node)) styleTooltip(hideTooltipCss);;
   if (node.data("class") === "director") {
     // clicked director node
-    handleMouseOut();
-    handleMouseOver(evt);
+    handleMouseOut(cy);
+    handleMouseOver(cy, evt);
     cy.animation({
       zoom: {
         level: 1,
@@ -298,12 +301,12 @@ const handleTap = (evt: cytoscape.EventObject) => {
         });
       });
 
-    handleMouseOut();
+    handleMouseOut(cy);
 
     cy.batch(function () {
       removedNodes["coreNodes"].restore();
-      cy.bind("mouseover", "node", (evt) => handleMouseOver(evt));
-      cy.bind("mouseout", "node", () => handleMouseOut());
+      cy.bind("mouseover", "node", (evt) => handleMouseOver(cy, evt));
+      cy.bind("mouseout", "node", () => handleMouseOut(cy));
       fullLayout.animate = true;
       cy.zoomingEnabled(false);
       nodeY = staffY;
@@ -323,8 +326,8 @@ const handleTap = (evt: cytoscape.EventObject) => {
     node.data("zoomedLevel") !== cy.elements().length
   ) {
     // clicked node and it is not zoomed in
-    handleMouseOut();
-    handleMouseOver(evt);
+    handleMouseOut(cy);
+    handleMouseOver(cy, evt);
     removedNodes["coreNodes"] = removedNodes["coreNodes"]
       .union(cy.nodes('[id="Personal Robots Group"]').remove())
       .union(cy.nodes('[class="director"]').remove());
@@ -443,9 +446,9 @@ const formatCy = (cy: cytoscape.Core) => {
   updateSelections(cy, "all");
   console.log("updated")
 
-  cy.bind("tap", (evt) => handleTap(evt));
-  cy.bind("mouseover", "node", (evt) => handleMouseOver(evt));
-  cy.bind("mouseout", "node", () => handleMouseOut());
+  cy.bind("tap", (evt) => handleTap(cy, evt));
+  cy.bind("mouseover", "node", (evt) => handleMouseOver(cy, evt));
+  cy.bind("mouseout", "node", () => handleMouseOut(cy));
   cy.bind("pan", () => handlePan());
 
   displayThemesCheck?.addEventListener("change", () => {
@@ -454,12 +457,12 @@ const formatCy = (cy: cytoscape.Core) => {
       removedNodes["themeNodes"].restore();
       updateSelections(cy, "themes");
       cy.trigger("tap");
-      handleMouseOut();
+      handleMouseOut(cy);
     } else {
-      removedNodes["themeNodes"] = removeNodes(removedNodes["themeNodes"], ["theme"]);
+      removedNodes["themeNodes"] = removeNodes(cy, removedNodes["themeNodes"], ["theme"]);
       updateSelections(cy, "themes");
       cy.trigger("tap");
-      handleMouseOut();
+      handleMouseOut(cy);
     }
   });
   displayProjectsCheck?.addEventListener("change", () => {
@@ -467,12 +470,12 @@ const formatCy = (cy: cytoscape.Core) => {
       removedNodes["projectNodes"].restore();
       updateSelections(cy, "projects");
       cy.trigger("tap");
-      handleMouseOut();
+      handleMouseOut(cy);
     } else {
-      removedNodes["projectNodes"] = removeNodes(removedNodes["projectNodes"], ["project"]);
+      removedNodes["projectNodes"] = removeNodes(cy, removedNodes["projectNodes"], ["project"]);
       updateSelections(cy, "projects");
       cy.trigger("tap");
-      handleMouseOut();
+      handleMouseOut(cy);
     }
   });
   displayPeopleCheck?.addEventListener("change", () => {
@@ -480,12 +483,12 @@ const formatCy = (cy: cytoscape.Core) => {
       removedNodes["peopleNodes"].restore();
       updateSelections(cy, "people");
       cy.trigger("tap");
-      handleMouseOut();
+      handleMouseOut(cy);
     } else {
-      removedNodes["peopleNodes"] = removeNodes(removedNodes["peopleNodes"], ["person", "staff", "department"]);
+      removedNodes["peopleNodes"] = removeNodes(cy, removedNodes["peopleNodes"], ["person", "staff", "department"]);
       updateSelections(cy, "people");
       cy.trigger("tap");
-      handleMouseOut();
+      handleMouseOut(cy);
     }
   });
 
@@ -506,11 +509,14 @@ const formatCy = (cy: cytoscape.Core) => {
     runTour(cy);
   });
 };
-
-var cy = cytoscape({
+console.log("z")
+const cy = cytoscape({
+  container: cyContainer
+});
+/*const cy = cytoscape({
   container: cyContainer, // container to render in
   elements: prgProjectsElements,
-  layout: fullLayout,
   style: styling,
-});
-formatCy(cy);
+});*/
+console.log("m")
+//formatCy(cy);

@@ -77,9 +77,7 @@ const makeReadble = <T>(key: string, value: T) => {
         }, "<br>") ?? "";
     }
     else if (Array.isArray(value)) {
-        if (value.length === 0) return "";
-        return "";
-        //return isObject(value[0]) ? value.map(v => readableObject(v)).join(", ") : value.join(", ");
+        return value.join(", ");
     }
     else if (isObject(value)) {
         return readableObject(value as object);

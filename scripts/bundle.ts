@@ -1,6 +1,7 @@
 import path from 'path';
 import * as rollup from 'rollup';
-import typescript from '@rollup/plugin-typescript';
+//import typescript from '@rollup/plugin-typescript';
+import typescript from 'rollup-plugin-ts-compiler';
 import json from '@rollup/plugin-json';
 import nodeResolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
@@ -8,6 +9,8 @@ import serve from 'rollup-plugin-serve';
 import livereload from 'rollup-plugin-livereload';
 import fs from 'fs';
 import { Color, log } from './logInColor';
+import * as chokidar from "chokidar";
+import glob from 'glob';
 
 export const bundle = async (rootDir: string, watch: boolean = false) => {
     const app = path.join(rootDir, 'app');
@@ -20,9 +23,7 @@ export const bundle = async (rootDir: string, watch: boolean = false) => {
         .filter(file => !fs.lstatSync(file).isDirectory());
 
     const plugins = [
-        typescript({
-            noEmitOnError: false,
-        }),
+        typescript(),
         json(),
         commonjs(),
         nodeResolve(),
@@ -36,7 +37,8 @@ export const bundle = async (rootDir: string, watch: boolean = false) => {
             }),
             livereload({
                 watch: site,
-                clientUrl: process.env.CLIENT_URL
+                clientUrl: process.env.CLIENT_URL,
+                delay: 500
             })
         )
     }
@@ -44,10 +46,10 @@ export const bundle = async (rootDir: string, watch: boolean = false) => {
     const options: rollup.RollupOptions = {
         input: entry,
         plugins,
-        watch: watch ? undefined : false,
+        watch: false,
     }
 
-    const bundle = await rollup.rollup(options);
+    const bundled = await rollup.rollup(options);
 
     const output: rollup.OutputOptions = {
         file: path.join(app, 'site', 'js', 'bundle.js'),
@@ -56,14 +58,18 @@ export const bundle = async (rootDir: string, watch: boolean = false) => {
         sourcemap: 'inline',
     }
 
-    bundle.write(output);
+    bundled.write(output);
 
     if (!watch) return;
 
     const watcher = rollup.watch({
         ...options,
         output: [output],
-        watch: { include: appFiles, skipWrite: false, chokidar: { usePolling: true } }
+        watch: {
+            include: appFiles, chokidar: {
+                "alwaysStat": true
+            }
+        }
     });
 
     watcher.on('event', (event) => {
@@ -71,3 +77,4 @@ export const bundle = async (rootDir: string, watch: boolean = false) => {
         if (event.code === "BUNDLE_END") event.result?.close();
     });
 };
+
