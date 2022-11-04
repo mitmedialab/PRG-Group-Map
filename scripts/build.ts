@@ -1,158 +1,85 @@
-import path from 'path';
-import fs from 'fs';
-import glob from "glob";
-import { fork } from "child_process";
+import fs from "fs";
+import path from "path";
+import { Data, dirnameFromImportURL, flush, getChildFileNames, NormalizedData, UnionToTuple } from "../builder";
 import * as chokidar from "chokidar";
-import { bundle } from './bundle';
-import { processCommandLineArgs } from './CLI';
-import { Message } from './communication';
-import { clear, decodeMessage, flush, init, NormalizedData } from '../builder';
-import { dataFile, theme } from './files';
+import { processCommandLineArgs } from "./CLI";
+import { bundle } from "./bundle";
 import { Color, error, log } from './logInColor';
-import fetch from 'node-fetch';
 
-const { watch, clean } = processCommandLineArgs("npm run build --", {
+const { watch } = processCommandLineArgs("npm run build --", {
     watch: {
         alias: 'w',
         description: 'watch for file changes',
         type: Boolean,
         trueIfPresent: true
     },
-    clean: {
-        alias: 'c',
-        description: 'Fetches data from the most recent build (instead of rebuilding it locally -- helpful on slower systems)',
-        type: Boolean,
-        defaultValue: false,
-    }
 });
 
-if (clean) clear();
-
-const data = init();
-const memberIndexByFile: Record<string, number> = {};
-
-const write = () => flush({ ...data, memberIndexByFile });
-
+const __dirname = dirnameFromImportURL(import.meta.url);
 const root = path.resolve(__dirname, "..");
-const executedFiles: string[] = [];
+const getDirectory = (name: string) => path.join(root, name);
 
-const set = <T extends keyof NormalizedData>(key: T, value: NormalizedData[T]) => data[key] = value;
-type ValueFor<T extends keyof NormalizedData> = NormalizedData[T];
-
-let errorInBuild = false;
-
-const process = (file: string, name: string, onComplete?: () => void, onError?: () => void) => {
-    const child = fork(file);
-
-    child.on("message", (msg: Message) => {
-        const decoded = decodeMessage(msg);
-        if (!decoded) return error(`Error decoding data from ${name}`);
-
-        const [key, value] = decoded;
-        switch (key) {
-            case "themes":
-            case "roles":
-            case "skills":
-                set(key, value as ValueFor<typeof key>);
-                break;
-            case "members":
-                const member = (value as ValueFor<"members">)[0];
-                const relative = path.relative(root, file);
-                relative in memberIndexByFile
-                    ? data["members"][memberIndexByFile[relative]] = member
-                    : memberIndexByFile[relative] = data[key].push(member) - 1;
-                break;
-        }
-
-        log(`Completed ${name}.`, Color.Green);
-        if (onComplete) onComplete();
-    });
-
-    child.on("exit", (e) => {
-        if (e === 0) return;
-        errorInBuild = true;
-        if (onError) onError();
-    });
-
-    return child;
-}
-
-
-const bundlerAfterRetrievingPrebuiltData = async () => {
-    let prebuilt: any;
-    if (fs.existsSync(dataFile.path)) {
-        prebuilt = JSON.parse(fs.readFileSync(dataFile.path, "utf8"));
-    }
-    else {
-        const url = "https://mitmedialab.github.io/PRG-Group-Map/artifacts/data.json";
-        prebuilt = await (await fetch(url)).json();
-    }
-
-    for (const key in prebuilt) {
-        key === "memberIndexByFile"
-            ? Object.assign(memberIndexByFile, prebuilt[key] as any)
-            : (data as any)[key] = prebuilt[key];
-    }
-
-    initialBundle();
-}
-
-let initialProcessCount = 0;
-const decrement = () => {
-    initialProcessCount--;
-    if (initialProcessCount == 0) initialBundle();
+const enum Category {
+    Projects = "projects",
+    People = "people",
+    Roles = "roles",
+    Skills = "skills",
+    Themes = "themes"
 };
 
-const initialExecute = async (file: string, index: number) => {
-    executedFiles.push(file);
-    const fileName = path.basename(file);
+const categories: UnionToTuple<Category> & (keyof Data)[] = [Category.Projects, Category.People, Category.Roles, Category.Skills, Category.Themes];
 
-    log(`${clean ? "Begin executing" : "Skipping execution of"} ${fileName}`, Color.Cyan);
+const directories = categories.reduce((acc, name) => {
+    const dir = getDirectory(name);
+    if (!fs.existsSync(dir)) throw new Error(`Directory does not exist for category: ${name}`);
+    acc[name] = dir;
+    return acc;
+}, {} as Record<Category, string>);
 
-    if (!clean) return index == 0 ? bundlerAfterRetrievingPrebuiltData() : null;
+const generateImportsForChildFiles = (directory: string) => {
+    const codeGenFlag = "CODE GENERATION GUARD";
+    const indexFile = path.join(directory, "index.ts");
+    const children = getChildFileNames(directory);
+    const content = fs.readFileSync(indexFile, "utf8").split("\n");
+    const [start, end] = content
+        .map((line, index) => ({ line, index }))
+        .filter(({ line }) => line.includes(codeGenFlag))
+        .map(({ index }) => index);
+    content.splice(start + 1, end - start - 1, ...children.map(file => `\t...(await import("./${file}")).default,`));
+    fs.writeFileSync(indexFile, content.join("\n"), "utf8");
+};
 
-    initialProcessCount++;
-    process(file, fileName, decrement, decrement);
-}
+const directoriesRequiringCodeGen = [directories.projects];
+directoriesRequiringCodeGen.forEach(generateImportsForChildFiles);
 
-const executableFilesQuery = `${root}/{people,categories}/*.ts`;
+const getDataForDir = async (path: string) => (await import(path)).default;
 
-const initialBundle = () => {
-    if (errorInBuild) {
-        throw new Error("Error raised during build (scroll up to see specific error(s)). Exiting without writing out data nor bundling...");
-    }
+const keys = Object.keys(directories);
+const items = await Promise.all(Object.values(directories).map(getDataForDir));
+const data = items.reduce((acc, item, index) => {
+    acc[keys[index]] = item;
+    return acc;
+}, {}) as NormalizedData;
 
-    write();
+flush(data);
 
-    if (!watch) return bundle(root);
+bundle(root, watch);
 
-    chokidar.watch(executableFilesQuery).on('all', (event, file) => {
-        const fileName = path.basename(file);
+if (watch) {
+    const globQuery = path.join("root", `{${keys.join(",")}}`, "*.ts");
 
+    chokidar.watch(globQuery).on("all", async (event, file) => {
+        const dir = path.dirname(file);
+        const category = path.basename(dir) as Category;
+        if (!categories.includes(category)) throw new Error(`Change to the following file can not be mapped to a category: ${file}`);
         switch (event) {
-            case "change":
-                log(`Begin re-executing ${fileName}.`, Color.Cyan);
-                process(file, fileName, write);
-                return;
             case "add":
-                if (executedFiles.includes(file)) return;
-                log(`Executing new file: ${fileName}.`, Color.Cyan);
-                process(file, fileName, write);
-                executedFiles.push(fileName);
+            case "change":
+                log(`Change to ${file}`, Color.Cyan);
+                log(`Refreshing ${category} category.`, Color.Green);
+                data[category] = await getDataForDir(dir);
+                flush(data);
                 return;
         }
     });
-
-    chokidar.watch(`${root}/categories/themes/**/*.ts`).on('change', (path) => {
-        log(`Change in ${path}`, Color.Cyan);
-        log(`Begin re-executing ${theme.name}.`, Color.Cyan);
-        process(theme.path, theme.name, () => flush(data));
-    });
-
-    bundle(root, true);
 }
-
-glob(executableFilesQuery, (err: Error | null, files: string[]) => {
-    if (err) return error(`${err.name}: ${err.message} ${err.stack ?? ""}`);
-    files.forEach(initialExecute);
-});

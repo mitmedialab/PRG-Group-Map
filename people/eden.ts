@@ -1,6 +1,6 @@
-import { describeYourself } from "../builder";
+import { person } from "../builder";
 
-describeYourself({
+export default person({
     name: "Eden Adler",
     email: "eadler@mit.edu",
     bio: " passionate about using human-centered design to tackle systemic inequities. I want to make our systems more inclusive, accessible, and equitable to everyone - not just the mainstream.",

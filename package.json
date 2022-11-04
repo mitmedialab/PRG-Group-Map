@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "description": "Organizing the (wonderful) people and (exciting) projects of the Personal Robotics Group",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "ts": "node_modules/.bin/ts-node",
-    "build": "npm run ts scripts/build.ts -- -c",
-    "dev": "npm run ts scripts/build.ts -- -w -c",
+    "ts": "node --experimental-specifier-resolution=node --loader ts-node/esm",
+    "build": "npm run ts scripts/build.ts",
+    "dev": "npm run ts scripts/build.ts -- -w",
     "gitpod:dev": "npm run ts scripts/build.ts -- -w",
     "new:person": "npm run ts scripts/createNew.ts -- --type people --name"
   },

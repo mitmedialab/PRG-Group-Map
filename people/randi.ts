@@ -1,6 +1,6 @@
-import { describeYourself } from "../builder";
+import { person } from "../builder";
 
-describeYourself({
+export default person({
   name: "Randi Williams",
   email: "randiw12@mit.edu",
   bio: `Randi Williams is a PhD student in the group who works at the intersection
@@ -13,7 +13,7 @@ describeYourself({
     { name: "RAICA", main: true },
     "Autonomous Car Curriculum",
     { name: "LevelUp", main: true },
-    { name: "AI Playground", main: true },
+    { name: "RAISE Playground", main: true },
     { name: "Doodle Bot", main: true },
     "PopBots",
     "Arduino and Micro:bit Robots",

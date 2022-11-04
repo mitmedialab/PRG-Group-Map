@@ -1,6 +1,9 @@
-import { ProjectName, ThemeName } from "../categories/projectsByTheme";
-import { RoleName } from "../categories/roles";
-import { SkillName } from "../categories/skills";
+import { ProjectName } from "../projects";
+import { RoleName } from "../roles";
+import { SkillName } from "../skills";
+import { ThemeName } from "../themes";
+
+export const isString = <T>(x: T) => typeof x === 'string' || x instanceof String;
 
 // Common
 
@@ -20,7 +23,6 @@ export type VerboseLink = {
 };
 
 export type Link = string | VerboseLink;
-
 
 type BeginningEnd = readonly [number, number];
 
@@ -49,7 +51,7 @@ export type YearsTimeFrame = number
  * @example
  * [[2018, 2020], [2021, 2022]]
  */
-export type NormalizedTimeFrame = readonly [...[number, number][], [number, number | "present"]];
+export type NormalizedTimeFrame = readonly [...BeginningEnd[], readonly [number, number | "present"]];
 
 export type VerboseDetails = {
     /**
@@ -91,14 +93,18 @@ export type NormalizedDetails = Replace<Replace<VerboseDetails, "links", Verbose
 
 export type CategoryDetails = string | VerboseDetails;
 
-export type ProjectDetails = CategoryDetails;
+type Themes = { themes: Collection<ThemeName> };
+
+export type ProjectDetails = CategoryDetails & Themes;
 
 type projects<T> = { [K in keyof T]: ProjectDetails };
 
-type Themes = { themes: ThemeName | readonly ThemeName[] };
-
 export const project = <T extends string>(obj: Name<T> & Details & Themes): { [key in T]: ProjectDetails } => {
-    return { [obj.name]: obj.details } as { [key in T]: ProjectDetails }
+    return {
+        [obj.name]: isString(obj.details)
+            ? { summary: obj.details, themes: obj.themes }
+            : { ...(obj.details as object), themes: obj.themes }
+    } as { [key in T]: ProjectDetails }
 };
 
 type Name<T> = { readonly name: T };
@@ -124,7 +130,7 @@ export const theme = <T extends string, P extends projects<P>>(obj: Name<T> & De
     } as { [key in T]: P & Details };
 };
 
-export const category = <T>(namesAndDetails: { [K in keyof T]: CategoryDetails }) => namesAndDetails;
+export const namesAndDetails = <T>(namesAndDetails: { [K in keyof T]: CategoryDetails }) => namesAndDetails;
 
 type ThemeDescription<T> = { [K in keyof T]: K extends "details" ? CategoryDetails : ProjectDetails };
 export const themes = <T>(x: { [K in keyof T]: ThemeDescription<T[K]> }) => x;
@@ -133,17 +139,13 @@ type Entries<TKey extends string, TValue = CategoryDetails> = { [projectName in 
 
 // Projects
 
-export type ProjectEntries = Entries<ProjectName>;
+export type ProjectEntries = Entries<ProjectName, ProjectDetails>;
 
 // Themes
 
 export type Theme = { details: CategoryDetails } & ProjectEntries;
 
-export type NormalizedTheme = { details: NormalizedDetails } & Entries<ProjectName, NormalizedDetails>;
-
-export type ThemeEntries = Entries<ThemeName, Theme>;
-
-export type NormalizedThemeEntries = Entries<ThemeName, NormalizedTheme>;
+export type ThemeEntries = Entries<ThemeName>;
 
 // Skills
 
@@ -168,11 +170,11 @@ export type RoleEntries = Entries<RoleName>;
 
 // People
 
-export type ProjectConnection = {
+export type Connection<TName> = {
     /**
      * @summary Project name
      */
-    name: ProjectName,
+    name: TName,
     /**
      * @summary Is this your main project? 
      * @description NOTE: You CAN specify more than one project as a 'main' project
@@ -183,9 +185,9 @@ export type ProjectConnection = {
      * @description Measured on a scale of 1-100, this will control how your connection this project is displayed.
      */
     weight?: number
-};
+}
 
-export type ProjectCollection = ProjectName | ProjectConnection | readonly (ProjectName | ProjectConnection)[];
+export type Collection<TName> = TName | Connection<TName> | readonly (TName | Connection<TName>)[];
 
 export type GroupMember = {
     /**
@@ -232,7 +234,7 @@ export type GroupMember = {
      * // (use a value between 0 - 100)
      * projects: [ { "Day of AI", weight: 20 }, { project: "Jibo", main: true, weight: 90 }]
      */
-    projects: ProjectCollection,
+    projects: Collection<ProjectName>,
 
     /**
      * @summary What are you good at?
@@ -276,6 +278,8 @@ export type GroupMember = {
     years?: YearsTimeFrame,
 }
 
+export type NormalizedCollection<TName> = readonly Required<Connection<TName>>[];
+
 export type NormalizedMember =
     Replace<
         Replace<
@@ -283,7 +287,7 @@ export type NormalizedMember =
                 Replace<GroupMember,
                     "role", VerboseRole>,
                 "years", NormalizedTimeFrame>,
-            "projects", readonly Required<ProjectConnection>[]>,
+            "projects", NormalizedCollection<ProjectName>>,
         "links", readonly VerboseLink[], true>;
 
 type Identity<T> = { [P in keyof T]: T[P] }
@@ -301,12 +305,26 @@ export type Data = {
     skills: SkillEntries,
     roles: RoleEntries,
     themes: ThemeEntries,
-    members: GroupMember[],
+    people: GroupMember[],
+    projects: ProjectEntries,
 }
 
 export type NormalizedData = {
     skills: Record<SkillName, NormalizedDetails>,
     roles: Record<RoleName, NormalizedDetails>,
-    themes: NormalizedThemeEntries,
-    members: NormalizedMember[],
+    themes: Record<ThemeName, NormalizedDetails>,
+    people: NormalizedMember[],
+    projects: Record<ProjectName, NormalizedDetails & { themes: NormalizedCollection<ThemeName> }>,
 }
+
+type UnionToIntersection<U> = (
+    U extends never ? never : (arg: U) => never
+) extends (arg: infer I) => void
+    ? I
+    : never;
+
+export type UnionToTuple<T> = UnionToIntersection<
+    T extends never ? never : (t: T) => T
+> extends (_: never) => infer W
+    ? [...UnionToTuple<Exclude<T, W>>, W]
+    : [];

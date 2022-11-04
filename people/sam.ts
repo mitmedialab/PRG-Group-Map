@@ -1,11 +1,11 @@
-import { describeYourself, student } from "../builder";
+import { person, student } from "../builder";
 
 const startDate = new Date("September, 2018");
 const graduationDate = new Date("September, 2022");
 
 const { role, years } = student("PhD Student", startDate, graduationDate);
 
-describeYourself({
+export default person({
     name: "Sam Spaulding",
     email: "samuelsp@media.mit.edu",
     bio: "",

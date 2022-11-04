@@ -1,12 +1,12 @@
 import cytoscape from "cytoscape";
 import type { NormalizedData, NormalizedDetails, VerboseDetails, VerboseLink } from "../builder/types";
-import { ProjectName } from "../categories/projectsByTheme";
-import { RoleName } from "../categories/roles";
+import { ProjectName } from "../projects";
+import { RoleName } from "../roles";
 import { getColorCss, getNextColorIndex } from "./color";
 import { Class, css, edge, edgeStyle, node, nodeStyle, readableEntries, readableObject, style } from "./utils";
 
 export const makeNodesAndEdges = (data: NormalizedData): [cytoscape.ElementDefinition[], cytoscape.Stylesheet[]] => {
-    const { skills, roles, themes, members } = data;
+    const { skills, roles, themes, people } = data;
 
     const allProjects = Object.entries(themes).reduce((acc, [theme, content]) => {
         const projects = { ...content };
@@ -15,12 +15,12 @@ export const makeNodesAndEdges = (data: NormalizedData): [cytoscape.ElementDefin
 
     delete allProjects["details"];
 
-    const director = members.find((m) => m.role.name === "Director");
+    const director = people.find((m) => m.role.name === "Director");
     if (director === undefined) throw new Error("Could not find the director!");
 
     const staffRoles: RoleName[] = ["Lab Management", "Tech Developer", "Admin & Finance"];
-    const researchers = members.filter((m) => !staffRoles.includes(m.role.name));
-    const staff = members.filter((m) => staffRoles.includes(m.role.name)).sort((a, b) => {
+    const researchers = people.filter((m) => !staffRoles.includes(m.role.name));
+    const staff = people.filter((m) => staffRoles.includes(m.role.name)).sort((a, b) => {
         if (a.role.name < b.role.name) return -1;
         if (a.role.name > b.role.name) return 1;
         return 0;
@@ -107,7 +107,7 @@ export const makeNodesAndEdges = (data: NormalizedData): [cytoscape.ElementDefin
             id: themeName,
             level: numProjects + numResearchers,
             class: Class.Theme,
-            ...theme.details,
+            //...theme.details,
         }));
 
         graphStyles.push(nodeStyle(
@@ -133,7 +133,7 @@ export const makeNodesAndEdges = (data: NormalizedData): [cytoscape.ElementDefin
                     level: numResearchers,
                     theme: themeName,
                     class: Class.Project,
-                    ...project,
+                    //...project,
                 }),
                 edge({
                     source: themeName,
