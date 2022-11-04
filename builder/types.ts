@@ -189,7 +189,7 @@ export type Connection<TName> = {
 
 export type Collection<TName> = TName | Connection<TName> | readonly (TName | Connection<TName>)[];
 
-export type GroupMember = {
+export type Person = {
     /**
      * @summary Your full (preferred) name
      */
@@ -280,11 +280,11 @@ export type GroupMember = {
 
 export type NormalizedCollection<TName> = readonly Required<Connection<TName>>[];
 
-export type NormalizedMember =
+export type NormalizedPerson =
     Replace<
         Replace<
             Replace<
-                Replace<GroupMember,
+                Replace<Person,
                     "role", VerboseRole>,
                 "years", NormalizedTimeFrame>,
             "projects", NormalizedCollection<ProjectName>>,
@@ -305,7 +305,7 @@ export type Data = {
     skills: SkillEntries,
     roles: RoleEntries,
     themes: ThemeEntries,
-    people: GroupMember[],
+    people: Person[],
     projects: ProjectEntries,
 }
 
@@ -313,7 +313,7 @@ export type NormalizedData = {
     skills: Record<SkillName, NormalizedDetails>,
     roles: Record<RoleName, NormalizedDetails>,
     themes: Record<ThemeName, NormalizedDetails>,
-    people: NormalizedMember[],
+    people: NormalizedPerson[],
     projects: Record<ProjectName, NormalizedDetails & { themes: NormalizedCollection<ThemeName> }>,
 }
 

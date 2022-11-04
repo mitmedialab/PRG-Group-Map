@@ -44,12 +44,12 @@ export const processCommandLineArgs = <T extends CommandLineOptions>(
 
     const valuesForType = (name: string, type: OptionType) =>
         type === String
-            ? "[\"text\"]"
+            ? "(\"text\")"
             : optionsAndHelp[name].trueIfPresent ? "" : "[true or false]";
 
     if ("help" in args) {
-        const nameFlags = (definitions.map(({ name, type }) => `--${name} ${valuesForType(name, type)}`)).join("");
-        const aliasFlags = (definitions.map(({ alias, type, name }) => `-${alias} ${valuesForType(name, type)}`)).join("");
+        const nameFlags = (definitions.map(({ name, type }) => `--${name} ${valuesForType(name, type)}`)).join(" ");
+        const aliasFlags = (definitions.map(({ alias, type, name }) => `-${alias} ${valuesForType(name, type)}`)).join(" ");
 
         console.log(`Usage:`);
         console.log(`\t${command} ${nameFlags}`);
@@ -63,7 +63,6 @@ export const processCommandLineArgs = <T extends CommandLineOptions>(
     }
 
     for (const arg in args) {
-        console.log(args);
         if (options[arg].trueIfPresent) {
             args[arg] = true;
         }

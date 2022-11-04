@@ -1,4 +1,4 @@
-import { CategoryDetails, Data, GroupMember, NormalizedData, NormalizedDetails, NormalizedMember, NormalizedTimeFrame, PathToAsset, Collection, Connection, ProjectDetails, Theme, VerboseDetails, VerboseLink, VerboseRole, NormalizedCollection } from "./types";
+import { CategoryDetails, Data, Person, NormalizedData, NormalizedDetails, NormalizedPerson, NormalizedTimeFrame, PathToAsset, Collection, Connection, ProjectDetails, Theme, VerboseDetails, VerboseLink, VerboseRole, NormalizedCollection } from "./types";
 import * as fs from "fs";
 import * as path from "path";
 import glob from "glob";
@@ -76,7 +76,7 @@ const normalizeDetails = (details: CategoryDetails) => {
     return normalized;
 };
 
-const normalizeRole = (role: GroupMember["role"]): NormalizedMember["role"] => {
+const normalizeRole = (role: Person["role"]): NormalizedPerson["role"] => {
     if (isString(role)) return { name: role as RoleName };
     return role as VerboseRole;
 };
@@ -84,7 +84,7 @@ const normalizeRole = (role: GroupMember["role"]): NormalizedMember["role"] => {
 const defaultMainProjectWeight = 50;
 const defaultProjectWeight = 20;
 
-const normalizeProjectConnection = <T extends ProjectName | ThemeName>(connection: Connection<T>): Required<Connection<T>> => {
+const normalizeConnection = <T extends ProjectName | ThemeName>(connection: Connection<T>): Required<Connection<T>> => {
     const { name, main: potentialMain, weight: potentialWeight } = connection;
     const main = potentialMain === undefined ? false : potentialMain
     const weight = potentialWeight === undefined
@@ -95,13 +95,13 @@ const normalizeProjectConnection = <T extends ProjectName | ThemeName>(connectio
 
 const normalizeCollection = <T extends ProjectName | ThemeName>(projects: Collection<T>, main: boolean = true): NormalizedCollection<T> => {
     if (isString(projects)) return [{ name: projects as T, main, weight: main ? defaultMainProjectWeight : defaultProjectWeight }];
-    if (isObject(projects)) return [normalizeProjectConnection(projects as Connection<T>)];
+    if (isObject(projects)) return [normalizeConnection(projects as Connection<T>)];
 
     const projArray = projects as readonly (T | Connection<T>)[];
     return projArray.map(proj => normalizeCollection(proj as Connection<T>, false)[0]);
 };
 
-const normalizeMember = (member: GroupMember): NormalizedMember => {
+const normalizePerson = (member: Person): NormalizedPerson => {
     const { years, role, projects, links } = member;
     return {
         ...member,
@@ -123,7 +123,7 @@ const normalize = <T extends Data[TKey], TKey extends keyof NormalizedData & key
     switch (type) {
         case "people":
             const people = data as Data["people"];
-            normalized = people.map(person => normalizeMember(person));
+            normalized = people.map(person => normalizePerson(person));
             break;
         case "roles":
         case "skills":
@@ -150,7 +150,7 @@ export const category = <TDataKey extends keyof Data & keyof NormalizedData>(fie
     return normalized;
 }
 
-export const person = (member: GroupMember) => member;
+export const person = (member: Person) => member;
 
 export const pathToFileInAssetsFolder = (filename: string): PathToAsset => {
     const pathToFile = path.join(assetsFolder, filename);

@@ -8,8 +8,10 @@
     "ts": "node --experimental-specifier-resolution=node --loader ts-node/esm",
     "build": "npm run ts scripts/build.ts",
     "dev": "npm run ts scripts/build.ts -- -w",
+    "new": "npm run ts scripts/new.ts --",
     "gitpod:dev": "npm run ts scripts/build.ts -- -w",
-    "new:person": "npm run ts scripts/createNew.ts -- --type people --name"
+    "new:person": "npm run new -- --type person --name",
+    "new:project": "npm run new -- --type project --name"
   },
   "repository": {
     "type": "git",

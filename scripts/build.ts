@@ -4,7 +4,7 @@ import { Data, dirnameFromImportURL, flush, getChildFileNames, NormalizedData, U
 import * as chokidar from "chokidar";
 import { processCommandLineArgs } from "./CLI";
 import { bundle } from "./bundle";
-import { Color, error, log } from './logInColor';
+import { Color, log } from './logInColor';
 
 const { watch } = processCommandLineArgs("npm run build --", {
     watch: {
