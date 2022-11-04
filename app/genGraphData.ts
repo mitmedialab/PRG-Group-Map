@@ -79,7 +79,14 @@ export const makeNodesAndEdges = (data: NormalizedData): [cytoscape.ElementDefin
             shape: "roundrectangle",
             "text-valign": "top",
         })),
-        edgeStyle("all", css({ opacity: 0.3 })),
+        edgeStyle("all", css({ 
+            opacity: 0.3,
+            width: function(e) {
+                if (e.data("main") === true) return "6px";
+                if (e.data("weight") === undefined) return '1px';
+                return `${(e.data("weight")/10>>0)}px`;
+            }
+        })),
         edgeStyle({ source: graphName }, css({
             "line-fill": "linear-gradient",
             "line-gradient-stop-colors": ["black", "white"],
@@ -155,7 +162,7 @@ export const makeNodesAndEdges = (data: NormalizedData): [cytoscape.ElementDefin
         }));
 
         graphElements.push(
-            ...projects.map(({ name }) => edge({ source: name, target: personName }))
+            ...projects.map(({ name, main, weight }) => edge({ source: name, target: personName, main: main, weight: weight }))
         );
     }
 
