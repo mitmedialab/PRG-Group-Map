@@ -4,7 +4,6 @@ import * as path from "path";
 import glob from "glob";
 import { RoleName } from "../roles";
 import { ProjectName } from "../projects";
-import { isObject } from "../app/src/utils";
 import { fileURLToPath } from "url";
 import { ThemeName } from "../themes";
 
@@ -28,6 +27,7 @@ const setData = (data: NormalizedData) => {
 }
 
 const isString = (query: any) => typeof query === 'string' || query instanceof String;
+const isObject = <T>(x: T) => !Array.isArray(x) && typeof x === 'object' && x !== null;
 
 const normalizeLinks = (links: VerboseDetails["links"]): NormalizedDetails["links"] => {
     if (!links) return undefined;
