@@ -81,11 +81,7 @@ export const makeNodesAndEdges = (data: NormalizedData): [cytoscape.ElementDefin
         })),
         edgeStyle("all", css({ 
             opacity: 0.3,
-            width: function(e) {
-                if (e.data("main") === true) return "6px";
-                if (e.data("weight") === undefined) return '1px';
-                return `${(e.data("weight")/10>>0)}px`;
-            }
+            width: "data(weight)"
         })),
         edgeStyle({ source: graphName }, css({
             "line-fill": "linear-gradient",

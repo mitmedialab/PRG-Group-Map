@@ -124,15 +124,15 @@ const normalizeRole = (role: GroupMember["role"]): NormalizedMember["role"] => {
     return role as VerboseRole;
 };
 
-const defaultMainProjectWeight = 50;
-const defaultProjectWeight = 20;
+const defaultMainProjectWeight = 6;
+const defaultProjectWeight = 2;
 
 const normalizeProjectConnection = (connection: ProjectConnection): Required<ProjectConnection> => {
     const { name, main: potentialMain, weight: potentialWeight } = connection;
     const main = potentialMain === undefined ? false : potentialMain
     const weight = potentialWeight === undefined
         ? main ? defaultMainProjectWeight : defaultProjectWeight
-        : potentialWeight;
+        : (potentialWeight/10>>0);
     return { name, main, weight }
 }
 
