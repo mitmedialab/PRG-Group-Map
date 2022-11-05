@@ -4,7 +4,7 @@ import * as path from "path";
 import glob from "glob";
 import { RoleName } from "../roles";
 import { ProjectName } from "../projects";
-import { isObject } from "../app/utils";
+import { isObject } from "../app/src/utils";
 import { fileURLToPath } from "url";
 import { ThemeName } from "../themes";
 

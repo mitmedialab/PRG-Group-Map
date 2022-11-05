@@ -3,7 +3,7 @@ import path from "path";
 import { Data, dirnameFromImportURL, flush, getChildFileNames, NormalizedData, UnionToTuple } from "../builder";
 import * as chokidar from "chokidar";
 import { processCommandLineArgs } from "./CLI";
-import { bundle } from "./bundle";
+//import { bundle } from "./bundle";
 import { Color, log } from './logInColor';
 
 const { watch } = processCommandLineArgs("npm run build --", {
@@ -63,6 +63,7 @@ const data = items.reduce((acc, item, index) => {
 
 flush(data);
 
+/*
 bundle(root, watch);
 
 if (watch) {
@@ -83,3 +84,4 @@ if (watch) {
         }
     });
 }
+*/

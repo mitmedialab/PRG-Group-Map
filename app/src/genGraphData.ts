@@ -1,12 +1,8 @@
 import cytoscape from "cytoscape";
-//import type { NormalizedData, NormalizedDetails, VerboseDetails, VerboseLink } from "../builder/types";
-//import { ProjectName } from "../projects";
-//import { RoleName } from "../roles";
+import type { NormalizedData, NormalizedDetails, VerboseDetails, VerboseLink } from "../../builder/types";
+import { type RoleName } from "../../roles";
 import { getColorCss, getNextColorIndex } from "./color";
 import { Class, css, edge, edgeStyle, node, nodeStyle, readableEntries, readableObject, style } from "./utils";
-
-type NormalizedData = any;
-type RoleName = any;
 
 export const makeNodesAndEdges = (data: NormalizedData): [cytoscape.ElementDefinition[], cytoscape.Stylesheet[]] => {
     const { skills, roles, themes, people, projects } = data;
@@ -122,7 +118,6 @@ export const makeNodesAndEdges = (data: NormalizedData): [cytoscape.ElementDefin
 
     }
 
-    /*
     for (const [projectName, project] of Object.entries(projects)) {
         if (projectName === "details") continue;
 
@@ -179,12 +174,11 @@ export const makeNodesAndEdges = (data: NormalizedData): [cytoscape.ElementDefin
             ...projects.map(({ name }) => edge({ source: name, target: staffMemberName }))
         );
     }
-    */
 
     console.log("Styles");
     console.dir(graphStyles);
     console.log("Elements");
     console.dir(graphElements);
 
-    return [[], []];
+    return [graphElements, graphStyles];
 }

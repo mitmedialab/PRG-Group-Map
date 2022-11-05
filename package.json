@@ -7,6 +7,7 @@
   "scripts": {
     "ts": "node --experimental-specifier-resolution=node --loader ts-node/esm",
     "build": "npm run ts scripts/build.ts",
+    "bundle": "./node_modules/.bin/ts-node --project app/tsconfig.json -- scripts/bundle.ts",
     "dev": "npm run ts scripts/build.ts -- -w",
     "new": "npm run ts scripts/new.ts --",
     "gitpod:dev": "npm run ts scripts/build.ts -- -w",
@@ -37,7 +38,6 @@
     "chalk": "^4.0.1",
     "chokidar": "^3.5.3",
     "command-line-args": "^5.2.1",
-    "cytoscape": "^3.23.0",
     "glob": "^8.0.3",
     "graphology": "^0.25.0",
     "graphology-layout-force": "^0.2.4",

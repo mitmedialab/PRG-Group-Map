@@ -1,12 +1,10 @@
-//import { NormalizedData } from "../builder";
+import { type NormalizedData } from "../../builder";
 import { makeNodesAndEdges } from "./genGraphData";
-import json from "./data.json";
+import json from "../data.json";
 import cytoscape from "cytoscape";
 import { hideTooltipCss, showTooltipForNode, showTooltipWithDesc, styleTooltip } from "./tooltip";
 
-type NormalizedData = any;
 const data = json as any as NormalizedData;
-
 const [prgProjectsElements, styling] = makeNodesAndEdges(data);
 
 var nodeWidth: number,
@@ -18,7 +16,7 @@ var nodeWidth: number,
   currentLayout = "fullLayout",
   removedNodes: { [collection: string]: cytoscape.NodeCollection } = {};
 
-const cyContainer = document.getElementById("cyto");
+const cyContainer = document.getElementById("cy");
 const displayThemesCheck = document.getElementById("displayThemes") as HTMLInputElement;
 const displayProjectsCheck = document.getElementById("displayProjects") as HTMLInputElement;
 const displayPeopleCheck = document.getElementById("displayPeople") as HTMLInputElement;
@@ -87,14 +85,12 @@ async function runTour(cy: cytoscape.Core) {
 const fullLayout: cytoscape.LayoutOptions = {
   name: "concentric",
   concentric: function (node: cytoscape.NodeSingular & { degree(): number }): number {
-    console.log("h");
     return node.data("level");
   },
   avoidOverlap: false,
   equidistant: true,
   animationDuration: 500,
   transform(node, position) {
-    console.log("d");
     if (node.data("class") === "director") position.y += nodeHeight * 1.2;
     return position;
   },
@@ -102,7 +98,6 @@ const fullLayout: cytoscape.LayoutOptions = {
 
 const staffLayout: cytoscape.PresetLayoutOptions = {
   name: "preset",
-  /*
   positions: (node: cytoscape.NodeSingular) => {
     if (node.data("parent") !== dept) {
       dept = node.data("parent");
@@ -114,7 +109,7 @@ const staffLayout: cytoscape.PresetLayoutOptions = {
       x: staffX,
       y: nodeY,
     };
-  },*/
+  },
 };
 const zoomedLayout: cytoscape.ConcentricLayoutOptions = {
   name: "concentric",
@@ -510,14 +505,12 @@ const formatCy = (cy: cytoscape.Core) => {
     runTour(cy);
   });
 };
-console.log("z")
+
 const cy = cytoscape({
-  container: cyContainer
-});
-/*const cy = cytoscape({
-  container: cyContainer, // container to render in
+  container: cyContainer, // container to render in,
+  layout: fullLayout,
   elements: prgProjectsElements,
   style: styling,
-});*/
-console.log("m")
-//formatCy(cy);
+});
+
+formatCy(cy);

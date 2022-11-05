@@ -5,11 +5,11 @@ const tooltip = document.getElementById("tooltip") as HTMLElement;
 export const styleTooltip = (css: { opacity: number, innerHTML: string, pos: { x: any; y: any; } }) => {
     const { opacity, innerHTML, pos } = css;
     const prevStyling = {
-        opacity: parseInt(tooltip.style.opacity) !== NaN ? parseInt(tooltip.style.opacity) : 0,
+        opacity: !Number.isNaN(parseInt(tooltip.style.opacity)) ? parseInt(tooltip.style.opacity) : 0,
         innerHTML: (tooltip.childNodes[3] as HTMLElement).innerHTML,
         pos: {
-            x: parseInt(tooltip.style.left) !== NaN ? parseInt(tooltip.style.left) : 0,
-            y: parseInt(tooltip.style.top) !== NaN ? parseInt(tooltip.style.top) : 0,
+            x: !Number.isNaN(parseInt(tooltip.style.left)) ? parseInt(tooltip.style.left) : 0,
+            y: !Number.isNaN(parseInt(tooltip.style.top)) ? parseInt(tooltip.style.top) : 0,
         },
     };
     tooltip.style.opacity = opacity !== undefined ? opacity.toString() : tooltip.style.opacity;
