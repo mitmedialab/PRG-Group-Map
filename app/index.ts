@@ -1,9 +1,10 @@
-import { NormalizedData } from "../builder";
+//import { NormalizedData } from "../builder";
 import { makeNodesAndEdges } from "./genGraphData";
 import json from "./data.json";
 import cytoscape from "cytoscape";
 import { hideTooltipCss, showTooltipForNode, showTooltipWithDesc, styleTooltip } from "./tooltip";
 
+type NormalizedData = any;
 const data = json as any as NormalizedData;
 
 const [prgProjectsElements, styling] = makeNodesAndEdges(data);

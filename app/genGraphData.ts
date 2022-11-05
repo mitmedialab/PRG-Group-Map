@@ -1,9 +1,12 @@
 import cytoscape from "cytoscape";
-import type { NormalizedData, NormalizedDetails, VerboseDetails, VerboseLink } from "../builder/types";
-import { ProjectName } from "../projects";
-import { RoleName } from "../roles";
+//import type { NormalizedData, NormalizedDetails, VerboseDetails, VerboseLink } from "../builder/types";
+//import { ProjectName } from "../projects";
+//import { RoleName } from "../roles";
 import { getColorCss, getNextColorIndex } from "./color";
 import { Class, css, edge, edgeStyle, node, nodeStyle, readableEntries, readableObject, style } from "./utils";
+
+type NormalizedData = any;
+type RoleName = any;
 
 export const makeNodesAndEdges = (data: NormalizedData): [cytoscape.ElementDefinition[], cytoscape.Stylesheet[]] => {
     const { skills, roles, themes, people, projects } = data;
