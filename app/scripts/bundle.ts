@@ -9,7 +9,8 @@ import path from "path";
 export const bundle = async (watch: boolean) => {
     const app = path.resolve(__dirname, "..");
     const src = path.join(app, 'src');
-    const entry = path.join(app, 'src', 'index.ts');
+    const site = path.join(app, 'site');
+    const entry = path.join(src, 'index.ts');
 
     const plugins = [
         typescript(),
@@ -27,7 +28,7 @@ export const bundle = async (watch: boolean) => {
 
     const bundled = await rollup.rollup(options);
 
-    const file = path.join(app, 'site', 'js', 'bundle.js');
+    const file = path.join(site, 'js', 'bundle.js');
     const output: rollup.OutputOptions = { file, format: 'es', compact: true, sourcemap: 'inline' };
 
     bundled.write(output);
@@ -35,7 +36,7 @@ export const bundle = async (watch: boolean) => {
     const watcher = rollup.watch({
         ...options,
         output: [output],
-        watch: { include: path.join(src, "**", "*") }
+        watch: { include: [path.join(src, "**", "*"), path.join(site, "**", "*")] }
     });
 
     watcher.on('event', (event) => {

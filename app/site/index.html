@@ -9,8 +9,13 @@
   <link rel="stylesheet" href="css/style.css">
   <title>Personal Robots Group — People and Projects</title>
   <script>
-    document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] +
-    ':35729/livereload.js?snipver=1"></' + 'script>')
+    const domain = (location.host || 'localhost').split(':')[0];
+    const deployedDomain = "mitmedialab.github.io";
+    if (!domain.startsWith(deployedDomain)) {
+      const opening = `<script src="http://${domain}:35729/livereload.js?snipver=1">`;
+      const closing = "</" + "script>"
+      document.write(opening + closing);
+    }
   </script>
 </head>
 

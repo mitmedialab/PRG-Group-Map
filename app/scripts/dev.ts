@@ -27,7 +27,7 @@ const serveAndWatch = () => {
   if (watchMethod !== WatchMethod.Chokidar) return;
 
   chokidar
-    .watch(`${path.resolve(__dirname, "..", 'src', '**', '*')}`)
+    .watch(`${path.resolve(__dirname, "..", '{src,site}', '**', '*')}`)
     .on('change', (path) => {
       console.log(`Rebundling after change to: ${path}`);
       bundle(false);
