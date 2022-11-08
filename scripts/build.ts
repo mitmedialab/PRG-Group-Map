@@ -4,7 +4,7 @@ import { flush, getChildFileNames, NormalizedData } from "../builder";
 import * as chokidar from "chokidar";
 import { processCommandLineArgs } from "./CLI";
 import { Color, log } from './logInColor';
-import { exec, fork } from 'child_process';
+import { ChildProcess, exec, execSync, fork } from 'child_process';
 import glob from "glob";
 import { directories, getDataForDir, getDirectory, getScript, projectRoot } from "./filesystem";
 
@@ -42,9 +42,13 @@ const data = items.reduce((acc, item, index) => {
 
 flush(data);
 
-const bundleApp = `npm run ${watch ? "dev" : "production"} --prefix ${getDirectory("app")}`;
-const bundling = exec(bundleApp);
-bundling.stdout.on("data", (data) => log(`app: ${data}`, Color.Cyan));
+const execution = watch ? exec : execSync;
+const command = watch ? "dev" : "production";
+const bundleApp = `npm run ${command} --prefix ${getDirectory("app")}`;
+const bundling = execution(bundleApp);
+watch
+    ? (bundling as ChildProcess).on("data", (data) => log(`app: ${data}`, Color.Cyan))
+    : log((bundling as Buffer).toString(), Color.Cyan);
 
 if (watch) {
 
