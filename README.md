@@ -200,7 +200,7 @@ This includes:
 
 See the below example for an idea of what this looks like: 
 
-```
+```ts
 export default project({
     name: "My project"
     details: {
