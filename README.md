@@ -156,7 +156,7 @@ A great way to see all of the currently defined projects (as well as feel like a
 1. Inside any file, import the `ProjectName` type: `import { ProjectName } from "projects";` 
 2. Create a variable of type ProjectName: `let project: ProjectName;`
 3. Try to set `project` equal to something, and let your code editor tell you what values it can take on (and therefore what projects have been defined:
-<img src="ezgif-4-9394dabc2c](https://user-images.githubusercontent.com/95306112/200640773-44f7d50c-a60d-4d0a-917b-037c1534a7a8.gif" />
+<img src="https://user-images.githubusercontent.com/95306112/200640773-44f7d50c-a60d-4d0a-917b-037c1534a7a8.gif" />
    
 (If you do see a file with your name/details, hop down to [Editing Your Information](#editing-your-information))
 
