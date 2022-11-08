@@ -1,8 +1,8 @@
-import { processCommandLineArgs } from "./CLI";
+import { processCommandLineArgs } from "scripts/CLI";
 import path from "path";
-import { Color, log } from "./logInColor";
-import { flush, read } from "../builder";
-import { Category, getDataForDir } from "./filesystem";
+import { Color, log } from "scripts/logInColor";
+import { flush, read } from "builder";
+import { Category, getDataForDir } from "scripts/filesystem";
 
 const { file } = processCommandLineArgs("npm run refresh --", {
   file: {

@@ -1,4 +1,4 @@
-import { project } from "../builder";
+import { project } from "builder";
 
 const projectStart = 2019;
 

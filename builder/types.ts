@@ -1,7 +1,7 @@
-import { ProjectName } from "../projects";
-import { RoleName } from "../roles";
-import { SkillName } from "../skills";
-import { ThemeName } from "../themes";
+import { ProjectName } from "projects";
+import { RoleName } from "roles";
+import { SkillName } from "skills";
+import { ThemeName } from "themes";
 
 export const isString = <T>(x: T) => typeof x === 'string' || x instanceof String;
 

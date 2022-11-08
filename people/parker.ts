@@ -1,7 +1,7 @@
-import { person } from "../builder";
+import { person } from "builder";
 
 export default person({
-    name: "Parker Malachowsky",
+    name: "Parker Malachowsky!",
     email: "pmalacho@media.mit.edu",
     bio: "Howdy!!",
     role: "Tech Developer",

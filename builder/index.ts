@@ -1,11 +1,11 @@
-import { CategoryDetails, Data, Person, NormalizedData, NormalizedDetails, NormalizedPerson, NormalizedTimeFrame, PathToAsset, Collection, Connection, ProjectDetails, Theme, VerboseDetails, VerboseLink, VerboseRole, NormalizedCollection } from "./types";
 import * as fs from "fs";
 import * as path from "path";
 import glob from "glob";
-import { RoleName } from "../roles";
-import { ProjectName } from "../projects";
+import { RoleName } from "roles";
+import { ProjectName } from "projects";
 import { fileURLToPath } from "url";
-import { ThemeName } from "../themes";
+import { ThemeName } from "themes";
+import { CategoryDetails, Data, Person, NormalizedData, NormalizedDetails, NormalizedPerson, NormalizedTimeFrame, PathToAsset, Collection, Connection, ProjectDetails, VerboseDetails, VerboseLink, VerboseRole, NormalizedCollection } from "builder/types";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(__dirname, "..");

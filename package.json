@@ -5,11 +5,10 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "ts": "node --experimental-specifier-resolution=node --loader ts-node/esm",
-    "build": "npm run ts scripts/build.ts",
-    "bundle": "./node_modules/.bin/ts-node --project app/tsconfig.json -- scripts/bundle.ts",
-    "dev": "npm run ts scripts/build.ts -- -w",
-    "new": "npm run ts scripts/new.ts --",
+    "ts": "node --experimental-specifier-resolution=node --loader ./scripts/loader.js",
+    "build": "npm run ts ./scripts/build.ts",
+    "dev": "npm run ts ./scripts/build.ts -- -w",
+    "new": "npm run ts ./scripts/new.ts --",
     "gitpod:dev": "npm run ts scripts/build.ts -- -w",
     "new:person": "npm run new -- --type person --name",
     "new:project": "npm run new -- --type project --name"
@@ -35,6 +34,7 @@
     "install": "^0.13.0",
     "npm": "^8.19.2",
     "ts-node": "^10.9.1",
+    "tsconfig-paths": "^4.1.0",
     "tslib": "^2.4.1",
     "typescript": "^4.8.4"
   }

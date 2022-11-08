@@ -1,4 +1,4 @@
-import { project } from "../builder";
+import { project } from "builder";
 
 const summary = `The Robot Policy Design Toolkit is designed to allow any generation to design and consider how we can develop policy for social robot technologies around nine ethic topics. 
 The toolkit is situated around the context of you in your home considering how policy around robots may affect your environment and interactions with technology and other people. 

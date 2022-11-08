@@ -1,6 +1,6 @@
 import path from 'path';
-import { Data, dirnameFromImportURL, NormalizedData, UnionToTuple } from '../builder';
 import fs from "fs";
+import { Data, dirnameFromImportURL, NormalizedData, UnionToTuple } from 'builder';
 
 type FileDetails = {
     name: string,

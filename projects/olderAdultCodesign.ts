@@ -1,4 +1,4 @@
-import { project } from "../builder";
+import { project } from "builder";
 
 const summary = `Over a year-long co-design project, we partnered with 28 older adults to understand how social robots should be designed, specifically exploring the areas of medical adherence, emotional wellness, social connection, financial management, memory, body signal monitoring, and exercise.`;
 

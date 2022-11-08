@@ -1,4 +1,4 @@
-import { person, student } from "../builder";
+import { person, student } from "builder";
 
 const startDate = new Date("September, 2018");
 const graduationDate = new Date("September, 2022");

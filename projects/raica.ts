@@ -1,4 +1,4 @@
-import { project } from "../builder";
+import { project } from "builder";
 
 export default project({ // Randi, Xiaoxue, Sharifa, Daniella, Safinah
   name: "RAICA",

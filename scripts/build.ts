@@ -1,12 +1,12 @@
 import fs from "fs";
 import path from "path";
-import { flush, getChildFileNames, NormalizedData } from "../builder";
+import { flush, getChildFileNames, NormalizedData } from "builder";
 import * as chokidar from "chokidar";
-import { processCommandLineArgs } from "./CLI";
-import { Color, log } from './logInColor';
 import { ChildProcess, exec, execSync, fork } from 'child_process';
 import glob from "glob";
-import { directories, getDataForDir, getDirectory, getScript, projectRoot } from "./filesystem";
+import { processCommandLineArgs } from "scripts/CLI";
+import { Color, log } from 'scripts/logInColor';
+import { directories, getDataForDir, getDirectory, getScript, projectRoot } from "scripts/filesystem";
 
 const { watch } = processCommandLineArgs("npm run build --", {
     watch: {
@@ -47,7 +47,7 @@ const command = watch ? "dev" : "production";
 const bundleApp = `npm run ${command} --prefix ${getDirectory("app")}`;
 const bundling = execution(bundleApp);
 watch
-    ? (bundling as ChildProcess).on("data", (data) => log(`app: ${data}`, Color.Cyan))
+    ? (bundling as ChildProcess).stdout.on("data", (data) => log(`app: ${data}`, Color.Cyan))
     : log((bundling as Buffer).toString(), Color.Cyan);
 
 if (watch) {

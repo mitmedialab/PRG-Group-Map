@@ -1,4 +1,4 @@
-import { project } from "../builder";
+import { project } from "builder";
 
 const summary = `This project seeks to develop an open source curriculum for middle school students on the topic of artificial intelligence. 
 Through a series of lessons and activities, students learn technical concepts—such as how to train a simple classifier—and the ethical implications those technical concepts entail, such as algorithmic bias.`

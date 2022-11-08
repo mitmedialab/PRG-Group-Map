@@ -1,4 +1,4 @@
-import { project } from "../builder";
+import { project } from "builder";
 
 const summary = `Policymakers, practitioners, and researchers are grappling with some herculean questions regarding kids' safety online. 
 This project seeks to inform youth about data and privacy topics through a series of hands-on activities. 

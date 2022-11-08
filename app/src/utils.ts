@@ -1,5 +1,5 @@
 import cytoscape from "cytoscape";
-//import { VerboseLink, VerboseRole } from "../builder";
+//import { VerboseLink, VerboseRole } from "builder";
 
 type VerboseLink = any;
 type VerboseRole = any;

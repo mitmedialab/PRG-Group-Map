@@ -1,9 +1,9 @@
 import path from "path";
-import { UnionToTuple } from "../builder";
-import { processCommandLineArgs } from "./CLI";
-import { getFileFromRoot, projectRoot } from "./filesystem";
 import fs from 'fs';
-import { Color, log } from "./logInColor";
+import { UnionToTuple } from "builder";
+import { Color, log } from "scripts/logInColor";
+import { processCommandLineArgs } from "scripts/CLI";
+import { getFileFromRoot, projectRoot } from "scripts/filesystem";
 
 const enum Type {
   Person = "person",

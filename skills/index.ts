@@ -1,4 +1,4 @@
-import { category, namesAndDetails } from "../builder";
+import { category } from "builder";
 
 const skills = {
     "Dev": "",

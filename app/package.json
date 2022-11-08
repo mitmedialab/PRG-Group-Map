@@ -4,10 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "ts": "node_modules/.bin/ts-node",
+    "ts": "../node_modules/.bin/ts-node",
     "dev": "npm run ts ./scripts/dev.ts",
-    "production": "npm run ts ./scripts/production.ts",
-    "serve": "node_modules/.bin/livereload site/ src/"
+    "production": "npm run ts ./scripts/production.ts"
   },
   "author": "",
   "license": "ISC",

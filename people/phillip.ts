@@ -1,4 +1,4 @@
-import { person } from "../builder";
+import { person } from "builder";
 
 /** 
  * @description

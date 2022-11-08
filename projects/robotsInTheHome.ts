@@ -1,4 +1,4 @@
-import { project } from "../builder";
+import { project } from "builder";
 
 export default project({
   name: "Robots in the Home",

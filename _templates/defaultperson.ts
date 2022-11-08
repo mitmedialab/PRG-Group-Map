@@ -1,4 +1,4 @@
-import { person, pathToFileInAssetsFolder } from "../builder";
+import { person, pathToFileInAssetsFolder } from "builder";
 
 /** 
  * @description

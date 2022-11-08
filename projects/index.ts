@@ -1,4 +1,4 @@
-import { category } from "../builder";
+import { category } from "builder";
 
 const projects = {
 	/** CODE GENERATION GUARD */
