@@ -164,22 +164,24 @@ let project: ProjectName;
 3. Try to set `project` equal to something, and let your code editor tell you what values it can take on (and therefore what projects have been defined:
 <img src="https://user-images.githubusercontent.com/95306112/200640773-44f7d50c-a60d-4d0a-917b-037c1534a7a8.gif" />
    
-If you do find a project, hop down to [Editing Your Information](#editing-your-information))
+If you do find your project, hop down to [Editing an existing Project](#editing-an-existing-project).
+
+Otherwise, we'll need to add a project, like so:
 
 1. **Open up a new terminal:** You'll need to open a new terminal in the workspace in order to run a a custom [npm script](https://docs.npmjs.com/cli/v8/commands/npm-run-script)
     - There are a couple ways to open a terminal in gitpod, but the most straight forward way is to click on the "hamburger" menu on the top left and select _Terminal_ > _New Terminal_
     - **NOTE**: Do NOT interrupt the already running `Dev Server` command (unless you know what you're doing)!
-2. In the new terminal, run the following command followed by your name (and do **NOT** include any spaces): ```npm run new:person``` 
+2. In the new terminal, run the following command followed by your name (and do **NOT** include any spaces): `npm run new:project`
     - For example:
 ```bash
 npm run new:project myProject 
 ```
-3. If successful, the command will point you to a newly created `.ts` file where you can add your details. Jump down to [Editing your information](#editing-your-information) to see what to add.
+3. If successful, the command will point you to a newly created `.ts` file where you can add your details. Jump down to [Editing an existing Project](#editing-an-existing-project) to see what to add.
     - **NOTE:** you can close the newly created terminal window after executing the `new:person` command.
 
 ##### Locating a project definition
 
-The easiest way to locate a project definition is to highlight it's name and click `⌘ Cmd` + `↑ Shift` + `F` (maybe `Ctrl` + `↑ Shift` + `F` on Windows) to find it's usages in the project. 
+The easiest way to locate a project definition is to highlight it's name and click `⌘ Cmd` + `↑ Shift` + `F` (maybe `Ctrl` + `↑ Shift` + `F` on Windows) to find it's usages in the project.
 
 <img src="https://user-images.githubusercontent.com/95306112/197128846-b166f835-e395-47ae-87f7-af52080d27d2.gif"/>
 
@@ -212,73 +214,6 @@ export default project({
 ```
 
 Make sure to also check out [how typescript can help you](#why-typescript-is-great) to fill out a projects details correctly. 
-
-##### Inline Project Summary
-
-The minimum information you can provided about a project is simply a summary about it. This will look like following (within the `projects` object passed to the `theme()` function):
-
-```ts
-theme({
-    ...
-    projects: {
-        ...,
-        "Name of Project": "This is a summary of project"
-    }
-});
-```
-
-##### Local Project Details
-
-If you'd like to say a little bit more about a project, you can specify project details like so:
-
-```ts
-theme({
-    ...
-    projects: {
-        ...,
-        "Name of Project": {
-            summary: "This is a summary of project",
-            description: "This is a longer description of the project",
-            links: [ { text: "homepage", url: "https://www.media.mit.edu/groups/personal-robots/overview/" } ],
-        }
-    }
-});
-```
-
-##### External Project Details
-
-If you have so much to say about a project that it will hurt the readability of the object passed to the `theme()` function, you can opt to define the project in a seperate file, and then [import](https://www.javascripttutorial.net/es-next/javascript-import/) the definition into the theme.
-
-> NOTE: The below file creation + boilerpalte steps will soon be turned into a command.
-
-1. Create a new file in `categories/themes/projects`
-2. Copy the following boilerplate into it:
-```ts
-import { project } from "../../../builder";
-
-export default project({
-    name: "Name of Project",
-    details: {
-        summary: "This is a summary of project",
-    }
-});
-```
-3. Add the details about your project
-4. In the appropriate theme file, import the default export from your newly created file (e.g. `import callItWhateverYouWant from "./projects/newProject";`) and spread the object within the `projects` object:
-
-```ts
-// Inside of theme file
-import callItWhateverYouWant from "./projects/newProject";
-
-theme({
-    ...
-    projects: {
-        ...,
-        ...callItWhateverYouWant,
-        ...,
-    }
-});
-```
 
 #### Saving Your Changes
 
