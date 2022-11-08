@@ -154,11 +154,14 @@ But be careful! We don't want to accidentally duplicate project definitions.
 
 A great way to see all of the currently defined projects (as well as feel like a _spicy_ typescript developer) is to:
 1. Inside any file, import the `ProjectName` type: 
-    - ```ts
-    import { ProjectName } from "projects";
-    ``` 
-3. Create a variable of type `ProjectName`: `let project: ProjectName;`
-4. Try to set `project` equal to something, and let your code editor tell you what values it can take on (and therefore what projects have been defined:
+```ts
+import { ProjectName } from "projects";
+``` 
+2. Create a variable of type `ProjectName`: 
+```ts
+let project: ProjectName;
+```
+3. Try to set `project` equal to something, and let your code editor tell you what values it can take on (and therefore what projects have been defined:
 <img src="https://user-images.githubusercontent.com/95306112/200640773-44f7d50c-a60d-4d0a-917b-037c1534a7a8.gif" />
    
 If you do find a project, hop down to [Editing Your Information](#editing-your-information))
