@@ -31,7 +31,9 @@ export const bundle = async (watch: boolean) => {
     const file = path.join(site, 'js', 'bundle.js');
     const output: rollup.OutputOptions = { file, format: 'es', compact: true, sourcemap: 'inline' };
 
-    bundled.write(output);
+    await bundled.write(output);
+
+    if (!watch) return;
 
     const watcher = rollup.watch({
         ...options,
