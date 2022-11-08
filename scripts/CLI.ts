@@ -70,3 +70,10 @@ export const processCommandLineArgs = <T extends CommandLineOptions>(
 
     return args as Args;
 };
+
+export const watch: CommandLineOption<BooleanConstructor> = {
+    alias: 'w',
+    description: 'watch for file changes',
+    type: Boolean,
+    trueIfPresent: true
+}

@@ -14,9 +14,10 @@ export const dirnameFromImportURL = (importMetaUrl: string) => path.dirname(file
 
 const assetsFolder = path.join(projectRoot, "assets");
 const appFolder = path.join(projectRoot, "app");
-const dataFile = path.join(appFolder, "data.json");
+const dataFile = path.join(appFolder, "src", "data.json");
 const encoding: BufferEncoding = "utf8";
 
+export const read = (): NormalizedData => JSON.parse(fs.readFileSync(dataFile, 'utf8'));
 export const flush = <T extends NormalizedData>(data: T) => setData(data);
 
 const ensureAppFolder = () => (!fs.existsSync(appFolder)) ? fs.mkdirSync(appFolder) : null;

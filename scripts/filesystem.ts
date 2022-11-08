@@ -1,5 +1,6 @@
 import path from 'path';
-import { dirnameFromImportURL } from '../builder';
+import { Data, dirnameFromImportURL, NormalizedData, UnionToTuple } from '../builder';
+import fs from "fs";
 
 type FileDetails = {
     name: string,
@@ -15,3 +16,25 @@ export const getFileFromRoot = (...fromRoot: string[]): FileDetails => {
 }
 
 export const dataFile: FileDetails = getFileFromRoot('app', 'data.json');
+
+export const getDirectory = (name: string) => path.join(projectRoot, name);
+export const getScript = (name: string) => path.join(projectRoot, "scripts", name);
+
+export const enum Category {
+    Projects = "projects",
+    People = "people",
+    Roles = "roles",
+    Skills = "skills",
+    Themes = "themes"
+};
+
+export const categories: UnionToTuple<Category> & (keyof Data & keyof NormalizedData)[] = [Category.Projects, Category.People, Category.Roles, Category.Skills, Category.Themes];
+
+export const directories = categories.reduce((acc, name) => {
+    const dir = getDirectory(name);
+    if (!fs.existsSync(dir)) throw new Error(`Directory does not exist for category: ${name}`);
+    acc[name] = dir;
+    return acc;
+}, {} as Record<Category, string>);
+
+export const getDataForDir = async <T extends keyof NormalizedData = any>(path: string) => (await import(path)).default as NormalizedData[T];

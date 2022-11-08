@@ -1,10 +1,12 @@
 import fs from "fs";
 import path from "path";
-import { Data, dirnameFromImportURL, flush, getChildFileNames, NormalizedData, UnionToTuple } from "../builder";
+import { flush, getChildFileNames, NormalizedData } from "../builder";
 import * as chokidar from "chokidar";
 import { processCommandLineArgs } from "./CLI";
-//import { bundle } from "./bundle";
 import { Color, log } from './logInColor';
+import { exec, fork } from 'child_process';
+import glob from "glob";
+import { directories, getDataForDir, getDirectory, getScript, projectRoot } from "./filesystem";
 
 const { watch } = processCommandLineArgs("npm run build --", {
     watch: {
@@ -14,27 +16,6 @@ const { watch } = processCommandLineArgs("npm run build --", {
         trueIfPresent: true
     },
 });
-
-const __dirname = dirnameFromImportURL(import.meta.url);
-const root = path.resolve(__dirname, "..");
-const getDirectory = (name: string) => path.join(root, name);
-
-const enum Category {
-    Projects = "projects",
-    People = "people",
-    Roles = "roles",
-    Skills = "skills",
-    Themes = "themes"
-};
-
-const categories: UnionToTuple<Category> & (keyof Data)[] = [Category.Projects, Category.People, Category.Roles, Category.Skills, Category.Themes];
-
-const directories = categories.reduce((acc, name) => {
-    const dir = getDirectory(name);
-    if (!fs.existsSync(dir)) throw new Error(`Directory does not exist for category: ${name}`);
-    acc[name] = dir;
-    return acc;
-}, {} as Record<Category, string>);
 
 const generateImportsForChildFiles = (directory: string) => {
     const codeGenFlag = "CODE GENERATION GUARD";
@@ -52,36 +33,37 @@ const generateImportsForChildFiles = (directory: string) => {
 const directoriesRequiringCodeGen = [directories.projects];
 directoriesRequiringCodeGen.forEach(generateImportsForChildFiles);
 
-const getDataForDir = async (path: string) => (await import(path)).default;
-
-const keys = Object.keys(directories);
+const dirNames = Object.keys(directories);
 const items = await Promise.all(Object.values(directories).map(getDataForDir));
 const data = items.reduce((acc, item, index) => {
-    acc[keys[index]] = item;
+    acc[dirNames[index]] = item;
     return acc;
 }, {}) as NormalizedData;
 
 flush(data);
 
-/*
-bundle(root, watch);
+const bundleApp = `npm run ${watch ? "dev" : "production"} --prefix ${getDirectory("app")}`;
+const bundling = exec(bundleApp);
+bundling.stdout.on("data", (data) => log(`app: ${data}`, Color.Cyan));
 
 if (watch) {
-    const globQuery = path.join("root", `{${keys.join(",")}}`, "*.ts");
+
+    const globQuery = path.join(projectRoot, `{${dirNames.join(",")}}`, "*.ts");
+    const files = glob.sync(globQuery);
+
+    const refresh = (file: string) => fork(getScript("refresh"), [`--file=${file}`]);
 
     chokidar.watch(globQuery).on("all", async (event, file) => {
-        const dir = path.dirname(file);
-        const category = path.basename(dir) as Category;
-        if (!categories.includes(category)) throw new Error(`Change to the following file can not be mapped to a category: ${file}`);
         switch (event) {
             case "add":
+                if (files.includes(file)) return;
+                log(`New file to ${file}`, Color.Grey);
+                if (directoriesRequiringCodeGen.includes(file)) generateImportsForChildFiles(file);
+                files.push(file);
+                return refresh(file);
             case "change":
-                log(`Change to ${file}`, Color.Cyan);
-                log(`Refreshing ${category} category.`, Color.Green);
-                data[category] = await getDataForDir(dir);
-                flush(data);
-                return;
+                log(`Change to ${file}`, Color.Grey);
+                return refresh(file);
         }
     });
 }
-*/

@@ -1,6 +1,6 @@
 import { type NormalizedData } from "../../builder";
 import { makeNodesAndEdges } from "./genGraphData";
-import json from "../data.json";
+import json from "./data.json";
 import cytoscape from "cytoscape";
 import { hideTooltipCss, showTooltipForNode, showTooltipWithDesc, styleTooltip } from "./tooltip";
 
@@ -98,7 +98,7 @@ const fullLayout: cytoscape.LayoutOptions = {
 
 const staffLayout: cytoscape.PresetLayoutOptions = {
   name: "preset",
-  positions: (node: cytoscape.NodeSingular) => {
+  positions: (node: cytoscape.NodeSingular & any) => {
     if (node.data("parent") !== dept) {
       dept = node.data("parent");
       nodeY += nodeHeight * 2.5;
