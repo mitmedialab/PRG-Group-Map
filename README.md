@@ -124,7 +124,7 @@ We make use of [Typescript](https://www.typescriptlang.org/) to ensure this obje
 
 Check out the [Why Typescript is Great](#why-typescript-is-great) section to see why ([Parker](https://github.com/pmalacho-mit) thinks) Typescript is great, and how it can help you provide the necessary details to the `person(...)` function.
 
-You also might notice the use of `export default`, which at a highlevel is used to share the result of the `person(...)` function with other parts of the codebase. If you're interested, you can read more about both [default and named exports](https://developer.mozilla.org/en-US/docs/web/javascript/reference/statements/export), but regardles **DO NOT** delete these keywords.
+You also might notice the use of `export default`, which at a highlevel is used to share the result of the `person(...)` function with other parts of the codebase. If you're interested, you can read more about both [default and named exports](https://developer.mozilla.org/en-US/docs/web/javascript/reference/statements/export), but you don't really need to worry about them. Just **DO NOT** delete them.
 
 #### Adding / editing projects
 
@@ -153,12 +153,15 @@ If you do not find a file in the `projects/` directory that corresponds to your 
 But be careful! We don't want to accidentally duplicate project definitions.
 
 A great way to see all of the currently defined projects (as well as feel like a _spicy_ typescript developer) is to:
-1. Inside any file, import the `ProjectName` type: `import { ProjectName } from "projects";` 
-2. Create a variable of type ProjectName: `let project: ProjectName;`
-3. Try to set `project` equal to something, and let your code editor tell you what values it can take on (and therefore what projects have been defined:
+1. Inside any file, import the `ProjectName` type: 
+    -. ```ts
+    import { ProjectName } from "projects";
+    ``` 
+3. Create a variable of type `ProjectName`: `let project: ProjectName;`
+4. Try to set `project` equal to something, and let your code editor tell you what values it can take on (and therefore what projects have been defined:
 <img src="https://user-images.githubusercontent.com/95306112/200640773-44f7d50c-a60d-4d0a-917b-037c1534a7a8.gif" />
    
-(If you do see a file with your name/details, hop down to [Editing Your Information](#editing-your-information))
+If you do find a project, hop down to [Editing Your Information](#editing-your-information))
 
 1. **Open up a new terminal:** You'll need to open a new terminal in the workspace in order to run a a custom [npm script](https://docs.npmjs.com/cli/v8/commands/npm-run-script)
     - There are a couple ways to open a terminal in gitpod, but the most straight forward way is to click on the "hamburger" menu on the top left and select _Terminal_ > _New Terminal_
