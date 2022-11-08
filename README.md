@@ -65,7 +65,7 @@ As you make changes to files, the development server will automatically rebuild 
 For the best developer experience, keep this command/terminal running for your entire session. If it exits due to an error or you accidentally close it, you can restart it be running:
 
 ```bash
-npm run dev # it will take around ~30s to start up again
+npm run dev # it will take around ~10-20s to start up again
 ```
 
 #### Browser / Website Preview
