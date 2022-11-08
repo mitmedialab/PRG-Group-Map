@@ -1,4 +1,4 @@
-import { type NormalizedData } from "../../builder";
+import { type NormalizedData } from "builder";
 import { makeNodesAndEdges } from "./genGraphData";
 import json from "./data.json";
 import cytoscape from "cytoscape";

@@ -1,6 +1,6 @@
 import cytoscape from "cytoscape";
-import type { NormalizedData, NormalizedDetails, VerboseDetails, VerboseLink } from "../../builder/types";
-import { type RoleName } from "../../roles";
+import type { NormalizedData } from "builder/types";
+import { type RoleName } from "roles";
 import { getColorCss, getNextColorIndex } from "./color";
 import { Class, css, edge, edgeStyle, node, nodeStyle, readableEntries, readableObject, style } from "./utils";
 

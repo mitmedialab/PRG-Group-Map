@@ -3,6 +3,7 @@
     "esModuleInterop": true,
     "moduleResolution": "Node",
     "resolveJsonModule": true,
-    "target": "ES2017"
+    "target": "ES2017",
+    "baseUrl": ".."
   }
 }
