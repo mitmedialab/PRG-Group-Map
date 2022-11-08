@@ -177,7 +177,7 @@ Otherwise, we'll need to add a project, like so:
 npm run new:project myProject 
 ```
 3. If successful, the command will point you to a newly created `.ts` file where you can add your details. Jump down to [Editing an existing Project](#editing-an-existing-project) to see what to add.
-    - **NOTE:** you can close the newly created terminal window after executing the `new:person` command.
+    - **NOTE:** you can close the newly created terminal window after executing the `new:project` command.
 
 ##### Locating a project definition
 
