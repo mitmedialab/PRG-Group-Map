@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "ts": "../node_modules/.bin/ts-node",
+    "ts": "../node_modules/.bin/ts-node -r ../node_modules/tsconfig-paths/register",
     "dev": "npm run ts ./scripts/dev.ts",
     "production": "npm run ts ./scripts/production.ts"
   },
