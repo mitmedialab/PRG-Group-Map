@@ -46,11 +46,13 @@ const execution = watch ? exec : execSync;
 const command = watch ? "dev" : "production";
 const bundleApp = `npm run ${command} --prefix ${getDirectory("app")}`;
 const bundling = execution(bundleApp);
-watch
-    ? (bundling as ChildProcess).stdout.on("data", (data) => log(`app: ${data}`, Color.Cyan))
-    : log((bundling as Buffer).toString(), Color.Cyan);
+
+if (!watch) log((bundling as Buffer).toString(), Color.Cyan);
 
 if (watch) {
+
+    (bundling as ChildProcess).stdout.on("data", (data) => log(`app: ${data}`, Color.Cyan));
+    (bundling as ChildProcess).stdout.on("error", (err) => log(`app: ${err}`, Color.Red));
 
     const globQuery = path.join(projectRoot, `{${dirNames.join(",")}}`, "*.ts");
     const files = glob.sync(globQuery);

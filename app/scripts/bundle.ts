@@ -2,6 +2,8 @@ import * as rollup from 'rollup';
 import typescript from '@rollup/plugin-typescript';
 import json from '@rollup/plugin-json';
 import nodeResolve from "@rollup/plugin-node-resolve";
+import serve from 'rollup-plugin-serve';
+import livereload from 'rollup-plugin-livereload';
 import commonjs from "@rollup/plugin-commonjs";
 import { terser } from "rollup-plugin-terser";
 import path from "path";
@@ -19,6 +21,20 @@ export const bundle = async (watch: boolean) => {
         nodeResolve(),
         terser()
     ];
+
+    if (watch) {
+        plugins.push(
+            serve({
+                contentBase: site,
+                port: '8000'
+            }),
+            livereload({
+                watch: site,
+                clientUrl: process.env.CLIENT_URL,
+                delay: 500
+            })
+        )
+    }
 
     const options: rollup.RollupOptions = {
         input: entry,

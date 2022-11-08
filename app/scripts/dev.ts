@@ -11,7 +11,7 @@ const enum WatchMethod {
 
 const watchMethod: WatchMethod = WatchMethod.Rollup;
 
-const serveAndWatch = () => {
+const customLocalServeAndWatch = () => {
   const site = path.resolve(__dirname, "..", 'site');
 
   createServer().watch(site);
@@ -23,9 +23,6 @@ const serveAndWatch = () => {
     console.log(`Example app listening on port ${port}`)
   });
 
-  // @ts-ignore
-  if (watchMethod !== WatchMethod.Chokidar) return;
-
   chokidar
     .watch(`${path.resolve(__dirname, "..", '{src,site}', '**', '*')}`)
     .on('change', (path) => {
@@ -34,5 +31,9 @@ const serveAndWatch = () => {
     });
 }
 
-// @ts-ignore
-bundle(watchMethod === WatchMethod.Rollup).then(serveAndWatch);
+const useRollup = watchMethod === WatchMethod.Rollup;
+
+bundle(useRollup).then(() => {
+  if (useRollup) return console.log("Inital bundle succeeded");
+  customLocalServeAndWatch();
+});
