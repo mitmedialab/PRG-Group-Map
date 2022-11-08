@@ -112,28 +112,30 @@ npm run new:person cynthiaBreazeal
 
 #### Editing Your Information
 
-Inside of the file named for you, you'll find a call to the `describeYourself(...)` function, which is how your details are fed to the graph (specifically through the [javascript object](https://www.w3schools.com/js/js_objects.asp) passed to the function as an argument). 
+Inside of the file named for you, you'll find a call to the `person(...)` function, which is how your details are fed to the graph (specifically through the [javascript object](https://www.w3schools.com/js/js_objects.asp) passed to the function as an argument). 
 
 ```ts
-describeYourself({
+export default person({
    ... your details go here ...
 })
 ```
 
 We make use of [Typescript](https://www.typescriptlang.org/) to ensure this object contains all the necessary information, and to also make our lives easier through helpful suggestings and code-completion. 
 
-Check out the [Why Typescript is Great](#why-typescript-is-great) section to see why ([Parker](https://github.com/pmalacho-mit) thinks) Typescript is great, and how it can help you provide the necessary details to the `describeYourself(...)` function.
+Check out the [Why Typescript is Great](#why-typescript-is-great) section to see why ([Parker](https://github.com/pmalacho-mit) thinks) Typescript is great, and how it can help you provide the necessary details to the `person(...)` function.
 
-#### Editing a Project
+You also might notice the use of `export default`, which at a highlevel is used to share the result of the `person(...)` function with other parts of the codebase. If you're interested, you can read more about both [default and named exports](https://developer.mozilla.org/en-US/docs/web/javascript/reference/statements/export), but regardles **DO NOT** delete these keywords.
 
-The projects a group member works on are specified by the `projects` field of the object passed to the `describeYourself(...)` function (mentioned above).
+#### Adding / editing projects
+
+The projects a group member works on are specified by the `projects` field of the object passed to the `person(...)` function (mentioned above).
 
 This field will typically look like an [array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) of Project Names, with occasional extra bits of information (like whether or not a project is someone's _main_ project).
 
 For example: 
 
 ```ts
-describeYourself({
+export default person({
     ...,
     projects: ["Dancing with AI", { name: "Jibo", main: true }], 
     ...,
@@ -142,7 +144,32 @@ describeYourself({
 
 The acceptable values for project names are pulled from objects defined elsewhere in the project (which is part of the reason why Typescript is so useful to us). 
 
-Below we outline how you can locate and update these definitions. Please do so for the projects you work on, especially those that you are a _main_ contributor on. 
+Below we outline how you can add, locate, and update project definitions. Please do so for the projects you work on, especially those that you are a _main_ contributor on. 
+
+##### Adding a new project
+
+If you do not find a file in the `projects/` directory that corresponds to your project, you'll need to create one. 
+
+But be careful! We don't want to accidentally duplicate project definitions.
+
+A great way to see all of the currently defined projects (as well as feel like a _spicy_ typescript developer) is to:
+    1. Inside any file, import the `ProjectName` type: `import { ProjectName } from "projects";` 
+    2. Create a variable of type ProjectName: `let project: ProjectName;`
+    3. Try to set `project` equal to something, and let your code editor tell you what values it can take on (and therefore what projects have been defined:
+<img src="ezgif-4-9394dabc2c](https://user-images.githubusercontent.com/95306112/200640773-44f7d50c-a60d-4d0a-917b-037c1534a7a8.gif">
+   
+(If you do see a file with your name/details, hop down to [Editing Your Information](#editing-your-information))
+
+1. **Open up a new terminal:** You'll need to open a new terminal in the workspace in order to run a a custom [npm script](https://docs.npmjs.com/cli/v8/commands/npm-run-script)
+    - There are a couple ways to open a terminal in gitpod, but the most straight forward way is to click on the "hamburger" menu on the top left and select _Terminal_ > _New Terminal_
+    - **NOTE**: Do NOT interrupt the already running `Dev Server` command (unless you know what you're doing)!
+2. In the new terminal, run the following command followed by your name (and do **NOT** include any spaces): ```npm run new:person``` 
+    - For example:
+```bash
+npm run new:person cynthiaBreazeal 
+```
+3. If successful, the command will point you to a newly created `.ts` file where you can add your details. Jump down to [Editing your information](#editing-your-information) to see what to add.
+    - **NOTE:** you can close the newly created terminal window after executing the `new:person` command.
 
 ##### Locating a project definition
 
@@ -150,11 +177,33 @@ The easiest way to locate a project definition is to highlight it's name and cli
 
 <img src="https://user-images.githubusercontent.com/95306112/197128846-b166f835-e395-47ae-87f7-af52080d27d2.gif"/>
 
-Locate the usage within a file inside of the `categories/themes/` directory. It will be used in one of the manners outlined below:
+Locate the usage within a file inside of the `projects/` directory. 
 
-- [Inline Project Summary](#inline-project-summary): Defined in a single line within the object passed to `theme(...)`
-- [Local Project Details](#local-project-details): Defined within a nested object of the object passed to `theme(...)`
-- [Exteneral Project Details](#external-project-details): Defined within an object passed to `project(...)` (and imported into `theme(...)`)
+##### Editing an existing Project
+
+Inside of a project file, you'll find a structure very similiar to what you saw when [editing information about you (or someone else)](#editing-your-information). 
+
+There should be a function call to `project({...})` where the details of the [object]() passed as an argument to the function describe everything the graph needs to know about your project. 
+
+This includes:
+- The name of the project
+- Details about it (including its summary, description, timeframe, any relevant links, etc. -- this information is passed inside a _nested object_)
+- What themes the project fits under (1 or more). Themes are defined inside of the file `themes/index.ts`
+
+See the below example for an idea of what this looks like: 
+
+```
+export default project({
+    name: "My project"
+    details: {
+        summary: "Short and sweet"
+        description: "Some more info"
+        years: [2018, 2020],
+        links: [{ text: "home", url: "https://google.com" }],
+    },
+    themes: "Ethics & Policy"
+});
+```
 
 Make sure to also check out [how typescript can help you](#why-typescript-is-great) to fill out a projects details correctly. 
 
