@@ -43,9 +43,11 @@ const data = items.reduce((acc, item, index) => {
 flush(data);
 
 const execution = watch ? exec : execSync;
+
 const command = watch ? "dev" : "production";
 const bundleApp = `npm run ${command} --prefix ${getDirectory("app")}`;
-const bundling = execution(bundleApp);
+const env = { ...process.env };
+const bundling = execution(bundleApp, { env });
 
 if (!watch) log((bundling as Buffer).toString(), Color.Cyan);
 

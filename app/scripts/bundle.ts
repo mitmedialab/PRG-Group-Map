@@ -31,7 +31,6 @@ export const bundle = async (watch: boolean) => {
             livereload({
                 watch: site,
                 clientUrl: process.env.CLIENT_URL,
-                delay: 500
             })
         )
     }
