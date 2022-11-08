@@ -1,6 +1,6 @@
-import { describeYourself } from "../builder";
+import { person } from "../builder";
 
-describeYourself({
+export default person({
     name: "Dong Won Lee",
     email: "",
     bio: "I'm a graduate student at MIT in the Personal Robots Group at the Media Lab. I graduated with a Master's in Machine Learning (MSML) from Carnegie Mellon University in May 2022. I completed my B.S. in Machine Learning at CMU, as well. ",
