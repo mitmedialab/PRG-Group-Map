@@ -153,10 +153,10 @@ If you do not find a file in the `projects/` directory that corresponds to your 
 But be careful! We don't want to accidentally duplicate project definitions.
 
 A great way to see all of the currently defined projects (as well as feel like a _spicy_ typescript developer) is to:
-    1. Inside any file, import the `ProjectName` type: `import { ProjectName } from "projects";` 
-    2. Create a variable of type ProjectName: `let project: ProjectName;`
-    3. Try to set `project` equal to something, and let your code editor tell you what values it can take on (and therefore what projects have been defined:
-<img src="ezgif-4-9394dabc2c](https://user-images.githubusercontent.com/95306112/200640773-44f7d50c-a60d-4d0a-917b-037c1534a7a8.gif">
+1. Inside any file, import the `ProjectName` type: `import { ProjectName } from "projects";` 
+2. Create a variable of type ProjectName: `let project: ProjectName;`
+3. Try to set `project` equal to something, and let your code editor tell you what values it can take on (and therefore what projects have been defined:
+<img src="ezgif-4-9394dabc2c](https://user-images.githubusercontent.com/95306112/200640773-44f7d50c-a60d-4d0a-917b-037c1534a7a8.gif" />
    
 (If you do see a file with your name/details, hop down to [Editing Your Information](#editing-your-information))
 
@@ -166,7 +166,7 @@ A great way to see all of the currently defined projects (as well as feel like a
 2. In the new terminal, run the following command followed by your name (and do **NOT** include any spaces): ```npm run new:person``` 
     - For example:
 ```bash
-npm run new:person cynthiaBreazeal 
+npm run new:project myProject 
 ```
 3. If successful, the command will point you to a newly created `.ts` file where you can add your details. Jump down to [Editing your information](#editing-your-information) to see what to add.
     - **NOTE:** you can close the newly created terminal window after executing the `new:person` command.
