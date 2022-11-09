@@ -22,7 +22,7 @@ Because we are forcing everyone to write code, we want to make it as easy as pos
     1. Unless you already have a gitpod account (and are logged in), you should be prompted to `Continue with Github`. After clicking `Continue with Github`, login to github (if prompted) and authorize gitpod (if prompted).
     - **NOTE:** If you do NOT have a github account, please make one and let [Parker](https://github.com/pmalacho-mit) know. Once he gives you the necessary permissions, you can continue with the below steps. 
 2. **Configure User Preferences**: Once logged in, gitpod will likely ask you about some user preferences. We recommend the following:
-    - Select 'VS Code Broswer for your editor
+    - Select 'VS Code Broswer' for your editor
     - Select 'Dark' theme
 3. **Give Gitpod write access:** Gitpod should then open you up a workspace (cool, right?). We just need to make one permissions change to ensure once we start editing code we can preserve our changes through [git](https://git-scm.com/).
     1. Click the green Gitpod button in the very bottom left corner of the screen.
