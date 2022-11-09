@@ -10,8 +10,8 @@
   <title>Personal Robots Group — People and Projects</title>
   <script>
     const domain = (location.host || 'localhost').split(':')[0];
-    const deployedDomain = "mitmedialab.github.io";
-    if (!domain.startsWith(deployedDomain)) {
+    // Support livereload when developing locally
+    if (domain.startsWith('localhost')) {
       const opening = `<script src="http://${domain}:35729/livereload.js?snipver=1">`;
       const closing = "</" + "script>"
       document.write(opening + closing);
