@@ -89,7 +89,9 @@ Once the development server starts up, a simple-browser window will be opened at
 All of the files included in the project will be displayed in the panel on the left. 
     - You can open them by either clicking on their name directly, or by selecting `Open File` in the File menu (accessed through the "hamburger" menu in the top left)
     
-You will mainly be expected to edit files contained with the `people/` and `categories/` directories, which are responsible for defining (information about) nodes in the group map/graph. 
+You will mainly be expected to edit files contained within the `people/` and `projects/` directories, and sometimes the `themes/`, `skills`, and `roles` directories. The files in these directories are responsible for defining (information about) nodes in the group map/graph. 
+
+If you are doing something more advanced and need to edit files outside of those directories, hop down to [Advanced Development]().
 
 ### Where You Come In
 
@@ -99,7 +101,7 @@ This requires the following:
 - [Adding Yourself to The Graph](#adding-yourself-to-the-graph)
 - [Editing your information](#editing-your-information)
 - [Editing infromation about projects](#editing-a-project).
-- [Saving you changes](#saving-your-changes)
+- [Saving your changes](#saving-your-changes)
 
 #### Adding Yourself to the Graph
 
@@ -107,9 +109,7 @@ If you do not see a file with your name included in the `people/` directory, you
 
 (If you do see a file with your name/details, hop down to [Editing Your Information](#editing-your-information))
 
-1. **Open up a new terminal:** You'll need to open a new terminal in the workspace in order to run a a custom [npm script](https://docs.npmjs.com/cli/v8/commands/npm-run-script)
-    - There are a couple ways to open a terminal in gitpod, but the most straight forward way is to click on the "hamburger" menu on the top left and select _Terminal_ > _New Terminal_
-    - **NOTE**: Do NOT interrupt the already running `Dev Server` command (unless you know what you're doing)!
+1. [Open up a new terminal](#opening-a-new-terminal)
 2. In the new terminal, run the following command followed by your name (and do **NOT** include any spaces): ```npm run new:person``` 
     - For example:
 ```bash
@@ -158,7 +158,7 @@ Below we outline how you can add, locate, and update project definitions. Please
 
 If you do not find a file in the `projects/` directory that corresponds to your project, you'll need to create one. 
 
-But be careful! We don't want to accidentally duplicate project definitions.
+**But be careful! We don't want to accidentally duplicate project definitions.**
 
 A great way to see all of the currently defined projects (as well as feel like a _spicy_ typescript developer) is to:
 1. Inside any file, import the `ProjectName` type: 
@@ -176,9 +176,7 @@ If you do find your project, hop down to [Editing an existing Project](#editing-
 
 Otherwise, we'll need to add a project, like so:
 
-1. **Open up a new terminal:** You'll need to open a new terminal in the workspace in order to run a a custom [npm script](https://docs.npmjs.com/cli/v8/commands/npm-run-script)
-    - There are a couple ways to open a terminal in gitpod, but the most straight forward way is to click on the "hamburger" menu on the top left and select _Terminal_ > _New Terminal_
-    - **NOTE**: Do NOT interrupt the already running `Dev Server` command (unless you know what you're doing)!
+1. [Open up a new terminal](#opening-a-new-terminal)
 2. In the new terminal, run the following command followed by your name (and do **NOT** include any spaces): `npm run new:project`
     - For example:
 ```bash
