@@ -93,7 +93,21 @@ export type NormalizedDetails = Replace<Replace<VerboseDetails, "links", Verbose
 
 export type CategoryDetails = string | VerboseDetails;
 
-type Themes = { themes: Collection<ThemeName> };
+type Themes = {
+    /**
+     * @summary What themes does the project fit under
+     * @example
+     * // Single theme that will be interpreted as the main theme
+     * themes: "AI Education"
+     * @example 
+     * // Multiple themes 
+     * themes: ["AI Education", "Ethics & Policy"]
+     * @example 
+     * // Multiple themes with an explicit 'main' theme
+     * themes: [ { name: "AI Education", main: true } , "Ethics & Policy"]
+     */
+    themes: Collection<ThemeName>
+};
 
 export type ProjectDetails = CategoryDetails & Themes;
 
@@ -107,8 +121,32 @@ export const project = <T extends string>(obj: Name<T> & Details & Themes): { [k
     } as { [key in T]: ProjectDetails }
 };
 
-type Name<T> = { readonly name: T };
-type Details = { readonly details: CategoryDetails };
+type Name<T> = {
+    /**
+     * @summary The name of this entity
+     * @example 
+     * name: "Some Name"
+     */
+    readonly name: T
+};
+type Details = {
+    /**
+     * @summary The details that describe all we need to know about this thing.
+     * @description This information can either be offered as a simple string (interpreted as a summary),
+     * or as a more complex object
+     * @example 
+     * // Simple summary
+     * details: "This is a simple summary"
+     * @example
+     * // More thorough
+     * details: {
+     *      summary: "This is a simple summary",
+     *      description: "This is a longer description",
+     *      ...
+     * }
+     */
+    readonly details: CategoryDetails
+};
 type Projects<T> = { readonly projects: { [K in keyof T]: CategoryDetails } };
 
 /**
