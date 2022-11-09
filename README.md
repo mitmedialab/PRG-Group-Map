@@ -59,7 +59,7 @@ If you'd like to run any commands, you should open a new terminal by doing the f
 
 There are a couple ways to open a terminal in gitpod, which you'll likely need to since you should **NOT** interrupt the already running `Dev Server` command (unless you know what you're doing)!
  
-One of the most straight forward way is to click on the "hamburger" menu on the top left and select _Terminal_ > _New Terminal_
+One of the most straight forward ways is to click on the "hamburger" menu on the top left and select _Terminal_ > _New Terminal_
 
 You can also use the buttons within the Terminal UI, specifically the <img width="33" alt="Plus terminal button" src="https://user-images.githubusercontent.com/95306112/200714298-32194f05-1692-48e9-9aa1-fcc74fb82a3f.png" /> button
 
