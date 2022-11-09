@@ -177,7 +177,7 @@ If you do find your project, hop down to [Editing an existing Project](#editing-
 Otherwise, we'll need to add a project, like so:
 
 1. [Open up a new terminal](#opening-a-new-terminal)
-2. In the new terminal, run the following command followed by your name (and do **NOT** include any spaces): `npm run new:project`
+2. In the new terminal, run the following command followed by the name of your project (and do **NOT** include any spaces): `npm run new:project`
     - For example:
 ```bash
 npm run new:project myProject 
@@ -191,18 +191,18 @@ The easiest way to locate a project definition is to highlight it's name and cli
 
 <img src="https://user-images.githubusercontent.com/95306112/197128846-b166f835-e395-47ae-87f7-af52080d27d2.gif"/>
 
-Locate the usage within a file inside of the `projects/` directory. 
+Locate the usage within a file inside of the `projects/` directory, which is where the project must be defined. 
 
 ##### Editing an existing Project
 
-Inside of a project file, you'll find a structure very similiar to what you saw when [editing information about you (or someone else)](#editing-your-information). 
+Inside of a project file, you'll find a structure very similiar to what you saw when [editing information about yourself](#editing-your-information). 
 
-There should be a function call to `project({...})` where the details of the [object]() passed as an argument to the function describe everything the graph needs to know about your project. 
+There should be a function call to `project({...})` where the details of the [object](https://www.w3schools.com/js/js_objects.asp) passed as an argument to the function describe everything the graph needs to know about your project. 
 
 This includes:
 - The name of the project
 - Details about it (including its summary, description, timeframe, any relevant links, etc. -- this information is passed inside a _nested object_)
-- What themes the project fits under (1 or more). Themes are defined inside of the file `themes/index.ts`
+- What themes the project fits under (1 or more). FYI Themes are defined inside of the file `themes/index.ts`
 
 See the below example for an idea of what this looks like: 
 
