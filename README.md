@@ -11,7 +11,7 @@ Organizing the (wonderful) people and (exciting) projects of the Personal Roboti
 3. [Where you come in!](#where-you-come-in)
     1. [Adding Yourself to The Graph](#adding-yourself-to-the-graph)
     2. [Editing your information](#editing-your-information)
-    3. [Editing information about projects](#editing-a-project).
+    3. [Adding / editing projects](#adding--editing-projects).
     4. [Saving your changes](#saving-your-changes)
 
 ### Gitpod Configuration
@@ -100,7 +100,7 @@ As a member of PRG, we are asking you to keep your information and the informati
 This requires the following:
 - [Adding Yourself to The Graph](#adding-yourself-to-the-graph)
 - [Editing your information](#editing-your-information)
-- [Editing infromation about projects](#editing-a-project).
+- [Editing infromation about projects](#adding--editing-projects).
 - [Saving your changes](#saving-your-changes)
 
 #### Adding Yourself to the Graph
@@ -169,7 +169,7 @@ import { ProjectName } from "projects";
 ```ts
 let project: ProjectName;
 ```
-3. Try to set `project` equal to something, and let your code editor tell you what values it can take on (and therefore what projects have been defined:
+3. Try to set `project` equal to something, and let your code editor tell you what values it can take on (and therefore what projects have been defined):
 <img src="https://user-images.githubusercontent.com/95306112/200640773-44f7d50c-a60d-4d0a-917b-037c1534a7a8.gif" />
    
 If you do find your project, hop down to [Editing an existing Project](#editing-an-existing-project).
