@@ -210,17 +210,17 @@ export type RoleEntries = Entries<RoleName>;
 
 export type Connection<TName> = {
     /**
-     * @summary Project name
+     * @summary Name
      */
     name: TName,
     /**
-     * @summary Is this your main project? 
-     * @description NOTE: You CAN specify more than one project as a 'main' project
+     * @summary Is this the main item? 
+     * @description NOTE: You CAN specify more than one item as a 'main'
      */
     main?: boolean,
     /**
-     * @summary How strong is your association to this project?
-     * @description Measured on a scale of 1-100, this will control how your connection this project is displayed.
+     * @summary How strong is your association to this item?
+     * @description Measured on a scale of 1-100, this will control how your connection this item is displayed.
      */
     weight?: number
 }

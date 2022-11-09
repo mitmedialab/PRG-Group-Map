@@ -119,21 +119,20 @@ export const makeNodesAndEdges = (data: NormalizedData): [cytoscape.ElementDefin
     }
 
     for (const [projectName, project] of Object.entries(projects)) {
-        if (projectName === "details") continue;
+        const mainTheme = project.themes.find(theme => theme.main) ?? project.themes[0];
 
         graphElements.push(
             node({
                 id: projectName,
                 level: numResearchers,
-                theme: project.themes[0].name,
+                theme: mainTheme.name, // Can we support more than one main theme?
                 class: Class.Project,
-                ...project,
-            }),
-            edge({
-                source: project.themes[0].name,
-                target: projectName,
+                ...readableObject(project),
             })
         );
+
+        const target = projectName;
+        project.themes.forEach(({ name: source }) => graphElements.push(edge({ source, target })));
     }
 
     for (const researcher of researchers) {
@@ -174,11 +173,6 @@ export const makeNodesAndEdges = (data: NormalizedData): [cytoscape.ElementDefin
             ...projects.map(({ name }) => edge({ source: name, target: staffMemberName }))
         );
     }
-
-    console.log("Styles");
-    console.dir(graphStyles);
-    console.log("Elements");
-    console.dir(graphElements);
 
     return [graphElements, graphStyles];
 }
