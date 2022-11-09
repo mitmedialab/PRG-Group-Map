@@ -11,7 +11,7 @@ Organizing the (wonderful) people and (exciting) projects of the Personal Roboti
 3. [Where you come in!](#where-you-come-in)
     1. [Adding Yourself to The Graph](#adding-yourself-to-the-graph)
     2. [Editing your information](#editing-your-information)
-    3. [Editing information about projects](#editing-a-project).
+    3. [Adding / editing projects](#adding--editing-projects).
     4. [Saving your changes](#saving-your-changes)
 
 ### Gitpod Configuration
@@ -22,7 +22,7 @@ Because we are forcing everyone to write code, we want to make it as easy as pos
     1. Unless you already have a gitpod account (and are logged in), you should be prompted to `Continue with Github`. After clicking `Continue with Github`, login to github (if prompted) and authorize gitpod (if prompted).
     - **NOTE:** If you do NOT have a github account, please make one and let [Parker](https://github.com/pmalacho-mit) know. Once he gives you the necessary permissions, you can continue with the below steps. 
 2. **Configure User Preferences**: Once logged in, gitpod will likely ask you about some user preferences. We recommend the following:
-    - Select 'VS Code Broswer for your editor
+    - Select 'VS Code Broswer' for your editor
     - Select 'Dark' theme
 3. **Give Gitpod write access:** Gitpod should then open you up a workspace (cool, right?). We just need to make one permissions change to ensure once we start editing code we can preserve our changes through [git](https://git-scm.com/).
     1. Click the green Gitpod button in the very bottom left corner of the screen.
@@ -53,7 +53,15 @@ A terminal window (also know as a _command line_) should be visible at the botto
 
 It should currently be executing a series of commands to setup your development environment and then eventually start a [development server](#development-server) to host the Group Map website (which will keep running). 
 
-If you'd like to run any commands, you should open a new terminal, either using buttons in the terminal UI, or by clicking on the "hamburger" menu on the top left and select _Terminal_ > _New Terminal_.
+If you'd like to run any commands, you should open a new terminal by doing the following:
+
+###### Opening a new Terminal
+
+There are a couple ways to open a terminal in gitpod, which you'll likely need to since you should **NOT** interrupt the already running `Dev Server` command (unless you know what you're doing)!
+ 
+One of the most straight forward ways is to click on the "hamburger" menu on the top left and select _Terminal_ > _New Terminal_
+
+You can also use the buttons within the Terminal UI, specifically the <img width="33" alt="Plus terminal button" src="https://user-images.githubusercontent.com/95306112/200714298-32194f05-1692-48e9-9aa1-fcc74fb82a3f.png" /> button
 
 ##### Development Server
 
@@ -65,7 +73,7 @@ As you make changes to files, the development server will automatically rebuild 
 For the best developer experience, keep this command/terminal running for your entire session. If it exits due to an error or you accidentally close it, you can restart it be running:
 
 ```bash
-npm run dev # it will take around ~30s to start up again
+npm run dev # it will take around ~10-20s to start up again
 ```
 
 #### Browser / Website Preview
@@ -81,7 +89,9 @@ Once the development server starts up, a simple-browser window will be opened at
 All of the files included in the project will be displayed in the panel on the left. 
     - You can open them by either clicking on their name directly, or by selecting `Open File` in the File menu (accessed through the "hamburger" menu in the top left)
     
-You will mainly be expected to edit files contained with the `people/` and `categories/` directories, which are responsible for defining (information about) nodes in the group map/graph. 
+You will mainly be expected to edit files contained within the `people/` and `projects/` directories, and sometimes the `themes/`, `skills/`, and `roles/` directories. The files in these directories are responsible for defining (information about) nodes in the group map/graph. 
+
+If you are doing something more advanced and need to edit files outside of those directories, hop down to [Advanced Development]().
 
 ### Where You Come In
 
@@ -90,8 +100,8 @@ As a member of PRG, we are asking you to keep your information and the informati
 This requires the following:
 - [Adding Yourself to The Graph](#adding-yourself-to-the-graph)
 - [Editing your information](#editing-your-information)
-- [Editing infromation about projects](#editing-a-project).
-- [Saving you changes](#saving-your-changes)
+- [Editing infromation about projects](#adding--editing-projects).
+- [Saving your changes](#saving-your-changes)
 
 #### Adding Yourself to the Graph
 
@@ -99,9 +109,7 @@ If you do not see a file with your name included in the `people/` directory, you
 
 (If you do see a file with your name/details, hop down to [Editing Your Information](#editing-your-information))
 
-1. **Open up a new terminal:** You'll need to open a new terminal in the workspace in order to run a a custom [npm script](https://docs.npmjs.com/cli/v8/commands/npm-run-script)
-    - There are a couple ways to open a terminal in gitpod, but the most straight forward way is to click on the "hamburger" menu on the top left and select _Terminal_ > _New Terminal_
-    - **NOTE**: Do NOT interrupt the already running `Dev Server` command (unless you know what you're doing)!
+1. [Open up a new terminal](#opening-a-new-terminal)
 2. In the new terminal, run the following command followed by your name (and do **NOT** include any spaces): ```npm run new:person``` 
     - For example:
 ```bash
@@ -112,28 +120,30 @@ npm run new:person cynthiaBreazeal
 
 #### Editing Your Information
 
-Inside of the file named for you, you'll find a call to the `describeYourself(...)` function, which is how your details are fed to the graph (specifically through the [javascript object](https://www.w3schools.com/js/js_objects.asp) passed to the function as an argument). 
+Inside of the file named for you, you'll find a call to the `person(...)` function, which is how your details are fed to the graph (specifically through the [javascript object](https://www.w3schools.com/js/js_objects.asp) passed to the function as an argument). 
 
 ```ts
-describeYourself({
+export default person({
    ... your details go here ...
 })
 ```
 
 We make use of [Typescript](https://www.typescriptlang.org/) to ensure this object contains all the necessary information, and to also make our lives easier through helpful suggestings and code-completion. 
 
-Check out the [Why Typescript is Great](#why-typescript-is-great) section to see why ([Parker](https://github.com/pmalacho-mit) thinks) Typescript is great, and how it can help you provide the necessary details to the `describeYourself(...)` function.
+Check out the [Why Typescript is Great](#why-typescript-is-great) section to see why ([Parker](https://github.com/pmalacho-mit) thinks) Typescript is great, and how it can help you provide the necessary details to the `person(...)` function.
 
-#### Editing a Project
+You also might notice the use of `export default`, which at a highlevel is used to share the result of the `person(...)` function with other parts of the codebase. If you're interested, you can read more about both [default and named exports](https://developer.mozilla.org/en-US/docs/web/javascript/reference/statements/export), but you don't really need to worry about them. Just **DO NOT** delete them.
 
-The projects a group member works on are specified by the `projects` field of the object passed to the `describeYourself(...)` function (mentioned above).
+#### Adding / editing projects
+
+The projects a group member works on are specified by the `projects` field of the object passed to the `person(...)` function (mentioned above).
 
 This field will typically look like an [array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) of Project Names, with occasional extra bits of information (like whether or not a project is someone's _main_ project).
 
 For example: 
 
 ```ts
-describeYourself({
+export default person({
     ...,
     projects: ["Dancing with AI", { name: "Jibo", main: true }], 
     ...,
@@ -142,88 +152,74 @@ describeYourself({
 
 The acceptable values for project names are pulled from objects defined elsewhere in the project (which is part of the reason why Typescript is so useful to us). 
 
-Below we outline how you can locate and update these definitions. Please do so for the projects you work on, especially those that you are a _main_ contributor on. 
+Below we outline how you can add, locate, and update project definitions. Please do so for the projects you work on, especially those that you are a _main_ contributor on. 
+
+##### Adding a new project
+
+If you do not find a file in the `projects/` directory that corresponds to your project, you'll need to create one. 
+
+**But be careful! We don't want to accidentally duplicate project definitions.**
+
+A great way to see all of the currently defined projects (as well as feel like a _spicy_ typescript developer) is to:
+1. Inside any file, import the `ProjectName` type: 
+```ts
+import { ProjectName } from "projects";
+``` 
+2. Create a variable of type `ProjectName`: 
+```ts
+let project: ProjectName;
+```
+3. Try to set `project` equal to something, and let your code editor tell you what values it can take on (and therefore what projects have been defined):
+<img src="https://user-images.githubusercontent.com/95306112/200640773-44f7d50c-a60d-4d0a-917b-037c1534a7a8.gif" />
+   
+If you do find your project, hop down to [Editing an existing Project](#editing-an-existing-project).
+
+Otherwise, we'll need to add a project, like so:
+
+1. [Open up a new terminal](#opening-a-new-terminal)
+2. In the new terminal, run the following command followed by the name of your project (and do **NOT** include any spaces): `npm run new:project`
+    - For example:
+```bash
+npm run new:project myProject 
+```
+3. If successful, the command will point you to a newly created `.ts` file where you can add your details. Jump down to [Editing an existing Project](#editing-an-existing-project) to see what to add.
+    - **NOTE:** you can close the newly created terminal window after executing the `new:project` command.
 
 ##### Locating a project definition
 
-The easiest way to locate a project definition is to highlight it's name and click `⌘ Cmd` + `↑ Shift` + `F` (maybe `Ctrl` + `↑ Shift` + `F` on Windows) to find it's usages in the project. 
+The easiest way to locate a project definition is to highlight it's name and click `⌘ Cmd` + `↑ Shift` + `F` (maybe `Ctrl` + `↑ Shift` + `F` on Windows) to find it's usages in the project.
 
 <img src="https://user-images.githubusercontent.com/95306112/197128846-b166f835-e395-47ae-87f7-af52080d27d2.gif"/>
 
-Locate the usage within a file inside of the `categories/themes/` directory. It will be used in one of the manners outlined below:
+Locate the usage within a file inside of the `projects/` directory, which is where the project must be defined. 
 
-- [Inline Project Summary](#inline-project-summary): Defined in a single line within the object passed to `theme(...)`
-- [Local Project Details](#local-project-details): Defined within a nested object of the object passed to `theme(...)`
-- [Exteneral Project Details](#external-project-details): Defined within an object passed to `project(...)` (and imported into `theme(...)`)
+##### Editing an existing Project
+
+Inside of a project file, you'll find a structure very similiar to what you saw when [editing information about yourself](#editing-your-information). 
+
+There should be a function call to `project({...})` where the details of the [object](https://www.w3schools.com/js/js_objects.asp) passed as an argument to the function describe everything the graph needs to know about your project. 
+
+This includes:
+- The name of the project
+- Details about it (including its summary, description, timeframe, any relevant links, etc. -- this information is passed inside a _nested object_)
+- What themes the project fits under (1 or more). FYI Themes are defined inside of the file `themes/index.ts`
+
+See the below example for an idea of what this looks like: 
+
+```ts
+export default project({
+    name: "My project"
+    details: {
+        summary: "Short and sweet"
+        description: "Some more info"
+        years: [2018, 2020],
+        links: [{ text: "home", url: "https://google.com" }],
+    },
+    themes: "Ethics & Policy"
+});
+```
 
 Make sure to also check out [how typescript can help you](#why-typescript-is-great) to fill out a projects details correctly. 
-
-##### Inline Project Summary
-
-The minimum information you can provided about a project is simply a summary about it. This will look like following (within the `projects` object passed to the `theme()` function):
-
-```ts
-theme({
-    ...
-    projects: {
-        ...,
-        "Name of Project": "This is a summary of project"
-    }
-});
-```
-
-##### Local Project Details
-
-If you'd like to say a little bit more about a project, you can specify project details like so:
-
-```ts
-theme({
-    ...
-    projects: {
-        ...,
-        "Name of Project": {
-            summary: "This is a summary of project",
-            description: "This is a longer description of the project",
-            links: [ { text: "homepage", url: "https://www.media.mit.edu/groups/personal-robots/overview/" } ],
-        }
-    }
-});
-```
-
-##### External Project Details
-
-If you have so much to say about a project that it will hurt the readability of the object passed to the `theme()` function, you can opt to define the project in a seperate file, and then [import](https://www.javascripttutorial.net/es-next/javascript-import/) the definition into the theme.
-
-> NOTE: The below file creation + boilerpalte steps will soon be turned into a command.
-
-1. Create a new file in `categories/themes/projects`
-2. Copy the following boilerplate into it:
-```ts
-import { project } from "../../../builder";
-
-export default project({
-    name: "Name of Project",
-    details: {
-        summary: "This is a summary of project",
-    }
-});
-```
-3. Add the details about your project
-4. In the appropriate theme file, import the default export from your newly created file (e.g. `import callItWhateverYouWant from "./projects/newProject";`) and spread the object within the `projects` object:
-
-```ts
-// Inside of theme file
-import callItWhateverYouWant from "./projects/newProject";
-
-theme({
-    ...
-    projects: {
-        ...,
-        ...callItWhateverYouWant,
-        ...,
-    }
-});
-```
 
 #### Saving Your Changes
 

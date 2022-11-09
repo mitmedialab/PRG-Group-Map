@@ -6,7 +6,9 @@
 
 tasks:
   - name: Dev Server
-    init: npm install
+    init: |
+      npm install
+      npm install --prefix app/
     command: |
       git config --global --add --bool push.autoSetupRemote true
       echo "Pulling down latest version of the current branch (if this is a new gitpod workspace that should be 'main')"

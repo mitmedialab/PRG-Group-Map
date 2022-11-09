@@ -1,6 +1,6 @@
-import { describeYourself } from "../builder";
+import { person } from "builder";
 
-describeYourself({
+export default person({
     name: "Marisol Diaz",
     email: "marisold@media.mit.edu",
     bio: "MIT RAISE Program Manager",

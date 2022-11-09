@@ -1,6 +1,6 @@
-import { describeYourself } from "../builder";
+import { person } from "builder";
 
-describeYourself({
+export default person({
     name: "Anastasia Ostrowski",
     email: "",
     bio: "Anastasia Ostrowski is a research assistant and design researcher in the Personal Robots Group. Anastasia received Master's and Bachelor degrees in 2017 and 2016 respectively from the University of Michigan in biomedical engineering. Her master's research focused on Design Heuristics in biomedical engineering education and how engineering students engage in idea generation and the design space. In the Personal Robots group, she contributes to exploring voice agents and their use within contexts such as home and co-designs social robots with older adults.  Other research interests include design education, front-end design tools, and human-centered design.",

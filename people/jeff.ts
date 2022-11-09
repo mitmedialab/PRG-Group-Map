@@ -1,6 +1,6 @@
-import { describeYourself } from "../builder";
+import { person } from "builder";
 
-describeYourself({
+export default person({
     name: "Jeff Freilich",
     email: "freilich@media.mit.edu ",
     bio: "Jeff has been at MIT for over 13 years working to develop and nurture research ties between industry and academia, as well as developing technical online courses. Previously, he has worked in R&D, product management, marketing and business development roles in industry. Jeff holds a B.Sc. in mechanical engineering from Cornell University and a M.Sc. in mechanical engineering from the Ben-Gurion University of the Negev. He also holds a M.Sc.in management from Boston University.",

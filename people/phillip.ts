@@ -1,4 +1,4 @@
-import { describeYourself } from "../builder";
+import { person } from "builder";
 
 /** 
  * @description
@@ -19,7 +19,7 @@ import { describeYourself } from "../builder";
  * @param {string[]} main - Main project person is involved in (optional)
  */
 
-describeYourself({
+export default person({
     // Required fields (don't leave these blank)
     name: "Phillip Sandy",
     email: "pmsandy@mit.edu",

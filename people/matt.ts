@@ -1,6 +1,6 @@
-import { describeYourself } from "../builder";
+import { person } from "builder";
 
-describeYourself({
+export default person({
     name: "Matt Taylor",
     email: "MEWTaylor@gmail.com",
     bio: "",
@@ -13,7 +13,7 @@ describeYourself({
         "Sound of AI",
         "Computational Action",
         "Data Activism",
-        "AI Playground",
+        "RAISE Playground",
     ],
     skills: ["General AI"],
     years: 2020
