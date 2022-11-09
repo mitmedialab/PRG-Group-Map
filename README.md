@@ -89,7 +89,7 @@ Once the development server starts up, a simple-browser window will be opened at
 All of the files included in the project will be displayed in the panel on the left. 
     - You can open them by either clicking on their name directly, or by selecting `Open File` in the File menu (accessed through the "hamburger" menu in the top left)
     
-You will mainly be expected to edit files contained within the `people/` and `projects/` directories, and sometimes the `themes/`, `skills`, and `roles` directories. The files in these directories are responsible for defining (information about) nodes in the group map/graph. 
+You will mainly be expected to edit files contained within the `people/` and `projects/` directories, and sometimes the `themes/`, `skills/`, and `roles/` directories. The files in these directories are responsible for defining (information about) nodes in the group map/graph. 
 
 If you are doing something more advanced and need to edit files outside of those directories, hop down to [Advanced Development]().
 
