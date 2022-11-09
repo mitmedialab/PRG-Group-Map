@@ -1,158 +1,77 @@
-import path from 'path';
-import fs from 'fs';
-import glob from "glob";
-import { fork } from "child_process";
+import fs from "fs";
+import path from "path";
+import { flush, getChildFileNames, NormalizedData } from "builder";
 import * as chokidar from "chokidar";
-import { bundle } from './bundle';
-import { processCommandLineArgs } from './CLI';
-import { Message } from './communication';
-import { clear, decodeMessage, flush, init, NormalizedData } from '../builder';
-import { dataFile, theme } from './files';
-import { Color, error, log } from './logInColor';
-import fetch from 'node-fetch';
+import { ChildProcess, exec, execSync, fork } from 'child_process';
+import glob from "glob";
+import { processCommandLineArgs } from "scripts/CLI";
+import { Color, log } from 'scripts/logInColor';
+import { directories, getDataForDir, getDirectory, getScript, projectRoot } from "scripts/filesystem";
 
-const { watch, clean } = processCommandLineArgs("npm run build --", {
+const { watch } = processCommandLineArgs("npm run build --", {
     watch: {
         alias: 'w',
         description: 'watch for file changes',
         type: Boolean,
         trueIfPresent: true
     },
-    clean: {
-        alias: 'c',
-        description: 'Fetches data from the most recent build (instead of rebuilding it locally -- helpful on slower systems)',
-        type: Boolean,
-        defaultValue: false,
-    }
 });
 
-if (clean) clear();
-
-const data = init();
-const memberIndexByFile: Record<string, number> = {};
-
-const write = () => flush({ ...data, memberIndexByFile });
-
-const root = path.resolve(__dirname, "..");
-const executedFiles: string[] = [];
-
-const set = <T extends keyof NormalizedData>(key: T, value: NormalizedData[T]) => data[key] = value;
-type ValueFor<T extends keyof NormalizedData> = NormalizedData[T];
-
-let errorInBuild = false;
-
-const process = (file: string, name: string, onComplete?: () => void, onError?: () => void) => {
-    const child = fork(file);
-
-    child.on("message", (msg: Message) => {
-        const decoded = decodeMessage(msg);
-        if (!decoded) return error(`Error decoding data from ${name}`);
-
-        const [key, value] = decoded;
-        switch (key) {
-            case "themes":
-            case "roles":
-            case "skills":
-                set(key, value as ValueFor<typeof key>);
-                break;
-            case "members":
-                const member = (value as ValueFor<"members">)[0];
-                const relative = path.relative(root, file);
-                relative in memberIndexByFile
-                    ? data["members"][memberIndexByFile[relative]] = member
-                    : memberIndexByFile[relative] = data[key].push(member) - 1;
-                break;
-        }
-
-        log(`Completed ${name}.`, Color.Green);
-        if (onComplete) onComplete();
-    });
-
-    child.on("exit", (e) => {
-        if (e === 0) return;
-        errorInBuild = true;
-        if (onError) onError();
-    });
-
-    return child;
-}
-
-
-const bundlerAfterRetrievingPrebuiltData = async () => {
-    let prebuilt: any;
-    if (fs.existsSync(dataFile.path)) {
-        prebuilt = JSON.parse(fs.readFileSync(dataFile.path, "utf8"));
-    }
-    else {
-        const url = "https://mitmedialab.github.io/PRG-Group-Map/artifacts/data.json";
-        prebuilt = await (await fetch(url)).json();
-    }
-
-    for (const key in prebuilt) {
-        key === "memberIndexByFile"
-            ? Object.assign(memberIndexByFile, prebuilt[key] as any)
-            : (data as any)[key] = prebuilt[key];
-    }
-
-    initialBundle();
-}
-
-let initialProcessCount = 0;
-const decrement = () => {
-    initialProcessCount--;
-    if (initialProcessCount == 0) initialBundle();
+const generateImportsForChildFiles = (directory: string) => {
+    const codeGenFlag = "CODE GENERATION GUARD";
+    const indexFile = path.join(directory, "index.ts");
+    const children = getChildFileNames(directory);
+    const content = fs.readFileSync(indexFile, "utf8").split("\n");
+    const [start, end] = content
+        .map((line, index) => ({ line, index }))
+        .filter(({ line }) => line.includes(codeGenFlag))
+        .map(({ index }) => index);
+    content.splice(start + 1, end - start - 1, ...children.map(file => `\t...(await import("./${file}")).default,`));
+    fs.writeFileSync(indexFile, content.join("\n"), "utf8");
 };
 
-const initialExecute = async (file: string, index: number) => {
-    executedFiles.push(file);
-    const fileName = path.basename(file);
+const directoriesRequiringCodeGen = [directories.projects];
+directoriesRequiringCodeGen.forEach(generateImportsForChildFiles);
 
-    log(`${clean ? "Begin executing" : "Skipping execution of"} ${fileName}`, Color.Cyan);
+const dirNames = Object.keys(directories);
+const items = await Promise.all(Object.values(directories).map(getDataForDir));
+const data = items.reduce((acc, item, index) => {
+    acc[dirNames[index]] = item;
+    return acc;
+}, {}) as NormalizedData;
 
-    if (!clean) return index == 0 ? bundlerAfterRetrievingPrebuiltData() : null;
+flush(data);
 
-    initialProcessCount++;
-    process(file, fileName, decrement, decrement);
-}
+const execution = watch ? exec : execSync;
 
-const executableFilesQuery = `${root}/{people,categories}/*.ts`;
+const command = watch ? "dev" : "production";
+const bundleApp = `npm run ${command} --prefix ${getDirectory("app")}`;
+const env = { ...process.env };
+const bundling = execution(bundleApp, { env });
 
-const initialBundle = () => {
-    if (errorInBuild) {
-        throw new Error("Error raised during build (scroll up to see specific error(s)). Exiting without writing out data nor bundling...");
-    }
+if (!watch) log((bundling as Buffer).toString(), Color.Cyan);
 
-    write();
+if (watch) {
 
-    if (!watch) return bundle(root);
+    (bundling as ChildProcess).stdout.on("data", (data) => log(`app: ${data}`, Color.Cyan));
+    (bundling as ChildProcess).stdout.on("error", (err) => log(`app: ${err}`, Color.Red));
 
-    chokidar.watch(executableFilesQuery).on('all', (event, file) => {
-        const fileName = path.basename(file);
+    const globQuery = path.join(projectRoot, `{${dirNames.join(",")}}`, "*.ts");
+    const files = glob.sync(globQuery);
 
+    const refresh = (file: string) => fork(getScript("refresh"), [`--file=${file}`]);
+
+    chokidar.watch(globQuery).on("all", async (event, file) => {
         switch (event) {
-            case "change":
-                log(`Begin re-executing ${fileName}.`, Color.Cyan);
-                process(file, fileName, write);
-                return;
             case "add":
-                if (executedFiles.includes(file)) return;
-                log(`Executing new file: ${fileName}.`, Color.Cyan);
-                process(file, fileName, write);
-                executedFiles.push(fileName);
-                return;
+                if (files.includes(file)) return;
+                log(`New file to ${file}`, Color.Grey);
+                if (directoriesRequiringCodeGen.includes(file)) generateImportsForChildFiles(file);
+                files.push(file);
+                return refresh(file);
+            case "change":
+                log(`Change to ${file}`, Color.Grey);
+                return refresh(file);
         }
     });
-
-    chokidar.watch(`${root}/categories/themes/**/*.ts`).on('change', (path) => {
-        log(`Change in ${path}`, Color.Cyan);
-        log(`Begin re-executing ${theme.name}.`, Color.Cyan);
-        process(theme.path, theme.name, () => flush(data));
-    });
-
-    bundle(root, true);
 }
-
-glob(executableFilesQuery, (err: Error | null, files: string[]) => {
-    if (err) return error(`${err.name}: ${err.message} ${err.stack ?? ""}`);
-    files.forEach(initialExecute);
-});

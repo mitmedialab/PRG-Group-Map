@@ -22,5 +22,3 @@ const applyColor = (msg: string, color: Color): string => {
 }
 
 export const log = (msg: string, color: Color) => console.log(applyColor(msg, color));
-export const error = (msg: string, color: Color = Color.Red) => console.error(applyColor(msg, color));
-

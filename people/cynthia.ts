@@ -1,6 +1,6 @@
-import { describeYourself } from "../builder";
+import { person } from "builder";
 
-describeYourself({
+export default person({
     name: "Cynthia Breazeal",
     role: "Director",
     bio: "Vision for PRG: Responsibly advancing humanistic, personified robots that promote human flourishing and fulfilling potential.",

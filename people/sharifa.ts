@@ -1,6 +1,6 @@
-import { describeYourself } from "../builder";
+import { person } from "builder";
 
-describeYourself({
+export default person({
   name: "Sharifa!",
   bio: "Sharifa is great",
   email: "Email @ sharifa",

@@ -7,8 +7,16 @@
   <link rel="icon" href="https://robots.media.mit.edu/wp-content/uploads/sites/7/2016/10/prg_logo-50x50.png"
     sizes="32x32" />
   <link rel="stylesheet" href="css/style.css">
-  </link>
   <title>Personal Robots Group — People and Projects</title>
+  <script>
+    const domain = (location.host || 'localhost').split(':')[0];
+    // Support livereload when developing locally
+    if (domain.startsWith('localhost')) {
+      const opening = `<script src="http://${domain}:35729/livereload.js?snipver=1">`;
+      const closing = "</" + "script>"
+      document.write(opening + closing);
+    }
+  </script>
 </head>
 
 <body>

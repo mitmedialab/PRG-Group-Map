@@ -1,76 +1,34 @@
-import { CategoryDetails, Data, GroupMember, NormalizedData, NormalizedDetails, NormalizedMember, NormalizedTheme, NormalizedTimeFrame, PathToAsset, ProjectCollection, ProjectConnection, ProjectDetails, Role, RoleEntries, SkillEntries, Theme, ThemeEntries, VerboseDetails, VerboseLink, VerboseRole, YearsTimeFrame } from "./types";
 import * as fs from "fs";
 import * as path from "path";
-import { RoleName } from "../categories/roles";
-import { ProjectName } from "../categories/projectsByTheme";
-import { isObject } from "../app/utils";
-import { Flag, Message, sendToParent } from "../scripts/communication";
+import glob from "glob";
+import { RoleName } from "roles";
+import { ProjectName } from "projects";
+import { fileURLToPath } from "url";
+import { ThemeName } from "themes";
+import { CategoryDetails, Data, Person, NormalizedData, NormalizedDetails, NormalizedPerson, NormalizedTimeFrame, PathToAsset, Collection, Connection, ProjectDetails, VerboseDetails, VerboseLink, VerboseRole, NormalizedCollection } from "builder/types";
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(__dirname, "..");
+
+export const dirnameFromImportURL = (importMetaUrl: string) => path.dirname(fileURLToPath(importMetaUrl));
 
 const assetsFolder = path.join(projectRoot, "assets");
 const appFolder = path.join(projectRoot, "app");
-const dataFile = path.join(appFolder, "data.json");
+const dataFile = path.join(appFolder, "src", "data.json");
 const encoding: BufferEncoding = "utf8";
 
-const emptyData: NormalizedData = {
-    skills: {} as NormalizedData["skills"],
-    roles: {} as NormalizedData["roles"],
-    themes: {} as NormalizedData["themes"],
-    members: [],
-}
-
-export const clear = () => {
-    fs.rmSync(dataFile, { force: true });
-}
-
-export const flush = <T extends NormalizedData>(data: T) => {
-    setData(data);
-}
-
-/**
- * Determine whether a given date is in the past
- * @param date A date object (e.g. `new Date("October, 2022")` or `new Date("October 31, 2022")`)
- * @returns {boolean} Whether or not the provided date is in the past
- */
-export const isInPast = (date: Date) => new Date(Date.now()) > date;
-
-/**
- * 
- * @param type What kind of student are you?
- * @param startDate When did you start your program? Given in the format: `new Date("Month, Year");`
- * @param graduationDate When will you graduate? Given in the format: `new Date("Month, Year");`
- * @returns 
- * - If the student is determined to have graduated (based on their graduation date), returns just the student type as a string (e.g. `role: "PhD Student"`) and the years as a tuple of their start and end years (e.g. `years: [2020, 2022]`).
- * - If the student has not graduated, returns the calculated number of years the student has been in their program + 1 (i.e. if a student has been in their program for less than 12 months, they are a first year) 
- * (e.g. `role: { name: "PhD Student", year: 2 }, years: 2020`)
- */
-export const student = <TStudent extends "PhD Student" | "Masters Student">(type: TStudent, startDate: Date, graduationDate: Date): { role: Role, years: YearsTimeFrame } => {
-    if (isInPast(graduationDate)) return { role: type, years: [startDate.getFullYear(), graduationDate.getFullYear()] };
-
-    const now = new Date(Date.now());
-    const differenceMs = Math.max(now.valueOf() - startDate.valueOf(), 0);
-    const differenceDate = new Date(differenceMs); // miliseconds from epoch
-    const yearDifference = differenceDate.getUTCFullYear() - 1970;
-    const year = Math.floor(yearDifference) + 1;
-    return { role: { name: type, year }, years: startDate.getFullYear() };
-}
-
-export const init = (): NormalizedData => emptyData;
+export const read = (): NormalizedData => JSON.parse(fs.readFileSync(dataFile, 'utf8'));
+export const flush = <T extends NormalizedData>(data: T) => setData(data);
 
 const ensureAppFolder = () => (!fs.existsSync(appFolder)) ? fs.mkdirSync(appFolder) : null;
 
-const getData = (): NormalizedData => {
-    ensureAppFolder();
-    return fs.existsSync(dataFile) ? JSON.parse(fs.readFileSync(dataFile, encoding)) : emptyData;
-}
-
 const setData = (data: NormalizedData) => {
     ensureAppFolder();
-    fs.writeFileSync(dataFile, JSON.stringify(data, null, 2));
+    fs.writeFileSync(dataFile, JSON.stringify(data, null, 2), encoding);
 }
 
 const isString = (query: any) => typeof query === 'string' || query instanceof String;
+const isObject = <T>(x: T) => !Array.isArray(x) && typeof x === 'object' && x !== null;
 
 const normalizeLinks = (links: VerboseDetails["links"]): NormalizedDetails["links"] => {
     if (!links) return undefined;
@@ -119,7 +77,7 @@ const normalizeDetails = (details: CategoryDetails) => {
     return normalized;
 };
 
-const normalizeRole = (role: GroupMember["role"]): NormalizedMember["role"] => {
+const normalizeRole = (role: Person["role"]): NormalizedPerson["role"] => {
     if (isString(role)) return { name: role as RoleName };
     return role as VerboseRole;
 };
@@ -127,7 +85,7 @@ const normalizeRole = (role: GroupMember["role"]): NormalizedMember["role"] => {
 const defaultMainProjectWeight = 6;
 const defaultProjectWeight = 2;
 
-const normalizeProjectConnection = (connection: ProjectConnection): Required<ProjectConnection> => {
+const normalizeConnection = <T extends ProjectName | ThemeName>(connection: Connection<T>): Required<Connection<T>> => {
     const { name, main: potentialMain, weight: potentialWeight } = connection;
     const main = potentialMain === undefined ? false : potentialMain
     const weight = potentialWeight === undefined
@@ -136,89 +94,64 @@ const normalizeProjectConnection = (connection: ProjectConnection): Required<Pro
     return { name, main, weight }
 }
 
-const normalizeProjects = (projects: GroupMember["projects"], main: boolean = true): NormalizedMember["projects"] => {
-    if (isString(projects)) return [{ name: projects as ProjectName, main, weight: main ? defaultMainProjectWeight : defaultProjectWeight }];
-    if (isObject(projects)) return [normalizeProjectConnection(projects as ProjectConnection)];
+const normalizeCollection = <T extends ProjectName | ThemeName>(projects: Collection<T>, main: boolean = true): NormalizedCollection<T> => {
+    if (isString(projects)) return [{ name: projects as T, main, weight: main ? defaultMainProjectWeight : defaultProjectWeight }];
+    if (isObject(projects)) return [normalizeConnection(projects as Connection<T>)];
 
-    const projArray = projects as readonly (ProjectName | ProjectConnection)[];
-    return projArray.map(proj => normalizeProjects(proj as GroupMember["projects"], false)[0]);
+    const projArray = projects as readonly (T | Connection<T>)[];
+    return projArray.map(proj => normalizeCollection(proj as Connection<T>, false)[0]);
 };
 
-const normalizeMember = (member: GroupMember): NormalizedMember => {
+const normalizePerson = (member: Person): NormalizedPerson => {
     const { years, role, projects, links } = member;
     return {
         ...member,
         years: normalizeTimeFrame(years) as NormalizedTimeFrame,
         role: normalizeRole(role),
-        projects: normalizeProjects(projects),
+        projects: normalizeCollection(projects),
         links: normalizeLinks(links)
     };
 }
 
+const normalizeObject = <T>(obj: any) => Object.entries(obj).reduce((acc, [key, value]) => {
+    // @ts-ignore
+    acc[key] = normalizeDetails(value);
+    return acc;
+}, {} as T);
+
 const normalize = <T extends Data[TKey], TKey extends keyof NormalizedData & keyof Data>(data: T, type: TKey): NormalizedData[TKey] | undefined => {
     let normalized: any = undefined;
     switch (type) {
+        case "people":
+            const people = data as Data["people"];
+            normalized = people.map(person => normalizePerson(person));
+            break;
         case "roles":
-            const roles = data as Data["roles"];
-            normalized = Object.entries(roles).reduce((acc, [key, value]) => {
-                // @ts-ignore
-                acc[key] = normalizeDetails(value);
-                return acc;
-            }, {} as NormalizedData["roles"]);
-            break;
         case "skills":
-            const skills = data as Data["skills"];
-            normalized = Object.entries(skills).reduce((acc, [key, value]) => {
-                // @ts-ignore
-                acc[key] = normalizeDetails(value);
-                return acc;
-            }, {} as NormalizedData["skills"]);
-            break;
         case "themes":
-            const themes = data as Data["themes"];
+            normalized = normalizeObject(data);;
+            break;
+        case "projects":
+            const projects = data as Data["projects"];
             normalized = {};
-            for (const theme in themes) {
-                const detailsAndProjects = themes[theme as keyof Data["themes"]] as Theme;
-                const normal = Object.entries(detailsAndProjects).reduce((acc, [key, value]) => {
-                    // @ts-ignore
-                    acc[key] = normalizeDetails(value);
-                    return acc;
-                }, {} as NormalizedTheme);
-                normalized[theme] = normal;
+            for (const projectName in projects) {
+                const project = projects[projectName] as ProjectDetails;
+                const details = normalizeDetails(project);
+                const themes = normalizeCollection(project.themes);
+                normalized[projectName] = { ...details, themes };
             }
             break;
     }
     return normalized;
 };
 
-const send = <TKey extends keyof NormalizedData>(update: { [k in TKey]: NormalizedData[TKey] }) => {
-    sendToParent(process, { flag: Flag.Add, payload: update });
-};
-
-type DataKeyAndValue<T extends keyof NormalizedData> = [T, NormalizedData[T]];
-
-export const decodeMessage = (msg: Message) => {
-    const { flag, payload } = msg;
-    if (flag !== Flag.Add) return undefined;
-    const addition = payload as { [k in keyof NormalizedData]: NormalizedData[k] };
-    const key = Object.keys(addition)[0] as keyof NormalizedData;
-    const value = Object.values(addition)[0];
-    return [key, value] as DataKeyAndValue<typeof key>;
-}
-
-export const set = <TDataKey extends keyof Data & keyof NormalizedData>(field: TDataKey, value: Data[TDataKey]) => {
+export const category = <TDataKey extends keyof Data & keyof NormalizedData>(field: TDataKey, value: Data[TDataKey]): NormalizedData[TDataKey] => {
     const normalized = normalize(value, field);
-
     if (!normalized) throw new Error(`Data could not be cleaned for field ${field}`);
-
-    const update = { [field]: normalized } as { [k in TDataKey]: NormalizedData[TDataKey] };
-    send(update);
+    return normalized;
 }
 
-export const describeYourself = (member: GroupMember) => {
-    const normalized = normalizeMember(member);
-    send({ ["members"]: [normalized] });
-}
+export const person = (member: Person) => member;
 
 export const pathToFileInAssetsFolder = (filename: string): PathToAsset => {
     const pathToFile = path.join(assetsFolder, filename);
@@ -226,4 +159,15 @@ export const pathToFileInAssetsFolder = (filename: string): PathToAsset => {
     return { path: pathToFile };
 };
 
+export const getChildFiles = (directory: string) => {
+    const query = path.join(directory, "*.ts");
+    const result = glob.sync(query);
+    return result.filter(file => path.basename(file) !== "index.ts");
+};
+
+export const getChildFileNames = (directory: string) => getChildFiles(directory).map(file => path.basename(file).replace(path.extname(file), ""));
+export const importDefault = async <T>(directory: string, filename: string) => (await import(path.join(directory, filename))).default as T;
+export const importDefaultsFromChildFiles = <T>(directory: string) => getChildFileNames(directory).map(filename => importDefault<T>(directory, filename));
+
 export * from "./types";
+export * from "./helpers";
