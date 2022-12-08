@@ -32,7 +32,7 @@ tasks:
       npm run gitpod:dev
     openMode: 'split-right'
 ports:
-  - port: 8000
+  - port: 5173
     onOpen: open-preview
   - port: 35729
     onOpen: ignore    
