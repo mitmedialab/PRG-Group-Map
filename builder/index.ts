@@ -14,7 +14,7 @@ export const dirnameFromImportURL = (importMetaUrl: string) => path.dirname(file
 
 const assetsFolder = path.join(projectRoot, "assets");
 const appFolder = path.join(projectRoot, "app");
-const dataFile = path.join(appFolder, "src", "data.json");
+const dataFile = path.join(appFolder, "src", "lib", "data", "graph.json");
 const encoding: BufferEncoding = "utf8";
 
 export const read = (): NormalizedData => JSON.parse(fs.readFileSync(dataFile, 'utf8'));
@@ -82,15 +82,15 @@ const normalizeRole = (role: Person["role"]): NormalizedPerson["role"] => {
     return role as VerboseRole;
 };
 
-const defaultMainProjectWeight = 50;
-const defaultProjectWeight = 20;
+const defaultMainProjectWeight = 6;
+const defaultProjectWeight = 2;
 
 const normalizeConnection = <T extends ProjectName | ThemeName>(connection: Connection<T>): Required<Connection<T>> => {
     const { name, main: potentialMain, weight: potentialWeight } = connection;
     const main = potentialMain === undefined ? false : potentialMain
     const weight = potentialWeight === undefined
         ? main ? defaultMainProjectWeight : defaultProjectWeight
-        : potentialWeight;
+        : (potentialWeight / 10 >> 0);
     return { name, main, weight }
 }
 
