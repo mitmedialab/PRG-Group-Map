@@ -26,12 +26,9 @@ tasks:
       alias SaveAndQuit="Save && gp stop"
       echo "Creating an alias (i.e. shortcut command) to stop the gitpod workspace"
       alias Quit="gp stop"
-      echo "Do some environment variable magic to make live reloading work (see link at top of .gitpod.yml file)"
       echo "Start dev server"
       npm run gitpod:dev
     openMode: 'split-right'
 ports:
   - port: 5173
-    onOpen: open-preview
-  - port: 35729
-    onOpen: ignore    
+    onOpen: open-preview 
