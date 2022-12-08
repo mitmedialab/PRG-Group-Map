@@ -4,10 +4,7 @@
 </script>
 
 <style>
-  * {
-	  --primary-color: #27ccc0;
-    font-family: sans-serif;
-  }
+  
 </style>
 
 <Map />

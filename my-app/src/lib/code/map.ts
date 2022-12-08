@@ -10,9 +10,13 @@ import json from "$lib/data/graph.json";
 
 export const structure: Writable<cytoscape.Core> = writable();
 
+export const data = readable(json as any as NormalizedData);
+
 const rootElements: cytoscape.ElementDefinition[] = [];
 
 export const getRootElements = () => rootElements;
+
+const adjustWeight = (weight: number) => weight / 5;
 
 const makeNodesAndEdges = (data: NormalizedData): { elements: cytoscape.ElementDefinition[], style: cytoscape.Stylesheet[] } => {
   const { skills, roles, themes, people, projects } = data;
@@ -124,7 +128,7 @@ const makeNodesAndEdges = (data: NormalizedData): { elements: cytoscape.ElementD
       })
     ));
 
-    graphElements.push(edge({ source: graphName, target: themeName }));
+    graphElements.push(edge({ source: graphName, target: themeName, weight: 1 }));
 
     graphStyles.push(
       nodeStyle({ theme: themeName }, css({ "background-color": themeColor.rgb })),
@@ -147,7 +151,8 @@ const makeNodesAndEdges = (data: NormalizedData): { elements: cytoscape.ElementD
     );
 
     const target = projectName;
-    project.themes.forEach(({ name: source }) => graphElements.push(edge({ source, target })));
+    project.themes.forEach(({ name: source, weight }) =>
+      graphElements.push(edge({ source, target, weight: adjustWeight(weight) })));
   }
 
   for (const researcher of researchers) {
@@ -162,7 +167,8 @@ const makeNodesAndEdges = (data: NormalizedData): { elements: cytoscape.ElementD
     }));
 
     graphElements.push(
-      ...projects.map(({ name, main, weight }) => edge({ source: name, target: personName, main: main, weight: weight }))
+      ...projects.map(({ name, main, weight }) =>
+        edge({ source: name, target: personName, main, weight: adjustWeight(weight) }))
     );
   }
 
@@ -185,11 +191,12 @@ const makeNodesAndEdges = (data: NormalizedData): { elements: cytoscape.ElementD
     }));
 
     graphElements.push(
-      ...projects.map(({ name }) => edge({ source: name, target: staffMemberName }))
+      ...projects.map(({ name: source, main, weight }) =>
+        edge({ source, target: staffMemberName, main, weight: adjustWeight(weight) }))
     );
   }
 
   return { elements: graphElements, style: graphStyles };
 }
 
-export const data = readable(makeNodesAndEdges(json as any as NormalizedData));
+export const graph = readable(makeNodesAndEdges(json as any as NormalizedData));

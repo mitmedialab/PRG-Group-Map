@@ -1,14 +1,15 @@
 <script lang="ts">
 	import { formatGraph, fullLayout } from "$lib/code/layouts";
-	import { data, structure } from "$lib/code/map";
+	import { graph, structure } from "$lib/code/map";
 	import cytoscape from "cytoscape";
+	import Legend from "./Legend.svelte";
 	import Tooltip from "./Tooltip.svelte";
-	
+
   let containerDiv: HTMLDivElement;
 	let staffDiv: HTMLDivElement;
   
 	const init = (container: HTMLElement) => {
-		const {elements, style} = $data;
+		const {elements, style} = $graph;
 		const layout = fullLayout;
 		structure.set(cytoscape({ container, layout, elements, style }));
 		formatGraph($structure);
@@ -26,12 +27,19 @@
 	height: 100%;
 	position: absolute;
 }
+
+:global(*) {
+	--primary-color: #27ccc0;
+	font-family: sans-serif;
+}
 </style>
 
 <div class:container bind:this={containerDiv}>
 </div>
 
+<Legend />
 <Tooltip />
+
 
 <div bind:this={staffDiv}></div>
 

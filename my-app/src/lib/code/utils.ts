@@ -44,6 +44,7 @@ const getSelector = (entity: GraphEntity, specifier: string, modifier?: string) 
 export const isClass = (node: cytoscape.NodeSingular, _class: Class) => node.data("class") === _class;
 
 export const getNodesOfClass = (cy: cytoscape.Core, _class: Class) => cy.nodes(getSelector("node", getSpecifier("class", _class)));
+export const getNodesWithID = (cy: cytoscape.Core, id: string) => cy.nodes(getSelector("node", getSpecifier("id", id)));
 
 const getSpecifier = (type: string, value: any) => `[${type}='${value}']`
 

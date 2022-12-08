@@ -1,9 +1,12 @@
 import type { LayoutOptions, NodeSingular, PresetLayoutOptions, NodeCollection, CollectionReturnValue, Core, EventObject, ConcentricLayoutOptions } from "cytoscape";
 import type cytoscape from "cytoscape";
 import type { Node } from "postcss";
-import { getRootElements } from "./map";
-import { hideTooltip, showTooltipForNode } from "./tooltip";
-import { getNodesOfClass, isClass, edge, collect } from "./utils";
+import { get } from "svelte/store";
+import { getRootElements, structure } from "./map";
+import { hideTooltip, showTooltipForNode, showTooltipWithDesc } from "./tooltip";
+import { getNodesOfClass, isClass, edge, collect, getNodesWithID, type Class } from "./utils";
+
+const title = "Personal Robots Group";
 
 type Transform = {
   height: number,
@@ -27,7 +30,7 @@ const isDataNode = (node: cytoscape.NodeSingular) => ![undefined, "title"].inclu
 
 let dept: string;
 let currentLayout = "fullLayout";
-const removedNodes: { [collection: string]: NodeCollection } = {};
+const removedNodes: { [collection in Class]?: NodeCollection } = {};
 
 const raiseDirectorNode: cytoscape.ConcentricLayoutOptions["transform"] = (node, { x, y }) =>
   ({ x, y: y + (!isClass(node, "director") ? 0 : nodeTransform.height * 1.2) });
@@ -95,8 +98,8 @@ const handleMouseOver = (cy: Core, node: NodeSingular) => {
   cy.batch(function () {
 
     const departmentNodes = getNodesOfClass(cy, "department");
-    const titleNode = cy.nodes('[id="Personal Robots Group"]');
-    const parent = cy.nodes(`[id="${node.data("parent")}"]`);
+    const titleNode = getNodesWithID(cy, title);
+    const parent = getNodesWithID(cy, node.data("parent"));
 
     const successors = node.successors();
     const predecessors = node.predecessors();
@@ -117,13 +120,11 @@ const handleZoomInOnNode = (cy: Core, node: NodeSingular,) => {
   handleMouseOut(cy);
   handleMouseOver(cy, node);
 
-  removedNodes["coreNodes"] = removedNodes["coreNodes"]
-    .union(cy.nodes('[id="Personal Robots Group"]').remove())
-    .union(cy.nodes('[class="director"]').remove());
+  remove(cy, ["title", "director"]);
 
   cy.zoomingEnabled(false);
 
-  const titleNode = cy.nodes('[id="Personal Robots Group"]');
+  const titleNode = getNodesWithID(cy, title);
   const allElements = cy.elements();
   const { length } = allElements;
   const predecessors = node.predecessors();
@@ -206,18 +207,15 @@ const handleUserClickedToZoomOut = (cy: Core, node: NodeSingular) => {
   setTransform(nodeTransform, { width: cy.nodes()[0].width(), height: cy.nodes()[0].height() });
 
   const addNodes: cytoscape.ElementDefinition[] = [...getRootElements()];
+  const themeNodes = getNodesOfClass(cy, "theme");
+  const edgesFromTitleToThemes = themeNodes.map(n => edge({ source: title, target: n.data("id") }));
 
-  addNodes.push(...getNodesOfClass(cy, "theme").map(n => edge({
-    source: "Personal Robots Group",
-    target: n.data("id")
-  })));
-
+  addNodes.push(...edgesFromTitleToThemes);
 
   handleMouseOut(cy);
 
   cy.batch(function () {
-    removedNodes["coreNodes"].restore();
-    // comment out below as I didn't think evt was a node? 
+    restoreCoreNodes();
     cy.bind("mouseover", "node", (evt) => handleMouseOver(cy, evt.target as NodeSingular));
     cy.bind("mouseout", "node", () => handleMouseOut(cy));
     fullLayout.animate = true;
@@ -227,9 +225,7 @@ const handleUserClickedToZoomOut = (cy: Core, node: NodeSingular) => {
     cy.zoomingEnabled(true);
   });
 
-  cy.nodes()
-    .difference(cy.nodes("node[class='staff']"))
-    .difference(cy.nodes("node[class='department']"))
+  collect({ include: cy.nodes(), exclude: [getNodesOfClass(cy, "staff"), getNodesOfClass(cy, "department")] })
     .layout(fullLayout)
     .run();
 
@@ -253,12 +249,50 @@ const handleTap = (cy: Core, evt: EventObject) => {
   handleZoomInOnNode(cy, node);
 };
 
-export const formatGraph = (cy: cytoscape.Core) => {
-  removedNodes["coreNodes"] = cy.collection();
-  removedNodes["themeNodes"] = cy.collection();
-  removedNodes["projectNodes"] = cy.collection();
-  removedNodes["peopleNodes"] = cy.collection();
+const restore = (classes: Class | Class[]) => (Array.isArray(classes) ? classes : [classes]).
+  forEach(_class => {
+    removedNodes[_class]?.restore();
+    removedNodes[_class] = undefined;
+  });
 
+const restoreCoreNodes = () => restore(["director", "title"]); // order matters here!!
+
+const remove = (cy: Core, classes: Class[] | Class) => (Array.isArray(classes) ? classes : [classes]).
+  forEach(_class => {
+    const removed = getNodesOfClass(cy, _class).remove();
+    removedNodes[_class] = removedNodes[_class]?.union(removed) ?? removed;
+  });
+
+export const selectItem = (id: string) => {
+  const cy = get(structure);
+  const node = getNodesWithID(cy, id);
+  if (node.length === 0) return;
+  node.trigger("tap");
+}
+
+export const displayThemes = (doDisplay: boolean) => {
+  const cy = get(structure);
+  doDisplay ? restore("theme") : remove(cy, "theme");
+  cy.trigger("tap");
+  handleMouseOut(cy);
+}
+
+export const displayProjects = (doDisplay: boolean) => {
+  const cy = get(structure);
+  doDisplay ? restore("project") : remove(cy, "project");
+  cy.trigger("tap");
+  handleMouseOut(cy);
+};
+
+export const displayPeople = (doDisplay: boolean) => {
+  const cy = get(structure);
+  const allPeople: Class[] = ["person", "staff", "department"];
+  doDisplay ? restore(allPeople) : remove(cy, allPeople);
+  cy.trigger("tap");
+  handleMouseOut(cy);
+};
+
+export const formatGraph = (cy: cytoscape.Core) => {
   const nodes = cy.nodes();
 
   const width = nodes[0].width();
@@ -275,108 +309,64 @@ export const formatGraph = (cy: cytoscape.Core) => {
 
   // @ts-ignore
   nodes.panify().ungrabify(); // hm?
-  updateSelections(cy, "all");
 
   cy.bind("tap", (evt) => handleTap(cy, evt));
   cy.bind("mouseover", "node", (evt) => handleMouseOver(cy, evt.target as NodeSingular));
   cy.bind("mouseout", "node", () => handleMouseOut(cy));
   cy.bind("pan", () => handlePan());
-
-  /*
-
-  displayThemesCheck?.addEventListener("change", () => {
-    if (displayThemesCheck.checked) {
-      console.log(removedNodes["themeNodes"])
-      removedNodes["themeNodes"].restore();
-      updateSelections(cy, "themes");
-      cy.trigger("tap");
-      handleMouseOut(cy);
-    } else {
-      removedNodes["themeNodes"] = removeNodes(cy, removedNodes["themeNodes"], ["theme"]);
-      updateSelections(cy, "themes");
-      cy.trigger("tap");
-      handleMouseOut(cy);
-    }
-  });
-  displayProjectsCheck?.addEventListener("change", () => {
-    if (displayProjectsCheck.checked) {
-      removedNodes["projectNodes"].restore();
-      updateSelections(cy, "projects");
-      cy.trigger("tap");
-      handleMouseOut(cy);
-    } else {
-      removedNodes["projectNodes"] = removeNodes(cy, removedNodes["projectNodes"], ["project"]);
-      updateSelections(cy, "projects");
-      cy.trigger("tap");
-      handleMouseOut(cy);
-    }
-  });
-  displayPeopleCheck?.addEventListener("change", () => {
-    if (displayPeopleCheck.checked) {
-      removedNodes["peopleNodes"].restore();
-      updateSelections(cy, "people");
-      cy.trigger("tap");
-      handleMouseOut(cy);
-    } else {
-      removedNodes["peopleNodes"] = removeNodes(cy, removedNodes["peopleNodes"], ["person", "staff", "department"]);
-      updateSelections(cy, "people");
-      cy.trigger("tap");
-      handleMouseOut(cy);
-    }
-  });
-
-  selectTheme?.addEventListener("change", () => {
-    const selectedTheme = selectTheme.value;
-    selectItem(cy, selectedTheme);
-  });
-  selectProject?.addEventListener("change", () => {
-    const selectedProject = selectProject.value;
-    selectItem(cy, selectedProject);
-  });
-  selectPerson?.addEventListener("change", () => {
-    const selectedPerson = selectPerson.value;
-    selectItem(cy, selectedPerson);
-  });
-
-  takeATour?.addEventListener("click", () => {
-    runTour(cy);
-  });*/
 }
 
-const updateSelections = (cy: cytoscape.Core, category: "all" | "themes" | "projects" | "people") => {
-  const nodes = cy.nodes();
-  const all = category === "all";
-  switch (category) {
-    case "all":
-    case "themes":
-      const themes = nodes.filter("node[class='theme']");
-      /*
-      selectThemeList.innerHTML = '';
-      themes.forEach((node) => {
-        const option = document.createElement("option");
-        option.value = node.data("id");
-        selectThemeList.appendChild(option);
-      });*/
-      if (!all) break;
-    case "projects":
-      const projects = nodes.filter("node[class='project']");
-      /*
-      selectProjectList.innerHTML = '';
-      projects.forEach((node) => {
-        const option = document.createElement("option");
-        option.value = node.data("id");
-        selectProjectList.appendChild(option);
-      });*/
-      if (!all) break;
-    case "people":
-      const people = nodes.filter("node[class='staff']").union(nodes.filter("node[class='person']"));
-      /*
-      selectPersonList.innerHTML = '<option value="select">Select a Person</option>';
-      people.forEach((node) => {
-        const option = document.createElement("option");
-        option.value = node.data("id");
-        selectPersonList.appendChild(option);
-      });*/
-      if (!all) break;
-  }
+const highlight = (collection: NodeCollection) => collection.addClass("highlight").removeClass("semitransp");
+const hide = (collection: NodeCollection) => collection.removeClass("highlight").addClass("semitransp");
+
+const highlightDescrbeThenHide = async (cy: Core, collection: NodeCollection, title: string, description: string) => {
+  highlight(collection);
+
+  showTooltipWithDesc(title, description, { x: 0, y: 0 });
+
+  await new Promise(f => setTimeout(f, 5000));
+  hide(collection);
+}
+
+export async function runTour() {
+  const cy = get(structure);
+  cy.trigger("tap");
+  const allElements = cy.elements();
+  hide(allElements);
+
+  // TODO: move description to data
+
+  // start with center
+  await highlightDescrbeThenHide(
+    cy,
+    getNodesOfClass(cy, "director").union(getNodesOfClass(cy, "title")),
+    "Personal Robots Group",
+    "Welcome to the Personal Robots Group! The Personal Robots Group focuses on developing the principles, techniques, and technologies for personal robots."
+  );
+
+  // go over themes
+  await highlightDescrbeThenHide(
+    cy,
+    getNodesOfClass(cy, "theme"),
+    "Personal Robots Group: Themes",
+    "All of the projects of the Personal Robots Group center around themes from AI Education to the Air Force."
+  );
+
+  // go over projects
+  await highlightDescrbeThenHide(
+    cy,
+    getNodesOfClass(cy, "project"),
+    "Personal Robots Group: Projects",
+    "We have a bunch of cool projects with a wide range of goals."
+  );
+
+  // go over people
+  await highlightDescrbeThenHide(
+    cy,
+    getNodesOfClass(cy, "person").union(getNodesOfClass(cy, "staff")),
+    "Personal Robots Group: People",
+    "We also have amazing researchers and staff who make these projects possible.",
+  );
+
+  allElements.removeClass("semitransp").removeClass("highlight");
 }

@@ -30,7 +30,9 @@
 <div {style}>
   {#if $tooltip.visible}
     <h3><b>{$tooltip.title}</b></h3>
-    <i>{$tooltip.type}</i><br>
+    {#if $tooltip.type !== undefined}
+      <i>{$tooltip.type}</i><br>
+    {/if}
     {#each $tooltip.items as item}
       {#if Array.isArray(item)}
         <b>{item[0]}:</b> {@html item[1]}<br>
