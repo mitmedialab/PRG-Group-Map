@@ -1,0 +1,1 @@
+export const prerender = true; // This is needed to ensure the site can be built statically

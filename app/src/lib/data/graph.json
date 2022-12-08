@@ -1521,7 +1521,7 @@
       ]
     },
     {
-      "name": "Parker Malachowsky!!",
+      "name": "Parker Malachowsky",
       "email": "pmalacho@media.mit.edu",
       "bio": "Howdy!!",
       "role": {
@@ -2093,23 +2093,6 @@
           2022,
           "present"
         ]
-      ]
-    },
-    {
-      "name": "Zack",
-      "email": "",
-      "bio": "",
-      "role": {
-        "name": "PhD Student",
-        "year": 1
-      },
-      "projects": [],
-      "skills": [],
-      "links": [
-        {
-          "text": "",
-          "url": ""
-        }
       ]
     }
   ],

@@ -1,6 +1,5 @@
-import type { LayoutOptions, NodeSingular, PresetLayoutOptions, NodeCollection, CollectionReturnValue, Core, EventObject, ConcentricLayoutOptions } from "cytoscape";
+import type { LayoutOptions, NodeSingular, PresetLayoutOptions, NodeCollection, Core, EventObject, ConcentricLayoutOptions } from "cytoscape";
 import type cytoscape from "cytoscape";
-import type { Node } from "postcss";
 import { get } from "svelte/store";
 import { getRootElements, structure } from "./map";
 import { hideTooltip, showTooltipForNode, showTooltipWithDesc } from "./tooltip";

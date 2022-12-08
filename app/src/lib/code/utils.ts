@@ -1,4 +1,4 @@
-import type { Collection, CollectionData, CollectionReturnValue, CollectionStyle, NodeCollection, NodeSingular } from "cytoscape";
+import type { CollectionReturnValue, NodeCollection, NodeSingular } from "cytoscape";
 import type cytoscape from "cytoscape";
 //import { VerboseLink, VerboseRole } from "builder";
 

@@ -1,5 +1,4 @@
 import { readable, writable, type Writable } from "svelte/store";
-
 import type cytoscape from "cytoscape";
 
 import type { NormalizedData } from "$builder/types";

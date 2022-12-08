@@ -1,9 +1,9 @@
-<script>
-	import { Alert } from 'flowbite-svelte';
+<script lang="ts">
 	import '../app.postcss';
-	import { Navbar, NavBrand, NavLi, NavUl, NavHamburger } from 'flowbite-svelte'
+	import { Navbar, NavBrand, NavLi, NavUl, NavHamburger } from 'flowbite-svelte';
 
 </script>
+
 <Navbar let:hidden let:toggle >
   <NavBrand href="/">
     <img
@@ -18,8 +18,8 @@
   <NavHamburger on:click={toggle} />
   <NavUl {hidden}>
     <NavLi href="/" active={true}>Interactive Map</NavLi>
-    <NavLi href="/projects">Projects</NavLi>
-    <NavLi href="/services">People</NavLi>
+    <NavLi>Projects</NavLi>
+    <NavLi>People</NavLi>
   </NavUl>
 </Navbar>
 <slot />

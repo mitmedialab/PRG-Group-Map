@@ -44,7 +44,7 @@ flush(data);
 
 const execution = watch ? exec : execSync;
 
-const command = watch ? "dev" : "production";
+const command = watch ? "dev" : "build";
 const bundleApp = `npm run ${command} --prefix ${getDirectory("app")}`;
 const env = { ...process.env };
 const bundling = execution(bundleApp, { env });
