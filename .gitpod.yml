@@ -27,7 +27,6 @@ tasks:
       echo "Creating an alias (i.e. shortcut command) to stop the gitpod workspace"
       alias Quit="gp stop"
       echo "Do some environment variable magic to make live reloading work (see link at top of .gitpod.yml file)"
-      export CLIENT_URL="$(gp url 35729)/livereload.js?snipver=1&port=443"
       echo "Start dev server"
       npm run gitpod:dev
     openMode: 'split-right'
