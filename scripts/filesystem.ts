@@ -15,7 +15,7 @@ export const getFileFromRoot = (...fromRoot: string[]): FileDetails => {
     return { path: p, name: path.basename(p) };
 }
 
-export const dataFile: FileDetails = getFileFromRoot('app', 'data.json');
+export const dataFile: FileDetails = getFileFromRoot('app', 'src', 'lib', 'data', 'graph.json');
 
 export const getDirectory = (name: string) => path.join(projectRoot, name);
 export const getScript = (name: string) => path.join(projectRoot, "scripts", name);

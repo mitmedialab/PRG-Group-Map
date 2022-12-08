@@ -6,7 +6,7 @@
         {
           "name": "Social Robots & Literacy",
           "main": true,
-          "weight": 50
+          "weight": 6
         }
       ]
     },
@@ -22,7 +22,7 @@
         {
           "name": "Ethics & Policy",
           "main": true,
-          "weight": 50
+          "weight": 6
         }
       ]
     },
@@ -38,7 +38,7 @@
         {
           "name": "Ethics & Policy",
           "main": true,
-          "weight": 50
+          "weight": 6
         }
       ]
     },
@@ -48,7 +48,7 @@
         {
           "name": "AI Education",
           "main": true,
-          "weight": 50
+          "weight": 6
         }
       ]
     },
@@ -61,7 +61,7 @@
         {
           "name": "Social Robot Education",
           "main": true,
-          "weight": 50
+          "weight": 6
         }
       ],
       "timeFrame": [
@@ -77,7 +77,7 @@
         {
           "name": "Air-Force AI Journey",
           "main": true,
-          "weight": 50
+          "weight": 6
         }
       ]
     },
@@ -87,7 +87,7 @@
         {
           "name": "AI Education",
           "main": true,
-          "weight": 50
+          "weight": 6
         }
       ]
     },
@@ -111,7 +111,7 @@
         {
           "name": "Project STEM",
           "main": true,
-          "weight": 50
+          "weight": 6
         }
       ]
     },
@@ -121,7 +121,7 @@
         {
           "name": "AI Education",
           "main": true,
-          "weight": 50
+          "weight": 6
         }
       ]
     },
@@ -137,7 +137,7 @@
         {
           "name": "AI Education",
           "main": true,
-          "weight": 50
+          "weight": 6
         }
       ]
     },
@@ -159,12 +159,12 @@
         {
           "name": "Creativity",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "AI Education",
           "main": false,
-          "weight": 20
+          "weight": 2
         }
       ],
       "timeFrame": [
@@ -180,7 +180,7 @@
         {
           "name": "AI Education",
           "main": true,
-          "weight": 50
+          "weight": 6
         }
       ]
     },
@@ -190,7 +190,7 @@
         {
           "name": "AI Education",
           "main": true,
-          "weight": 50
+          "weight": 6
         }
       ]
     },
@@ -206,7 +206,7 @@
         {
           "name": "Ethics & Policy",
           "main": true,
-          "weight": 50
+          "weight": 6
         }
       ]
     },
@@ -216,7 +216,7 @@
         {
           "name": "Ethics & Policy",
           "main": true,
-          "weight": 50
+          "weight": 6
         }
       ]
     },
@@ -226,7 +226,7 @@
         {
           "name": "Health & Wellness",
           "main": true,
-          "weight": 50
+          "weight": 6
         }
       ]
     },
@@ -243,7 +243,7 @@
         {
           "name": "Ethics & Policy",
           "main": true,
-          "weight": 50
+          "weight": 6
         }
       ]
     },
@@ -256,12 +256,12 @@
         {
           "name": "Social Robot Education",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Creativity",
           "main": false,
-          "weight": 20
+          "weight": 2
         }
       ],
       "timeFrame": [
@@ -277,7 +277,7 @@
         {
           "name": "Multi-person Robot Interaction",
           "main": true,
-          "weight": 50
+          "weight": 6
         }
       ]
     },
@@ -287,7 +287,7 @@
         {
           "name": "Social Robots & Literacy",
           "main": true,
-          "weight": 50
+          "weight": 6
         }
       ]
     },
@@ -297,7 +297,7 @@
         {
           "name": "Social Robots & Literacy",
           "main": true,
-          "weight": 50
+          "weight": 6
         }
       ]
     },
@@ -318,7 +318,7 @@
         {
           "name": "Project STEM",
           "main": true,
-          "weight": 50
+          "weight": 6
         }
       ],
       "timeFrame": [
@@ -334,7 +334,7 @@
         {
           "name": "Creativity",
           "main": true,
-          "weight": 50
+          "weight": 6
         }
       ]
     },
@@ -344,7 +344,7 @@
         {
           "name": "Creativity",
           "main": true,
-          "weight": 50
+          "weight": 6
         }
       ]
     },
@@ -366,12 +366,12 @@
         {
           "name": "Social Robot Education",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "AI Education",
           "main": false,
-          "weight": 20
+          "weight": 2
         }
       ],
       "timeFrame": [
@@ -387,7 +387,7 @@
         {
           "name": "Air-Force AI Journey",
           "main": true,
-          "weight": 50
+          "weight": 6
         }
       ]
     },
@@ -403,7 +403,7 @@
         {
           "name": "Social Robot Education",
           "main": true,
-          "weight": 50
+          "weight": 6
         }
       ]
     },
@@ -422,7 +422,7 @@
         {
           "name": "AI Education",
           "main": true,
-          "weight": 50
+          "weight": 6
         }
       ],
       "timeFrame": [
@@ -438,7 +438,7 @@
         {
           "name": "Health & Wellness",
           "main": true,
-          "weight": 50
+          "weight": 6
         }
       ]
     },
@@ -454,7 +454,7 @@
         {
           "name": "Multi-person Robot Interaction",
           "main": true,
-          "weight": 50
+          "weight": 6
         }
       ]
     },
@@ -471,7 +471,7 @@
         {
           "name": "Health & Wellness",
           "main": true,
-          "weight": 50
+          "weight": 6
         }
       ]
     },
@@ -481,7 +481,7 @@
         {
           "name": "Health & Wellness",
           "main": true,
-          "weight": 50
+          "weight": 6
         }
       ]
     },
@@ -503,12 +503,12 @@
         {
           "name": "Social Robot Education",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Creativity",
           "main": false,
-          "weight": 20
+          "weight": 2
         }
       ],
       "timeFrame": [
@@ -536,17 +536,17 @@
         {
           "name": "Social Robot Education",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Creativity",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "AI Education",
           "main": false,
-          "weight": 20
+          "weight": 2
         }
       ],
       "timeFrame": [
@@ -562,12 +562,12 @@
         {
           "name": "AI Education",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Social Robot Education",
           "main": false,
-          "weight": 20
+          "weight": 2
         }
       ]
     },
@@ -590,12 +590,12 @@
         {
           "name": "AI Education",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Creativity",
           "main": false,
-          "weight": 20
+          "weight": 2
         }
       ],
       "timeFrame": [
@@ -618,7 +618,7 @@
         {
           "name": "Ethics & Policy",
           "main": true,
-          "weight": 50
+          "weight": 6
         }
       ]
     },
@@ -628,7 +628,7 @@
         {
           "name": "Multi-person Robot Interaction",
           "main": true,
-          "weight": 50
+          "weight": 6
         }
       ]
     },
@@ -638,7 +638,7 @@
         {
           "name": "Social Robots & Literacy",
           "main": true,
-          "weight": 50
+          "weight": 6
         }
       ]
     },
@@ -666,7 +666,7 @@
         {
           "name": "Creativity",
           "main": true,
-          "weight": 50
+          "weight": 6
         }
       ]
     },
@@ -676,7 +676,7 @@
         {
           "name": "Social Robots & Literacy",
           "main": true,
-          "weight": 50
+          "weight": 6
         }
       ]
     },
@@ -686,7 +686,7 @@
         {
           "name": "Health & Wellness",
           "main": true,
-          "weight": 50
+          "weight": 6
         }
       ]
     }
@@ -704,32 +704,32 @@
         {
           "name": "Robots in the Home",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Wellness",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Medications Adherence",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Older Adult Co-Design",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Robot Policy Design Toolkit",
           "main": true,
-          "weight": 50
+          "weight": 6
         },
         {
           "name": "Design Justice",
           "main": true,
-          "weight": 50
+          "weight": 6
         }
       ],
       "skills": [
@@ -770,12 +770,12 @@
         {
           "name": "Early Literacy",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Exploration Literacy",
           "main": true,
-          "weight": 50
+          "weight": 6
         }
       ],
       "skills": [
@@ -824,42 +824,42 @@
         {
           "name": "Debating technology and AI with your child",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "AI & Data Privacy",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "AI & Ethics in Middle School",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Feature Detection",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "DAILy",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Robot Policy Design Toolkit",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Day of AI",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Jibo",
           "main": true,
-          "weight": 50
+          "weight": 6
         }
       ],
       "skills": [
@@ -899,7 +899,7 @@
         {
           "name": "Museum Interaction",
           "main": true,
-          "weight": 50
+          "weight": 6
         }
       ],
       "skills": [
@@ -932,7 +932,7 @@
         {
           "name": "AI Storybook",
           "main": true,
-          "weight": 50
+          "weight": 6
         }
       ],
       "skills": [
@@ -962,7 +962,7 @@
         {
           "name": "Depression & Suicide Modeling",
           "main": true,
-          "weight": 50
+          "weight": 6
         }
       ],
       "skills": [
@@ -990,52 +990,52 @@
         {
           "name": "Speech Blocks",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Adult Language Teaching",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Early Literacy",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Museum Interaction",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Wellness",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Medications Adherence",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Older Adult Co-Design",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Design Justice",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Exploration Literacy",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Robots in the Home",
           "main": false,
-          "weight": 20
+          "weight": 2
         }
       ],
       "skills": [
@@ -1067,12 +1067,12 @@
         {
           "name": "Robots in the Home",
           "main": true,
-          "weight": 50
+          "weight": 6
         },
         {
           "name": "Early Literacy",
           "main": false,
-          "weight": 20
+          "weight": 2
         }
       ],
       "skills": [
@@ -1103,12 +1103,12 @@
         {
           "name": "Museum Interaction",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Early Literacy",
           "main": false,
-          "weight": 20
+          "weight": 2
         }
       ],
       "skills": [
@@ -1134,17 +1134,17 @@
         {
           "name": "Speech Blocks",
           "main": true,
-          "weight": 50
+          "weight": 6
         },
         {
           "name": "AI & Growth Mindset",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "AI Storybook",
           "main": false,
-          "weight": 20
+          "weight": 2
         }
       ],
       "skills": [
@@ -1171,22 +1171,22 @@
         {
           "name": "Autonomous Agents",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Doodle Bot",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Computational Action",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Day of AI",
           "main": false,
-          "weight": 20
+          "weight": 2
         }
       ],
       "skills": [
@@ -1211,7 +1211,7 @@
         {
           "name": "Personal storytelling",
           "main": true,
-          "weight": 50
+          "weight": 6
         }
       ],
       "skills": [
@@ -1243,22 +1243,22 @@
         {
           "name": "Jibo",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Robots in the Home",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Early Literacy",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Wellness",
           "main": false,
-          "weight": 20
+          "weight": 2
         }
       ],
       "skills": [
@@ -1277,32 +1277,32 @@
         {
           "name": "Ethics of Deepfakes",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Debating technology and AI with your child",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "AI & Data Privacy",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "AI & Ethics in Middle School",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Autonomous Agents",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Human-AI Collaboration: Human Behavior",
           "main": false,
-          "weight": 20
+          "weight": 2
         }
       ],
       "skills": [
@@ -1333,12 +1333,12 @@
         {
           "name": "Early Literacy",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Robots in the Home",
           "main": false,
-          "weight": 20
+          "weight": 2
         }
       ],
       "skills": [
@@ -1383,42 +1383,42 @@
         {
           "name": "Doodle Bot",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Feature Detection",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Contours 2 Classification",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Autonomous Agents",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Sound of AI",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Computational Action",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Data Activism",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "RAISE Playground",
           "main": false,
-          "weight": 20
+          "weight": 2
         }
       ],
       "skills": [
@@ -1442,27 +1442,27 @@
         {
           "name": "Robots in the Home",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Early Literacy",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Exploration Literacy",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Wellness",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Autonomous Agents",
           "main": false,
-          "weight": 20
+          "weight": 2
         }
       ],
       "skills": [
@@ -1486,27 +1486,27 @@
         {
           "name": "Ethics of Deepfakes",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Debating technology and AI with your child",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "AI & Data Privacy",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "AI & Ethics in Middle School",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Computational Action",
           "main": true,
-          "weight": 50
+          "weight": 6
         }
       ],
       "skills": [
@@ -1521,7 +1521,7 @@
       ]
     },
     {
-      "name": "Parker Malachowsky",
+      "name": "Parker Malachowsky!!",
       "email": "pmalacho@media.mit.edu",
       "bio": "Howdy!!",
       "role": {
@@ -1531,22 +1531,22 @@
         {
           "name": "Sound of AI",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "AI Storybook",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Contours 2 Classification",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Feature Detection",
           "main": false,
-          "weight": 20
+          "weight": 2
         }
       ],
       "skills": [
@@ -1572,17 +1572,17 @@
         {
           "name": "Dynamic Procedural Interactions",
           "main": true,
-          "weight": 50
+          "weight": 6
         },
         {
           "name": "Museum Interaction",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Robots in the Home",
           "main": false,
-          "weight": 20
+          "weight": 2
         }
       ],
       "skills": [
@@ -1637,7 +1637,7 @@
         {
           "name": "Data Activism",
           "main": true,
-          "weight": 50
+          "weight": 6
         }
       ],
       "skills": [
@@ -1656,57 +1656,57 @@
         {
           "name": "Dancing with AI",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "RAICA",
           "main": true,
-          "weight": 50
+          "weight": 6
         },
         {
           "name": "Autonomous Car Curriculum",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "LevelUp",
           "main": true,
-          "weight": 50
+          "weight": 6
         },
         {
           "name": "RAISE Playground",
           "main": true,
-          "weight": 50
+          "weight": 6
         },
         {
           "name": "Doodle Bot",
           "main": true,
-          "weight": 50
+          "weight": 6
         },
         {
           "name": "PopBots",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Arduino and Micro:bit Robots",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "How to Train Your Robot",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Primary AI",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Feature Detection",
           "main": false,
-          "weight": 20
+          "weight": 2
         }
       ],
       "skills": [
@@ -1736,12 +1736,12 @@
         {
           "name": "Doodle Bot",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Autonomous Car Curriculum",
           "main": false,
-          "weight": 20
+          "weight": 2
         }
       ],
       "skills": [
@@ -1766,42 +1766,42 @@
         {
           "name": "Doodle Bot",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "DAILy",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Dancing with AI",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "RAICA",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "GANPaint for Kids",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "AI & Growth Mindset",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Social Emotional Learning",
           "main": true,
-          "weight": 50
+          "weight": 6
         },
         {
           "name": "Contours 2 Classification",
           "main": false,
-          "weight": 20
+          "weight": 2
         }
       ],
       "skills": [
@@ -1828,12 +1828,12 @@
         {
           "name": "Adult Language Teaching",
           "main": true,
-          "weight": 50
+          "weight": 6
         },
         {
           "name": "Early Literacy",
           "main": false,
-          "weight": 20
+          "weight": 2
         }
       ],
       "skills": [
@@ -1860,77 +1860,77 @@
         {
           "name": "Feature Detection",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Autonomous Agents",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Doodle Bot",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Jibo",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Wellness",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "RAICA",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Medications Adherence",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Older Adult Co-Design",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Autonomous Car Curriculum",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Museum Interaction",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Robots in the Home",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Jibo",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Human-AI Collaboration: Human Behavior",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Depression & Suicide Modeling",
           "main": true,
-          "weight": 50
+          "weight": 6
         },
         {
           "name": "Social Emotional Learning",
           "main": false,
-          "weight": 20
+          "weight": 2
         }
       ],
       "skills": [
@@ -1953,12 +1953,12 @@
         {
           "name": "Wellness",
           "main": true,
-          "weight": 50
+          "weight": 6
         },
         {
           "name": "Medications Adherence",
           "main": false,
-          "weight": 20
+          "weight": 2
         }
       ],
       "skills": [
@@ -1990,12 +1990,12 @@
         {
           "name": "Autonomous Agents",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Sound of AI",
           "main": false,
-          "weight": 20
+          "weight": 2
         }
       ],
       "skills": [
@@ -2025,27 +2025,27 @@
         {
           "name": "Feature Detection",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Contours 2 Classification",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Day of AI",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "Autonomous Agents",
           "main": false,
-          "weight": 20
+          "weight": 2
         },
         {
           "name": "RAICA",
           "main": false,
-          "weight": 20
+          "weight": 2
         }
       ],
       "skills": [
@@ -2074,12 +2074,12 @@
         {
           "name": "Robots in the Home",
           "main": true,
-          "weight": 50
+          "weight": 6
         },
         {
           "name": "Autonomous Agents",
           "main": false,
-          "weight": 20
+          "weight": 2
         }
       ],
       "skills": [

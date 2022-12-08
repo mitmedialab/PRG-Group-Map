@@ -14,7 +14,7 @@ export const dirnameFromImportURL = (importMetaUrl: string) => path.dirname(file
 
 const assetsFolder = path.join(projectRoot, "assets");
 const appFolder = path.join(projectRoot, "app");
-const dataFile = path.join(appFolder, "src", "data.json");
+const dataFile = path.join(appFolder, "src", "lib", "data", "graph.json");
 const encoding: BufferEncoding = "utf8";
 
 export const read = (): NormalizedData => JSON.parse(fs.readFileSync(dataFile, 'utf8'));
@@ -90,7 +90,7 @@ const normalizeConnection = <T extends ProjectName | ThemeName>(connection: Conn
     const main = potentialMain === undefined ? false : potentialMain
     const weight = potentialWeight === undefined
         ? main ? defaultMainProjectWeight : defaultProjectWeight
-        : (potentialWeight/10>>0);
+        : (potentialWeight / 10 >> 0);
     return { name, main, weight }
 }
 
