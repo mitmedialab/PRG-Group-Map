@@ -1,12 +1,12 @@
 <script lang="ts">
 	import type { NormalizedData } from "$builder/types";
-	import { selectItem, runTour } from "$lib/code/layouts";
+	import { selectItem, runTour, displayThemes, displayProjects, displayPeople } from "$lib/code/layouts";
   import { data } from "$lib/code/map";
 
   const getControls = (info: NormalizedData) => [
-    { title: "Themes", placeholder: "Select Theme", values: Object.keys(info.themes), onChange: (value: string) => selectItem(value)},
-    { title: "Projects", placeholder: "Select Project", values: Object.keys(info.projects)},
-    { title: "People", placeholder: "Select Person", values: info.people.map(({name}) => name)},
+    { title: "Themes", placeholder: "Select Theme", values: Object.keys(info.themes), onCheck: displayThemes},
+    { title: "Projects", placeholder: "Select Project", values: Object.keys(info.projects), onCheck: displayProjects},
+    { title: "People", placeholder: "Select Person", values: info.people.map(({name}) => name), onCheck: displayPeople},
   ];
 
   const selectValue = (element: HTMLSelectElement) => element ? selectItem(element.value) : null; 
@@ -85,10 +85,10 @@
 
   <div class="legend-title">Filter</div>
   
-  {#each getControls($data) as {title, placeholder, values}}
+  {#each getControls($data) as {title, placeholder, values, onCheck}}
     <div class="legend-item">
       <div>
-        <input type="checkbox" id="displayThemes" class="check">
+        <input checked={true} type="checkbox" id="displayThemes" class="check" on:change={(e) => onCheck(e.currentTarget.checked)}>
         {title}
       </div>
       <select class="item-select" on:change={(e) => selectValue(e.currentTarget)} {placeholder}>

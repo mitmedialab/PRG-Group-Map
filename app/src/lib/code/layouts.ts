@@ -131,14 +131,15 @@ const handleZoomInOnNode = (cy: Core, node: NodeSingular,) => {
   const connectedElementsCount = length - successors.length - predecessors.length;
 
   const highlightAndArrangeConnectedNodes = () => {
-    node.addClass("highlight").data("zoomedLevel", length);
     titleNode.data("zoomedLevel", length);
 
-    const departmentNodes = getNodesOfClass(cy, "department");
+    const departmentNodes = getNodesOfClass(cy, "department"); // NOTE: Because of a parent / child relationship, this also includes staff nodes
 
     collect({ include: allElements, exclude: [node, predecessors, successors, departmentNodes] })
       .addClass("semitransp")
       .data("zoomedLevel", 1);
+
+    node.removeClass("semitransp").addClass("highlight").data("zoomedLevel", length);
 
     const successorZoom = collect({ include: allElements, exclude: [successors, predecessors] }).length;
 
